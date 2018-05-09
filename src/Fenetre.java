@@ -15,7 +15,6 @@ public class Fenetre extends JFrame {
     private JButton buttonNbPlayers = new JButton("OK");
     private JButton buttonPlay = new JButton("JOUER");
 
-    private ArrayList<Player> players = new ArrayList();
     private int numberOfPlayers = 2;
 
     public int getNumberOfPlayers() {
@@ -27,6 +26,7 @@ public class Fenetre extends JFrame {
     }
 
     public Fenetre() {
+        // General information about the panel
         this.setTitle("Choix des joueurs");
         this.setSize(1000, 492);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,9 +37,11 @@ public class Fenetre extends JFrame {
         container.setLayout(new BorderLayout());
         combo.setPreferredSize(new Dimension(100, 20));
 
-        buttonNbPlayers.addActionListener(new BoutonListener());
+        // When clicking on button "OK", create the panels to create the players
+        buttonNbPlayers.addActionListener(new BoutonOKListener());
 
 
+        // Choose the number of players
         JPanel top = new JPanel();
         top.add(label);
         top.add(combo);
@@ -47,6 +49,7 @@ public class Fenetre extends JFrame {
         container.add(top, BorderLayout.NORTH);
 
 
+        // Who did this
         JPanel bottom = new JPanel();
         bottom.add(copyright);
         container.add(bottom, BorderLayout.SOUTH);
@@ -66,21 +69,29 @@ public class Fenetre extends JFrame {
             players.setPreferredSize(new Dimension(300, 30));
             players.setMaximumSize(players.getPreferredSize());
 
+            // Joueur 1, Joueur 2, etc.
             players.add(new JLabel("Joueur " + i));
 
+            // Field for the pseudo of each player
             JTextField field = new JTextField(2);
             players.add(field, BorderLayout.SOUTH);
 
-            ArrayList<Color> arrayColor = new ArrayList();
-            arrayColor.add(Color.white);
-            arrayColor.add(Color.black);
-            String[] arraySColor = {"blanc", "noir", "orange", "rouge"};
+            // Each player can choose a color
+            String[] arraySColor = {"blanc", "noir", "bleu", "orange", "rouge", "vert"};
             JComboBox comboColor = new JComboBox(arraySColor);
             players.add(comboColor);
 
+            // Add the panel of player in the parent panel
             middle.add(players);
         }
+        // Add the button "JOUER" to go to the game (if all informations are correct)
+        middle.add(buttonPlay);
+
+
+        // Add the panel in the container
         container.add(middle);
+
+        // Set it visible
         this.setContentPane(container);
         this.setVisible(true);
     }
@@ -88,16 +99,25 @@ public class Fenetre extends JFrame {
 
     class FormListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Send it with a function
             setNumberOfPlayers(Integer.parseInt((String) combo.getSelectedItem()));
-            System.out.println(getNumberOfPlayers());
         }
     }
 
-    public class BoutonListener implements ActionListener {
-        public void actionPerformed(ActionEvent arg0) {
-            System.out.println(getNumberOfPlayers());
+    class BoutonOKListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
             showPlayersInfo(getNumberOfPlayers());
+        }
+    }
+
+    class BoutonPlayListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // check if name is not empty, if not too long
+            // check if all players have different colors
+            // create the players
+            // go to the game
+            // when going to the game, place randomly one army in each territory in the map
+               // then give a mission to each player OR common mission to all
+               // each player place his armies where he wants
         }
     }
 
