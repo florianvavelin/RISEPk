@@ -2,18 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 
 public class Fenetre extends JFrame {
     private JPanel container = new JPanel();
     private String[] choicePlayers = {"2", "3", "4", "5", "6"};
-    private JComboBox combo = new JComboBox(choicePlayers);
-    private JLabel label = new JLabel("Nombre de joueurs");
-    private JLabel copyright = new JLabel("Jeu de RISK créé par Florian Vavelin, Bryan To Van Trang et Marin Mouscadet");
+    JComboBox combo = new JComboBox(choicePlayers);
+    JLabel label = new JLabel("Nombre de joueurs");
+    JLabel copyright = new JLabel("Jeu de RISK créé par Florian Vavelin, Bryan To Van Trang et Marin Mouscadet");
 
-    private JButton buttonNbPlayers = new JButton("OK");
-    private JButton buttonPlay = new JButton("JOUER");
+    JButton buttonNbPlayers = new JButton("OK");
+    JButton buttonPlay = new JButton("JOUER");
 
     private int numberOfPlayers = 2;
 
@@ -38,7 +37,8 @@ public class Fenetre extends JFrame {
         combo.setPreferredSize(new Dimension(100, 20));
 
         // When clicking on button "OK", create the panels to create the players
-        buttonNbPlayers.addActionListener(new BoutonOKListener());
+        // Goes wrong if clicking again
+        buttonNbPlayers.addActionListener(new ButtonOKListener());
 
 
         // Choose the number of players
@@ -61,8 +61,15 @@ public class Fenetre extends JFrame {
     }
 
     public void showPlayersInfo(int numberOfPlayers) {
+
+        /**
+         * Function to be called when choosing the number of players
+         */
+
         JPanel middle = new JPanel();
         middle.setLayout(new BoxLayout(middle, BoxLayout.PAGE_AXIS));
+
+
         for (int i = 1; i <= numberOfPlayers; i++) {
             JPanel players = new JPanel();
             players.setLayout(new BoxLayout(players, BoxLayout.LINE_AXIS));
@@ -70,7 +77,7 @@ public class Fenetre extends JFrame {
             players.setMaximumSize(players.getPreferredSize());
 
             // Joueur 1, Joueur 2, etc.
-            players.add(new JLabel("Joueur " + i));
+            players.add(new JLabel("Joueur " + i + " "));
 
             // Field for the pseudo of each player
             JTextField field = new JTextField(2);
@@ -84,7 +91,7 @@ public class Fenetre extends JFrame {
             // Add the panel of player in the parent panel
             middle.add(players);
         }
-        // Add the button "JOUER" to go to the game (if all informations are correct)
+        // Add the button "JOUER" to go to the game (if all information are correct)
         middle.add(buttonPlay);
 
 
@@ -103,13 +110,13 @@ public class Fenetre extends JFrame {
         }
     }
 
-    class BoutonOKListener implements ActionListener {
+    class ButtonOKListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             showPlayersInfo(getNumberOfPlayers());
         }
     }
 
-    class BoutonPlayListener implements ActionListener {
+    class ButtonPlayListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             // check if name is not empty, if not too long
             // check if all players have different colors

@@ -1,31 +1,32 @@
 
-import java.util.*;
+import java.util.ArrayList;
+import java.awt.Color;
+
 
 /**
  * 
  */
 public class Territory {
 
+    private String name;
+    private ArrayList<Territory> adjacents;
+
+    /**
+     * Each territory will have a specific color.
+     * This color will be used to differentiate all the territories
+     * If the region is red, for example, only one component of the RGB color
+     * will be slightly different
+     */
+    private Color color;
+
     /**
      * Default constructor
      */
-    public Territory() {
+    public Territory(String name, ArrayList<Territory> adjacents, Color color) {
+        this.name = name;
+        this.adjacents = adjacents;
+        this.color = color;
     }
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
-    public Arraylist<Territory> adjacents;
-
-    /**
-     * 
-     */
-    public Color color;
 
 
 
@@ -36,6 +37,7 @@ public class Territory {
      */
     public void setName(String name) {
         // TODO implement here
+        this.name = name;
     }
 
     /**
@@ -43,7 +45,7 @@ public class Territory {
      */
     public String getName() {
         // TODO implement here
-        return "";
+        return this.name;
     }
 
     /**
@@ -71,7 +73,7 @@ public class Territory {
     /**
      * @return
      */
-    public Arraylist<Territory> getAdjacents() {
+    public ArrayList<Territory> getAdjacents() {
         // TODO implement here
         return null;
     }

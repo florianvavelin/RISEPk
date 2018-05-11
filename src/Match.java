@@ -1,21 +1,18 @@
 
 import java.util.*;
 
-/**
- * 
- */
+
 public class Match {
+
+    private boolean victory;
 
     /**
      * Default constructor
      */
-    public Match() {
+    public Match(boolean victory) {
+        this.victory = victory;
     }
 
-    /**
-     * 
-     */
-    public boolean victory;
 
 
     /**
@@ -33,7 +30,7 @@ public class Match {
      */
     public boolean getVictory() {
         // TODO implement here
-        return false;
+        return this.victory;
     }
 
 }

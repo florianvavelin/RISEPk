@@ -15,7 +15,7 @@ public class Region {
     /**
      * 
      */
-    public String nom;
+    public String name;
 
     /**
      * 
@@ -24,31 +24,33 @@ public class Region {
 
 
     /**
-     * @param String s
+     * @param name
      */
-    public void setNom(String s) {
+    public void setName(String name) {
         // TODO implement here
     }
 
     /**
-     * 
+     * @return
      */
-    public void getNom() {
+    public String getName() {
         // TODO implement here
+        return "";
     }
 
     /**
      * @param listTerritoire
      */
-    public void setLePlusGrand(void listTerritoire) {
+    public void setTheBiggest(void listTerritoire) {
         // TODO implement here
     }
 
     /**
-     * 
+     * @return
      */
-    public void getLePlusGrand() {
+    public Region getTheBiggest() {
         // TODO implement here
+        return null;
     }
 
 }

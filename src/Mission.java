@@ -6,31 +6,30 @@ import java.util.*;
  */
 public class Mission {
 
+    public String name;
+
     /**
      * Default constructor
      */
-    public Mission() {
+    public Mission(String name) {
+        this.name = name;
     }
 
-    /**
-     * 
-     */
-    public String nom;
 
+
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * @return
      */
-    public String setNom() {
+    public String getName() {
         // TODO implement here
-        return null;
-    }
-
-    /**
-     * 
-     */
-    public void getNom() {
-        // TODO implement here
+        return this.name;
     }
 
 }
