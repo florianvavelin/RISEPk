@@ -20,7 +20,9 @@ public class Region {
     /**
      * 
      */
-    public void boolean;
+    /**public void boolean{
+
+    }*/
 
 
     /**
@@ -41,7 +43,7 @@ public class Region {
     /**
      * @param listTerritoire
      */
-    public void setTheBiggest(void listTerritoire) {
+    public void setTheBiggest(int listTerritoire) {
         // TODO implement here
     }
 

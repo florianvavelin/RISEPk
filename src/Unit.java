@@ -7,7 +7,7 @@ import java.util.*;
 public class Unit {
 
     private int cost;
-    private range power;
+    private int power;
     private int priorityATT;
     private int priorityDEF;
 
@@ -21,7 +21,12 @@ public class Unit {
     /**
      * Default constructor
      */
-    public Unit(int cost, range power, int priorityATT, int priorityDEF, int mpt) {
+
+    public Unit() {
+
+    }
+
+    public Unit(int cost, int power, int priorityATT, int priorityDEF, int mpt) {
         this.cost = cost;
         this.power = power;
         this.priorityATT = priorityATT;
