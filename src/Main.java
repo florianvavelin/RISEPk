@@ -15,8 +15,8 @@ import java.awt.Dimension;
 
 public class Main {
     public static void main(String[] args) {
-        //Fenetre fen = new Fenetre();
-        map();
+        Fenetre_1 fen = new Fenetre_1();
+        //map();
     }
 
     public static void map() {
