@@ -103,7 +103,6 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
-
     class FormListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             setNumberOfPlayers(Integer.parseInt((String) combo.getSelectedItem()));
