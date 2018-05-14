@@ -21,17 +21,17 @@ public class Main {
 
     public static void map() {
         int width = 1000;
-        int height = 492;
+        int height = 496;
         StdDraw.setCanvasSize(width,height);
         StdDraw.setXscale(0, width);
         StdDraw.setYscale(0, height);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("map2.jpg"));
+            img = ImageIO.read(new File("map4.jpg"));
         } catch (IOException e) {
         }
         while (true) {
-            StdDraw.picture(width/2, height/2, "map2.jpg");
+            StdDraw.picture(width/2, height/2, "map4.jpg");
             // mouse click
             if (StdDraw.isMousePressed()) {
                 //StdDraw.clear();
@@ -47,15 +47,16 @@ public class Main {
                 int green = (c>>8) & 0xff;
                 int blue = c & 0xff;
                 Color color = new Color(red,green,blue);
-                //System.out.println(color); //Permet d'afficher la couleur sur la carte
+                System.out.println(color); //Permet d'afficher la couleur sur la carte
 
 
                 StdDraw.setPenColor(color);
-                StdDraw.filledCircle(x, y, 100);
+                StdDraw.filledCircle(x, y, 20);
+                StdDraw.setPenColor(Color.white);
+                StdDraw.circle(x, y, 20);
                 StdDraw.show(1);
                 StdDraw.clear();
                 StdDraw.pause(100);
-
                 String nigga = WhatsTerritoryNigga(color);
                 System.out.println(nigga);
             }
