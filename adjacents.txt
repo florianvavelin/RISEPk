@@ -1,42 +1,42 @@
-Afghanistan = {Oural, Chine, Inde, Moyen Orient, Ukraine}
-Inde = {Chine, Afghanistan, Moyen Orient, Siam}
-Afrique du Nord = {Egypte, Afrique Orientale, Congo, Europe Occidentale, Europe du Sud}
-Indonésie = {Siam, Nouvelle Guinée, Australie Occidentale}
-Afrique du Sud = {Madagascar, Congo, Afrique Occidentale}
-Islande = {Scandinavie, Groenland, Grande Bretagne}
-Afrique Orientale = {Egypte, Afrique du Nord, Congo, Afrique du Sud, Madagascar}
-Japon = {Mongolie, Kamchatka}
-Alaska = {Territoire du Nord Ouest, Alberta, Kamchatka}
-Kamchatka = {Alaska, Japon, Tchita, Yakoutie, Mongolie}
-Alberta = {Territoire du Nord Ouest, Alaska, Ontario, etat de l'Ouest}
-Madagascar = {Afrique Occidentale, Afrique du Sud}
-Amérique Centrale = {Etat de l'Est, Etat de l'Ouest, Venezuala}
-Mongolie = {Kamchatka, Tchita, Sibérie, Chine, Japon}
-Argentine = {Pérou, Brésil}
-Moyen Orient = {Afghanistan, Inde, Egypte, Europe du Sud}
-Australie Occidentale = {Nouvelle Guinée, Australie Orientale, Indonésie} 
-Nouvelle Guinée = {Australie Orientale, Australie Occidentale, Indénosie}
-Australie Orientale = {Austraie Occidentale, Nouvelle Guinée, Indonésie}	
-Ontario = {Québec, Territoire du Nord Ouest, Alberta, Etat de l'Ouest, Etat de l'Est, Groenland}
-Brésil = {Afrique du Nord, Venezuela, Pérou, Argentine}
-Oural = {Sibérie, Chine, Afghanistan, Ukraine}
-Chine = {Mongolie, Sibérie, Oural, Afghanistan, Inde, Siam}
-Pérou = {Brésil, Venezuela, Argentine}
-Congo = {Afrique Orientale, Afrique du Sud, Afrique du Nord}
-Québec = {Groenland, Ontario, Etat de l'Est}
-Egypte = {Europe de Sud, Afrique Orientale, Moyen Orient, Afrique du Nord}
-Scandinavie = {Ukraine, Islande, Grande Bretagne, Europe du Nord}
-Etat de l'Est = {Québec, Ontario, Etat de l'Ouest, Amérique Centrale}
-Siam = {Chine, Inde, Indonésie}
-Etat de l'Ouest = {Amérique Centrale, Etat de l'Est, Ontario, Alberta}
-Sibérie = {Yakoutie, Tchita, Mongolie, Chine, Oural}
-Europe du Nord = {Scandinavie, Ukraine, Europe du Sud, Europe Occidentale, Grande Bretagne}
-Tchita = {Yakoutie, Kamchatka, Sibérie, Mongolie}
-Europe du Sud = {Europe Occidentale, Europe du Nord, Ukraine, Moyen Orient, Afrique du Nord}
-Territoire du Nord Ouest = {Alaska, Groenland, Alberta, Ontario}
-Europe Occidentale = {Afrique du Nord, Europe du Sud, Europe du Nord, Grande Bretagne}
-Ukraine	= {Oural, Afghanistan, Moyen Orient, Europe du Sud, Europe du Nord, Scandinavie}
-Grande Bretagne = {Islande, Scandinavie, Europe du Nord, Europe Occidentale}
-Venezuela = {Amérique Centrale, Brésil, Pérou}
-Groenland = {Islande, Québec, Ontario, Territoire du Nord Ouest}
-Yakoutie = {Kamchatka, Tchita, Sibérie}
+Afghanistan,Oural,Chine,Inde,Moyen Orient,Ukraine
+Inde,Chine,Afghanistan,Moyen Orient,Siam
+Afrique du Nord,Egypte,Afrique Orientale,Congo,Europe Occidentale,Europe du Sud
+Indonï¿½sie,Siam,Nouvelle Guinï¿½e,Australie Occidentale
+Afrique du Sud,Madagascar,Congo,Afrique Occidentale
+Islande,Scandinavie,Groenland,Grande Bretagne
+Afrique Orientale,Egypte,Afrique du Nord,Congo,Afrique du Sud,Madagascar
+Japon,Mongolie,Kamchatka
+Alaska,Territoire du Nord Ouest,Alberta,Kamchatka
+Kamchatka,Alaska,Japon,Tchita,Yakoutie,Mongolie
+Alberta,Territoire du Nord Ouest,Alaska,Ontario,etat de l'Ouest
+Madagascar,Afrique Occidentale,Afrique du Sud
+Amï¿½rique Centrale,Etat de l'Est,Etat de l'Ouest,Venezuala
+Mongolie,Kamchatka,Tchita,Sibï¿½rie,Chine,Japon
+Argentine,Pï¿½rou,Brï¿½sil
+Moyen Orient,Afghanistan,Inde,Egypte,Europe du Sud
+Australie Occidentale,Nouvelle Guinï¿½e,Australie Orientale,Indonï¿½sie
+Nouvelle Guinï¿½e,Australie Orientale,Australie Occidentale,Indï¿½nosie
+Australie Orientale,Austraie Occidentale,Nouvelle Guinï¿½e,Indonï¿½sie
+Ontario,Quï¿½bec,Territoire du Nord Ouest,Alberta,Etat de l'Ouest,Etat de l'Est,Groenland
+Brï¿½sil,Afrique du Nord,Venezuela,Pï¿½rou,Argentine
+Oural,Sibï¿½rie,Chine,Afghanistan,Ukraine
+Chine,Mongolie,Sibï¿½rie,Oural,Afghanistan,Inde,Siam
+Pï¿½rou,Brï¿½sil,Venezuela,Argentine
+Congo,Afrique Orientale,Afrique du Sud,Afrique du Nord
+Quï¿½bec,Groenland,Ontario,Etat de l'Est
+Egypte,Europe de Sud,Afrique Orientale,Moyen Orient,Afrique du Nord
+Scandinavie,Ukraine,Islande,Grande Bretagne,Europe du Nord
+Etat de l'Est,Quï¿½bec,Ontario,Etat de l'Ouest,Amï¿½rique Centrale
+Siam,Chine,Inde,Indonï¿½sie
+Etat de l'Ouest,Amï¿½rique Centrale,Etat de l'Est,Ontario,Alberta
+Sibï¿½rie,Yakoutie,Tchita,Mongolie,Chine,Oural
+Europe du Nord,Scandinavie,Ukraine,Europe du Sud,Europe Occidentale,Grande Bretagne
+Tchita,Yakoutie,Kamchatka,Sibï¿½rie,Mongolie
+Europe du Sud,Europe Occidentale,Europe du Nord,Ukraine,Moyen Orient,Afrique du Nord
+Territoire du Nord Ouest,Alaska,Groenland,Alberta,Ontario
+Europe Occidentale,Afrique du Nord,Europe du Sud,Europe du Nord,Grande Bretagne
+Ukraine,Oural,Afghanistan,Moyen Orient,Europe du Sud,Europe du Nord,Scandinavie
+Grande Bretagne,Islande,Scandinavie,Europe du Nord,Europe Occidentale
+Venezuela,Amï¿½rique Centrale,Brï¿½sil,Pï¿½rou
+Groenland,Islande,Quï¿½bec,Ontario,Territoire du Nord Ouest
+Yakoutie,Kamchatka,Tchita,Sibï¿½rie

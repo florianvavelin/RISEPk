@@ -52,15 +52,14 @@ public class Territory {
      * @param color
      */
     public void setColor(Color color) {
-        // TODO implement here
+        this.color = color;
     }
 
     /**
      * @return
      */
     public Color getColor() {
-        // TODO implement here
-        return null;
+        return this.color;
     }
 
     /**
