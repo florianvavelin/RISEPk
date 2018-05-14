@@ -1,42 +1,42 @@
-Afghanistan
-Inde
-Afrique du Nord
-Indonésie
-Afrique du Sud
-Islande
-Afrique Orientale
-Japon
-Alaska
-Kamchatka
-Alberta
-Madagascar
-Amérique Centrale
-Mongolie
-Argentine
-Moyen Orient
-Australie Occidentale
-Nouvelle Guinée
-Australie orientale	
-Ontario
-Brésil
-Oural
-Chine
-Pérou
-Congo
-Québec
-Egypte
-Scandinavie
-Etat de l'Est
-Siam
-Etat de l'Ouest
-Sibérie
-Europe du Nord
-Tchita
-Europe du Sud
-Territoire du Nord Ouest
-Europe Occidentale
-Ukraine	
-Grande Bretagne
-Venezuela
-Groenland
-Yakoutie
+Afghanistan, Color(32, 157,117)
+Inde, Color(32, 157, 116)
+Afrique du Nord, Color(184, 126, 89)
+Indonésie, Color(96, 63, 97)
+Afrique du Sud, Color(184, 126, 87)
+Islande, Color(40, 124, 171)
+Afrique Orientale, Color(184, 126, 91)
+Japon, Color(32, 157, 111)
+Alaska, Color(220, 172, 38)
+Kamchatka, Color(32, 157, 110)
+Alberta, Color(220, 172, 34)
+Madagascar, Color(184, 126, 86)
+Amérique Centrale, Color(220, 172, 41)
+Mongolie, Color(32, 157, 112)
+Argentine, Color(200, 85, 105)
+Moyen Orient, Color(32, 157, 115)
+Australie Occidentale, Color(96, 63, 94)
+Nouvelle Guinée, Color(96, 63, 96)
+Australie orientale, Color(96, 63, 95)
+Ontario, Color(220, 172, 35)
+Brésil, Color(200, 85, 103)
+Oural, Color(32, 157, 118)
+Chine, Color(32, 157, 114)
+Pérou, Color(200, 85, 104)
+Congo, Color(184, 126, 88)
+Québec, Color(220, 172, 36)
+Egypte, Color(184, 126, 90)
+Scandinavie, Color(40, 124, 169)
+Etat de l'Est, Color(220, 172, 40)
+Siam, Color(32, 157, 113)
+Etat de l'Ouest, Color(220, 172, 39)
+Sibérie, Color(32, 157, 119)
+Europe du Nord, Color(40, 124, 168)
+Tchita, Color(32, 157, 118)
+Europe du Sud, Color(40, 124, 167)
+Territoire du Nord Ouest, Color(220, 172, 37)
+Europe Occidentale, Color(40, 124, 170)
+Ukraine	, Color(40, 124, 166)
+Grande Bretagne, Color(40, 124, 169)
+Venezuela, Color(200, 85, 102)
+Groenland, Color(220, 172, 30)
+Yakoutie, Color(32, 157, 109)
