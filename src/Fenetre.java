@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 
 public class Fenetre extends JFrame {
     private JPanel container = new JPanel();
+    private JPanel top = new JPanel();
+    private JPanel middle = new JPanel();
+    private JPanel bottom = new JPanel();
+
     private String[] choicePlayers = {"2", "3", "4", "5", "6"};
     JComboBox combo = new JComboBox(choicePlayers);
     JLabel label = new JLabel("Nombre de joueurs");
@@ -36,21 +40,21 @@ public class Fenetre extends JFrame {
         container.setLayout(new BorderLayout());
         combo.setPreferredSize(new Dimension(100, 20));
 
-        // When clicking on button "OK", create the panels to create the players
-        // Goes wrong if clicking again
-        buttonNbPlayers.addActionListener(new ButtonOKListener());
+
 
 
         // Choose the number of players
-        JPanel top = new JPanel();
         top.add(label);
         top.add(combo);
         top.add(buttonNbPlayers);
         container.add(top, BorderLayout.NORTH);
 
+        // When clicking on button "OK", create the panels to create the players
+        // Goes wrong if clicking again
+        buttonNbPlayers.addActionListener(new ButtonOKListener());
+
 
         // Who did this
-        JPanel bottom = new JPanel();
         bottom.add(copyright);
         container.add(bottom, BorderLayout.SOUTH);
 
@@ -65,8 +69,6 @@ public class Fenetre extends JFrame {
         /**
          * Function to be called when choosing the number of players
          */
-
-        JPanel middle = new JPanel();
         middle.setLayout(new BoxLayout(middle, BoxLayout.PAGE_AXIS));
 
 
@@ -110,8 +112,10 @@ public class Fenetre extends JFrame {
         }
     }
 
-    class ButtonOKListener implements ActionListener {
+    public class ButtonOKListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            middle.removeAll();
+            System.out.println("Ok");
             showPlayersInfo(getNumberOfPlayers());
         }
     }

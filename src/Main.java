@@ -16,6 +16,7 @@ import java.awt.Dimension;
 public class Main {
     public static void main(String[] args) {
         Fenetre fen = new Fenetre();
+        //map();
     }
 
     public static void map() {
@@ -31,7 +32,6 @@ public class Main {
         }
 
         while (true) {
-            StdDraw.clear();
             StdDraw.picture(width/2, height/2, "map2.jpg");
             // mouse click
             if (StdDraw.isMousePressed()) {
@@ -51,8 +51,10 @@ public class Main {
 
                 StdDraw.setPenColor(color);
                 StdDraw.filledCircle(x, y, 100);
+                StdDraw.show(1);
+                StdDraw.clear();
             }
-            StdDraw.pause(200);
+
         }
     }
 }
