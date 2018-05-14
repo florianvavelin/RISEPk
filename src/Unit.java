@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class Unit {
+public abstract class  Unit {
 
     private int cost;
     private int power;
@@ -17,14 +17,9 @@ public class Unit {
     private int mpt;
 
 
-
     /**
      * Default constructor
      */
-
-    public Unit() {
-
-    }
 
     public Unit(int cost, int power, int priorityATT, int priorityDEF, int mpt) {
         this.cost = cost;

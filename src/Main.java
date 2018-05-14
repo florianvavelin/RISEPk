@@ -30,11 +30,11 @@ public class Main {
             img = ImageIO.read(new File("map2.jpg"));
         } catch (IOException e) {
         }
-
+        StdDraw.picture(width/2, height/2, "map2.jpg");
         while (true) {
-            StdDraw.picture(width/2, height/2, "map2.jpg");
             // mouse click
             if (StdDraw.isMousePressed()) {
+                //StdDraw.clear();
                 // mouse location
                 double x = StdDraw.mouseX();
                 double y = StdDraw.mouseY();
@@ -47,12 +47,14 @@ public class Main {
                 int green = (c>>8) & 0xff;
                 int blue = c & 0xff;
                 Color color = new Color(red,green,blue);
-                System.out.println(color);
+                System.out.println(color); //Permet d'afficher la couleur sur la carte
+
 
                 StdDraw.setPenColor(color);
                 StdDraw.filledCircle(x, y, 100);
                 StdDraw.show(1);
                 StdDraw.clear();
+                StdDraw.pause(100);
             }
 
         }

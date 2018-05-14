@@ -1,0 +1,6 @@
+Asia = [32, 157, 117]
+Europe = [40, 124, 170]
+Africa = [180, 126, 89]
+Oceania = [96, 63, 94]
+South America = [200, 85, 102]
+North America = [220, 172, 38]

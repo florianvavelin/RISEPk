@@ -61,7 +61,7 @@ public class Fenetre extends JFrame {
 
         this.setContentPane(container);
         this.setVisible(true);
-
+        //return middle;
     }
 
     public void showPlayersInfo(int numberOfPlayers) {
@@ -69,10 +69,11 @@ public class Fenetre extends JFrame {
         /**
          * Function to be called when choosing the number of players
          */
+        //Creation of the middle panel
         middle.setLayout(new BoxLayout(middle, BoxLayout.PAGE_AXIS));
 
-
         for (int i = 1; i <= numberOfPlayers; i++) {
+
             JPanel players = new JPanel();
             players.setLayout(new BoxLayout(players, BoxLayout.LINE_AXIS));
             players.setPreferredSize(new Dimension(300, 30));
@@ -86,7 +87,7 @@ public class Fenetre extends JFrame {
             players.add(field, BorderLayout.SOUTH);
 
             // Each player can choose a color
-            String[] arraySColor = {"blanc", "noir", "bleu", "orange", "rouge", "vert"};
+            String[] arraySColor = {"Blanc", "Noir", "Bleu", "Orange", "Rouge", "Vert"};
             JComboBox comboColor = new JComboBox(arraySColor);
             players.add(comboColor);
 
@@ -104,7 +105,6 @@ public class Fenetre extends JFrame {
         this.setContentPane(container);
         this.setVisible(true);
     }
-
 
     class FormListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
