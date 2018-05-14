@@ -15,8 +15,8 @@ import java.awt.Dimension;
 
 public class Main {
     public static void main(String[] args) {
-        Fenetre fen = new Fenetre();
-        //map();
+        //Fenetre fen = new Fenetre();
+        map();
     }
 
     public static void map() {
@@ -30,8 +30,8 @@ public class Main {
             img = ImageIO.read(new File("map2.jpg"));
         } catch (IOException e) {
         }
-        StdDraw.picture(width/2, height/2, "map2.jpg");
         while (true) {
+            StdDraw.picture(width/2, height/2, "map2.jpg");
             // mouse click
             if (StdDraw.isMousePressed()) {
                 //StdDraw.clear();
