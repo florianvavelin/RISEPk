@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         ReadTheFileHarry();
         //Fenetre fen = new Fenetre();
-        //map();
+        map();
     }
 
     public static void map() {
@@ -61,15 +61,19 @@ public class Main {
     }
 
     public static String WhatsTerritoryNigga(Color color) {
-
-        for(int i=0; i<Territories.size(); i++)
-        {
-            if(color.equals(Territories.get(i).getColor()))
-            {
-                System.out.println(Territories.get(i).getName());
+        int blue = color.getBlue();
+        for(int i=0; i<Territories.size(); i++) {
+            for (int l=0; l<5; l++) {
+                try {
+                    Color color_temp = new Color(255, 255, blue + 2 - l);
+                    if (color_temp.equals(Territories.get(i).getColor())) {
+                        return Territories.get(i).getName();
+                    }
+                } catch (IllegalArgumentException iae) {
+                    return " ";
+                }
             }
         }
-
         return " " ;
 
     }
@@ -85,9 +89,9 @@ public class Main {
                 String country = line[0]; //Met dans une variable le nom du pays
                 String color_str = line[1]; //Met la couleur dans une variable
                 String[] color_line = color_str.split(","); //Sépare les 3 composantes de la couleur
-                String FirstColor = color_line[0].substring(7, color_line[0].length()); //Permet de récupérer la composante r
-                String Secondcolor = color_line[1].substring(1,color_line[1].length());
-                String ThirdColor = color_line[2].substring(1, color_line[2].length() - 1); //Permet de récupérer la composante b
+                String FirstColor = color_line[0].substring(6, color_line[0].length()); //Permet de récupérer la composante r
+                String Secondcolor = color_line[1].substring(0,color_line[1].length());
+                String ThirdColor = color_line[2].substring(0, color_line[2].length() - 1); //Permet de récupérer la composante b
 
                 int r = Integer.parseInt(FirstColor); //Permet de convertir en int
                 int g = Integer.parseInt(Secondcolor);
