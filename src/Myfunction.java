@@ -1,4 +1,7 @@
+import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
+import javax.imageio.ImageIO;
+import java.awt.image.*;
 
 public class Myfunction {
 
@@ -6,6 +9,5 @@ public class Myfunction {
         int res = ThreadLocalRandom.current().nextInt(min, max + 1);
         return res;
     }
-
 
 }

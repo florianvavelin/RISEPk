@@ -15,23 +15,22 @@ public class Main {
     public static void main(String[] args) {
         ReadTheFileHarry();
         //Fenetre fen = new Fenetre();
-        map();
-
+        //map();
     }
 
     public static void map() {
-        int width = 1000;
-        int height = 496;
+        int width = 1125;
+        int height = 558;
         StdDraw.setCanvasSize(width,height);
         StdDraw.setXscale(0, width);
         StdDraw.setYscale(0, height);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("map4.jpg"));
+            img = ImageIO.read(new File("map_Yellow_1125.jpg"));
         } catch (IOException e) {
         }
         while (true) {
-            StdDraw.picture(width/2, height/2, "map4.jpg");
+            StdDraw.picture(width/2, height/2, "map3.jpg");
             // mouse click
             if (StdDraw.isMousePressed()) {
                 //StdDraw.clear();
@@ -39,14 +38,11 @@ public class Main {
                 double x = StdDraw.mouseX();
                 double y = StdDraw.mouseY();
                 int positionX = (int) x;
-                int positionY = height - (int) y; //change Y origin
+                int positionY = (height - (int) y); //change Y origin
+
                 //System.out.println(positionX);
                 //System.out.println(positionY);
-                int c = img.getRGB(positionX, positionY);
-                int red = (c>>16) & 0xff;
-                int green = (c>>8) & 0xff;
-                int blue = c & 0xff;
-                Color color = new Color(red,green,blue);
+                Color color = new Color(img.getRGB(positionX, positionY));
                 System.out.println(color); //Permet d'afficher la couleur sur la carte
 
 
@@ -141,6 +137,4 @@ public class Main {
 
         return Adjacents;
     } //Permet de trouver les pays adjacents à un pays
-
-
 }
