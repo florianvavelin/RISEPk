@@ -13,9 +13,9 @@ public class Main {
     static ArrayList <Territory> Territories = new ArrayList();
 
     public static void main(String[] args) {
-        ReadTheFileHarry();
-        //Fenetre fen = new Fenetre();
-        map();
+        //ReadTheFileHarry();
+        Fenetre fen = new Fenetre();
+        //map();
     }
 
     public static void map() {

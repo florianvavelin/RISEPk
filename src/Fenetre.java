@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Set;
 
 
 public class Fenetre extends JFrame {
@@ -17,6 +19,12 @@ public class Fenetre extends JFrame {
 
     JButton buttonNbPlayers = new JButton("OK");
     JButton buttonPlay = new JButton("JOUER");
+
+    private ArrayList<JTextField> namePlayers = new ArrayList<JTextField>();
+    private ArrayList<JComboBox> colorPlayers = new ArrayList<JComboBox>();
+    private Color[] colorOfPlayer = {Color.white, Color.black, Color.blue, Color.orange, Color.red, Color.green};
+
+    private JLabel errorText = new JLabel();
 
     private int numberOfPlayers = 2;
 
@@ -50,9 +58,8 @@ public class Fenetre extends JFrame {
         container.add(top, BorderLayout.NORTH);
 
         // When clicking on button "OK", create the panels to create the players
-        // Goes wrong if clicking again
         buttonNbPlayers.addActionListener(new ButtonOKListener());
-
+        buttonPlay.addActionListener(new ButtonPlayListener());
 
         // Who did this
         bottom.add(copyright);
@@ -84,19 +91,22 @@ public class Fenetre extends JFrame {
 
             // Field for the pseudo of each player
             JTextField field = new JTextField(2);
+            namePlayers.add(field);
             players.add(field, BorderLayout.SOUTH);
 
             // Each player can choose a color
             String[] arraySColor = {"Blanc", "Noir", "Bleu", "Orange", "Rouge", "Vert"};
             JComboBox comboColor = new JComboBox(arraySColor);
+            colorPlayers.add(comboColor);
             players.add(comboColor);
 
             // Add the panel of player in the parent panel
             middle.add(players);
         }
+
+        middle.add(errorText);
         // Add the button "JOUER" to go to the game (if all information are correct)
         middle.add(buttonPlay);
-
 
         // Add the panel in the container
         container.add(middle);
@@ -106,14 +116,39 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
+    public void setErrorText(String type) {
+        errorText.setForeground(Color.red);
+        switch (type) {
+            case "name":
+                errorText.setText(errorText.getText() + "La case nom n'est pas remplie. ");
+                break;
+            case "color":
+                errorText.setText(errorText.getText() + "Choisissez des couleurs différentes. ");
+        }
+    }
+
+    public boolean checkDuplicates(String[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1 ; j < array.length; j++) {
+                if (array[i].equals(array[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     class FormListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             setNumberOfPlayers(Integer.parseInt((String) combo.getSelectedItem()));
         }
     }
 
-    public class ButtonOKListener implements ActionListener {
+    class ButtonOKListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            namePlayers.clear();
+            colorPlayers.clear();
+            errorText.setText("");
             middle.removeAll();
             System.out.println("Ok");
             showPlayersInfo(getNumberOfPlayers());
@@ -122,6 +157,30 @@ public class Fenetre extends JFrame {
 
     class ButtonPlayListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            errorText.setText("");
+            boolean ok = true;
+            String[] colors = new String[getNumberOfPlayers()];
+            for (int i=0; i<colors.length; i++) {
+                colors[i] = (String) colorPlayers.get(i).getSelectedItem();
+            }
+            if (checkDuplicates(colors)) {
+                setErrorText("color");
+                ok = false;
+            }
+            for (int i=0; i<getNumberOfPlayers(); i++) {
+                String name = namePlayers.get(i).getText();
+                if (name.equals("")) {
+                    setErrorText("name");
+                    ok = false;
+                }
+            }
+            if (ok) {
+                for (int i=0; i<getNumberOfPlayers(); i++) {
+                    String name = namePlayers.get(i).getText();
+                    Player player = new Player(name, colorOfPlayer[i]);
+                    System.out.println(player.getName() + ": " + player.getColor());
+                }
+            }
             // check if name is not empty, if not too long
             // check if all players have different colors
             // create the players
