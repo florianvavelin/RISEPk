@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.*;
 import java.awt.Color;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import edu.princeton.cs.introcs.StdDraw;
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ public class Main {
     static ArrayList <Territory> Territories = new ArrayList();
 
     public static void main(String[] args) {
-        //ReadTheFileHarry();
+        int width = 1125;
+        int height = 558;
         Fenetre fen = new Fenetre();
+        //Fenetre fen_2 = new Fenetre("map", width, height);
+        //ReadTheFileHarry();
         //map();
     }
 
@@ -53,14 +57,14 @@ public class Main {
                 StdDraw.show(1);
                 StdDraw.clear();
                 StdDraw.pause(100);
-                String nigga = WhatsTerritoryNigga(color);
-                System.out.println(nigga);
+                //String nigga = WhatsTerritoryNigga(color);
+                //System.out.println(nigga);
             }
 
         }
     }
 
-    public static String WhatsTerritoryNigga(Color color) {
+    /*public static String WhatsTerritoryNigga(Color color) {
         int blue = color.getBlue();
         for(int i=0; i<Territories.size(); i++) {
             for (int l=0; l<5; l++) {
@@ -140,5 +144,5 @@ public class Main {
         }
 
         return Adjacents;
-    } //Permet de trouver les pays adjacents à un pays
+    } //Permet de trouver les pays adjacents à un pays*/
 }
