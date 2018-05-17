@@ -16,8 +16,8 @@ public class Main {
     public static void main(String[] args) {
         int width = 1125;
         int height = 558;
-        Fenetre fen = new Fenetre();
-        //Fenetre fen_2 = new Fenetre("map", width, height);
+        //Fenetre fen = new Fenetre();
+        Fenetre fen_2 = new Fenetre("map", width, height);
         //ReadTheFileHarry();
         //map();
     }

@@ -1,42 +1,42 @@
-﻿Afghanistan,Color(255,255,2)
-Inde,Color(255,255,7)
-Afrique du Nord,Color(255,255,12)
-Indonésie,Color(255,255,17)
-Afrique du Sud,Color(255,255,22)
-Islande,Color(255,255,27)
-Afrique Orientale,Color(255,255,32)
-Japon,Color(255,255,37)
-Alaska,Color(255,255,42)
-Kamchatka,Color(255,255,47)
-Alberta,Color(255,255,52)
-Madagascar,Color(255,255,57)
-Amérique Centrale,Color(255,255,62)
-Mongolie,Color(255,255,67)
-Argentine,Color(255,255,72)
-Moyen Orient,Color(255,255,77)
-Australie Occidentale,Color(255,255,82)
-Nouvelle Guinée,Color(255,255,87)
-Australie orientale,Color(255,255,92)
-Ontario,Color(255,255,97)
-Brésil,Color(255,255,102)
-Oural,Color(255,255,107)
-Chine,Color(255,255,112)
-Pérou,Color(255,255,117)
-Congo,Color(255,255,122)
-Québec,Color(255,255,127)
-Egypte,Color(255,255,132)
-Scandinavie,Color(255,255,137)
-Etat de l'Est,Color(255,255,142)
-Siam,Color(255,255,147)
-Etat de l'Ouest,Color(255,255,152)
-Sibérie,Color(255,255,157)
-Europe du Nord,Color(255,255,162)
-Tchita,Color(255,255,167)
-Europe du Sud,Color(255,255,172)
-Territoire du Nord Ouest,Color(255,255,177)
-Europe Occidentale,Color(255,255,182)
-Ukraine,Color(255,255,187)
-Grande Bretagne,Color(255,255,192)
-Venezuela,Color(255,255,197)
-Groenland,Color(255,255,202)
-Yakoutie,Color(255,255,207)
+﻿﻿Afghanistan/255,255,2
+Inde/255,255,7
+Afrique du Nord/255,255,12
+Indonésie/255,255,17
+Afrique du Sud/255,255,22
+Islande/255,255,27
+Afrique Orientale/255,255,32
+Japon/255,255,37
+Alaska/255,255,42
+Kamchatka/255,255,47
+Alberta/255,255,52
+Madagascar/255,255,57
+Amérique Centrale/255,255,62
+Mongolie/255,255,67
+Argentine/255,255,72
+Moyen Orient/255,255,77
+Australie Occidentale/255,255,82
+Nouvelle Guinée/255,255,87
+Australie orientale/255,255,92
+Ontario/255,255,97
+Brésil/255,255,102
+Oural/255,255,107
+Chine/255,255,112
+Pérou/255,255,117
+Congo/255,255,122
+Québec/255,255,127
+Egypte/255,255,132
+Scandinavie/255,255,137
+Etat de l'Est/255,255,142
+Siam/255,255,147
+Etat de l'Ouest/255,255,152
+Sibérie/255,255,157
+Europe du Nord/255,255,162
+Tchita/255,255,167
+Europe du Sud/255,255,172
+Territoire du Nord Ouest/255,255,177
+Europe Occidentale/255,255,182
+Ukraine/255,255,187
+Grande Bretagne/255,255,192
+Venezuela/255,255,197
+Groenland/255,255,202
+Yakoutie/255,255,207

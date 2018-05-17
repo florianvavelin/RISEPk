@@ -1,42 +1,42 @@
-Afghanistan,Oural,Chine,Inde,Moyen Orient,Ukraine
-Inde,Chine,Afghanistan,Moyen Orient,Siam
-Afrique du Nord,Egypte,Afrique Orientale,Congo,Europe Occidentale,Europe du Sud
-Indon�sie,Siam,Nouvelle Guin�e,Australie Occidentale
-Afrique du Sud,Madagascar,Congo,Afrique Occidentale
-Islande,Scandinavie,Groenland,Grande Bretagne
-Afrique Orientale,Egypte,Afrique du Nord,Congo,Afrique du Sud,Madagascar
-Japon,Mongolie,Kamchatka
-Alaska,Territoire du Nord Ouest,Alberta,Kamchatka
-Kamchatka,Alaska,Japon,Tchita,Yakoutie,Mongolie
-Alberta,Territoire du Nord Ouest,Alaska,Ontario,etat de l'Ouest
-Madagascar,Afrique Occidentale,Afrique du Sud
-Am�rique Centrale,Etat de l'Est,Etat de l'Ouest,Venezuala
-Mongolie,Kamchatka,Tchita,Sib�rie,Chine,Japon
-Argentine,P�rou,Br�sil
-Moyen Orient,Afghanistan,Inde,Egypte,Europe du Sud
-Australie Occidentale,Nouvelle Guin�e,Australie Orientale,Indon�sie
-Nouvelle Guin�e,Australie Orientale,Australie Occidentale,Ind�nosie
-Australie Orientale,Austraie Occidentale,Nouvelle Guin�e,Indon�sie
-Ontario,Qu�bec,Territoire du Nord Ouest,Alberta,Etat de l'Ouest,Etat de l'Est,Groenland
-Br�sil,Afrique du Nord,Venezuela,P�rou,Argentine
-Oural,Sib�rie,Chine,Afghanistan,Ukraine
-Chine,Mongolie,Sib�rie,Oural,Afghanistan,Inde,Siam
-P�rou,Br�sil,Venezuela,Argentine
-Congo,Afrique Orientale,Afrique du Sud,Afrique du Nord
-Qu�bec,Groenland,Ontario,Etat de l'Est
-Egypte,Europe de Sud,Afrique Orientale,Moyen Orient,Afrique du Nord
-Scandinavie,Ukraine,Islande,Grande Bretagne,Europe du Nord
-Etat de l'Est,Qu�bec,Ontario,Etat de l'Ouest,Am�rique Centrale
-Siam,Chine,Inde,Indon�sie
-Etat de l'Ouest,Am�rique Centrale,Etat de l'Est,Ontario,Alberta
-Sib�rie,Yakoutie,Tchita,Mongolie,Chine,Oural
-Europe du Nord,Scandinavie,Ukraine,Europe du Sud,Europe Occidentale,Grande Bretagne
-Tchita,Yakoutie,Kamchatka,Sib�rie,Mongolie
-Europe du Sud,Europe Occidentale,Europe du Nord,Ukraine,Moyen Orient,Afrique du Nord
-Territoire du Nord Ouest,Alaska,Groenland,Alberta,Ontario
-Europe Occidentale,Afrique du Nord,Europe du Sud,Europe du Nord,Grande Bretagne
-Ukraine,Oural,Afghanistan,Moyen Orient,Europe du Sud,Europe du Nord,Scandinavie
-Grande Bretagne,Islande,Scandinavie,Europe du Nord,Europe Occidentale
-Venezuela,Am�rique Centrale,Br�sil,P�rou
-Groenland,Islande,Qu�bec,Ontario,Territoire du Nord Ouest
-Yakoutie,Kamchatka,Tchita,Sib�rie
+﻿﻿Afghanistan/Oural,Chine,Inde,Moyen Orient,Ukraine
+Inde/Chine,Afghanistan,Moyen Orient,Siam
+Afrique du Nord/Egypte,Afrique Orientale,Congo,Europe Occidentale,Europe du Sud
+Indonésie/Siam,Nouvelle Guinée,Australie Occidentale
+Afrique du Sud/Madagascar,Congo,Afrique Occidentale
+Islande/Scandinavie,Groenland,Grande Bretagne
+Afrique Orientale/Egypte,Afrique du Nord,Congo,Afrique du Sud,Madagascar
+Japon/Mongolie,Kamchatka
+Alaska/Territoire du Nord Ouest,Alberta,Kamchatka
+Kamchatka/Alaska,Japon,Tchita,Yakoutie,Mongolie
+Alberta/Territoire du Nord Ouest,Alaska,Ontario,etat de l'Ouest
+Madagascar/Afrique Occidentale,Afrique du Sud
+Amérique Centrale/Etat de l'Est,Etat de l'Ouest,Venezuala
+Mongolie/Kamchatka,Tchita,Sibérie,Chine,Japon
+Argentine/Pérou,Brésil
+Moyen Orient/Afghanistan,Inde,Egypte,Europe du Sud
+Australie Occidentale/Nouvelle Guinée,Australie Orientale,Indonésie
+Nouvelle Guinée/Australie Orientale,Australie Occidentale,Indénosie
+Australie Orientale/Austraie Occidentale,Nouvelle Guinée,Indonésie
+Ontario/Québec,Territoire du Nord Ouest,Alberta,Etat de l'Ouest,Etat de l'Est,Groenland
+Brésil/Afrique du Nord,Venezuela,Pérou,Argentine
+Oural/Sibérie,Chine,Afghanistan,Ukraine
+Chine/Mongolie,Sibérie,Oural,Afghanistan,Inde,Siam
+Pérou/Brésil,Venezuela,Argentine
+Congo/Afrique Orientale,Afrique du Sud,Afrique du Nord
+Québec/Groenland,Ontario,Etat de l'Est
+Egypte/Europe de Sud,Afrique Orientale,Moyen Orient,Afrique du Nord
+Scandinavie/Ukraine,Islande,Grande Bretagne,Europe du Nord
+Etat de l'Est/Québec,Ontario,Etat de l'Ouest,Amérique Centrale
+Siam/Chine,Inde,Indonésie
+Etat de l'Ouest/Amérique Centrale,Etat de l'Est,Ontario,Alberta
+Sibérie/Yakoutie,Tchita,Mongolie,Chine,Oural
+Europe du Nord/Scandinavie,Ukraine,Europe du Sud,Europe Occidentale,Grande Bretagne
+Tchita/Yakoutie,Kamchatka,Sibérie,Mongolie
+Europe du Sud/Europe Occidentale,Europe du Nord,Ukraine,Moyen Orient,Afrique du Nord
+Territoire du Nord Ouest/Alaska,Groenland,Alberta,Ontario
+Europe Occidentale/Afrique du Nord,Europe du Sud,Europe du Nord,Grande Bretagne
+Ukraine/Oural,Afghanistan,Moyen Orient,Europe du Sud,Europe du Nord,Scandinavie
+Grande Bretagne/Islande,Scandinavie,Europe du Nord,Europe Occidentale
+Venezuela/Amérique Centrale,Brésil,Pérou
+Groenland/Islande,Québec,Ontario,Territoire du Nord Ouest
+Yakoutie/Kamchatka,Tchita,Sibérie

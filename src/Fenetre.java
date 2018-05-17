@@ -97,11 +97,14 @@ public class Fenetre extends JFrame {
             this.setLocationRelativeTo(null);
 
             BufferedImage img = null;
+            BufferedImage img2 = null;
             try {
                 img = ImageIO.read(new File("map3.jpg"));
+                img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
+            final BufferedImage img3 = img2;
 
             JLabel contentPane = new JLabel();
             contentPane.setIcon(new ImageIcon(img));
@@ -109,7 +112,7 @@ public class Fenetre extends JFrame {
             contentPane.addMouseListener(new MyMouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent event) {
-                    super.mouseClicked(event);
+                    super.mouseClicked(event, img3);
                 }
             });
 
@@ -119,21 +122,14 @@ public class Fenetre extends JFrame {
 
     }
 
-    public class MyMouseListener implements MouseListener {
-        public void mouseClicked(MouseEvent event) {
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(new File("map_Yellow_1125.jpg"));
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+    public abstract class MyMouseListener implements MouseListener {
+        public void mouseClicked(MouseEvent event, BufferedImage img) {
             int x = event.getX();
             int y = event.getY();
             Color color = new Color(img.getRGB(x, y));
             System.out.println(color);
             String nigga = WhatsTerritoryNigga(color);
             System.out.println(nigga);
-            //System.out.println("clicked");
         }
         public void mouseEntered(MouseEvent event) {
         }
@@ -164,66 +160,61 @@ public class Fenetre extends JFrame {
     }
 
     private void ReadTheFileHarry () {
-
         try {
             String currentLine;
             BufferedReader br = new BufferedReader(new FileReader("territoires.txt"));  // FileNotFoundException
             while(( currentLine=br.readLine())!= null) {
-                String[] line = currentLine.split(",", 2); //Permet de séparer le nom du pays avec la couleur
-                String country = line[0]; //Met dans une variable le nom du pays
-                String color_str = line[1]; //Met la couleur dans une variable
-                String[] color_line = color_str.split(","); //Sépare les 3 composantes de la couleur
-                String FirstColor = color_line[0].substring(6, color_line[0].length()); //Permet de récupérer la composante r
-                String SecondColor = color_line[1].substring(0,color_line[1].length());
-                String ThirdColor = color_line[2].substring(0, color_line[2].length() - 1); //Permet de récupérer la composante b
+                String[] line = currentLine.split("/"); // Separate territory from his color
+                String country = line[0]; // Name of the territory
+                String color_str = line[1]; // Color of the territory
+                String[] color_line = color_str.split(","); // Separate the RGB components of the color
 
-                int r = Integer.parseInt(FirstColor);
-                int g = Integer.parseInt(SecondColor);
-                int b = Integer.parseInt(ThirdColor);
+                int r = Integer.parseInt(color_line[0]);
+                int g = Integer.parseInt(color_line[1]);
+                int b = Integer.parseInt(color_line[2]);
                 Color color = new Color(r,g,b);
 
-                ArrayList adjacent = FindMyMates(country);
-
-                Territory territory = new Territory(country,adjacent,color);
+                Territory territory = new Territory(country, color);
                 Territories.add(territory);
-
             }
-        }
 
-        catch (Exception e) {
+            for (Territory territory : Territories) {
+                setMyMates(territory);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private ArrayList FindMyMates(String country) {
-        ArrayList Adjacents = new ArrayList();
+    private Territory getTerritoryByName(String name) {
+        Territory territory = Territories.get(0);
+        for (Territory territory_temp : Territories) {
+            if ((territory_temp.getName()).equals(name)) {
+                return territory_temp;
+            }
+        }
+        return territory;
+    }
+
+    private void setMyMates(Territory territory) {
         try {
             String currentLine_adj;
             BufferedReader br_adj = new BufferedReader(new FileReader("adjacents.txt"));  // FileNotFoundException
 
-            while(( currentLine_adj=br_adj.readLine())!=null) {
-                String[] line_adj = currentLine_adj.split(","); //Permet de séparer le nom du pays avec les adjacents
-                if(country.equals(line_adj[0])) {
-                    ArrayList<String> adjacent = new ArrayList<>(Arrays.asList(line_adj[1].split(",")));
-                    //String[] adjacent = line_adj[1].split(",");
-                    Adjacents.addAll(adjacent);
-                    /*for(int i=0; i< adjacent.length;i++)
-                    {
-                        String nameOfAdjacent = adjacent[i];
-                        Adjacents.add(nameOfAdjacent);
-                    }*/
-
+            while (( currentLine_adj=br_adj.readLine()) != null) {
+                String[] line_adj = currentLine_adj.split("/"); // Separate territory from adjacents
+                if (territory.getName().equals(line_adj[0])) {
+                    String[] adjacents = line_adj[1].split(",");
+                    for (String adjacent : adjacents) {
+                        territory.addAdjacents(getTerritoryByName(adjacent));
+                    }
                 }
             }
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return Adjacents;
-    } //Permet de trouver les pays adjacents à un pays
+    }
 
 
     private void showPlayersInfo(int numberOfPlayers) {

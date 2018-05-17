@@ -13,22 +13,16 @@ import java.util.Map;
 public class Territory {
 
     private String name;
-    private ArrayList<Territory> adjacents;
+    private ArrayList<Territory> adjacents = new ArrayList<>();
 
     /**
      * Each territory will have a specific color.
      * This color will be used to differentiate all the territories
-     * If the region is red, for example, only one component of the RGB color
-     * will be slightly different
      */
     private Color color;
 
-    /**
-     * Default constructor
-     */
-    public Territory(String name, ArrayList<Territory> adjacents, Color color) {
+    public Territory(String name, Color color) {
         this.name = name;
-        this.adjacents = adjacents;
         this.color = color;
     }
 
@@ -40,15 +34,13 @@ public class Territory {
      * @param name
      */
     public void setName(String name) {
-        // TODO implement here
         this.name = name;
     }
 
     /**
-     * @return
+     * @return name
      */
     public String getName() {
-        // TODO implement here
         return this.name;
     }
 
@@ -60,7 +52,7 @@ public class Territory {
     }
 
     /**
-     * @return
+     * @return color
      */
     public Color getColor() {
         return this.color;
@@ -70,15 +62,22 @@ public class Territory {
      * @param territory
      */
     public void setAdjacents(Territory territory) {
-        // TODO implement here
+        this.adjacents = adjacents;
+    }
+
+    public void addAdjacents(Territory territory) {
+        /**
+         * @param territory
+         * Set the adjacents list adding the territory in it
+         */
+        adjacents.add(territory);
     }
 
     /**
-     * @return
+     * @return ArrayList of all adjacents of the current territory
      */
     public ArrayList<Territory> getAdjacents() {
-        // TODO implement here
-        return null;
+        return adjacents;
     }
 
 
