@@ -88,10 +88,13 @@ public class Territory {
      */
     public static int [] Hajime(int [] fighters) {
 
-        // Scoreboard : A list of attack power, a list of defense power and a list of casualties
+        // Armies ready, attacking side and defending side
         // TreeMap naturally sorts the keys in ascending order. "Collections.reverseOrder()" reverse that order to put the most powerful unit first in the list.
         TreeMap<Double, String> attack = new TreeMap<>(Collections.reverseOrder());
         TreeMap<Double, String> defense = new TreeMap<>(Collections.reverseOrder());
+
+        // Scoreboard on casualties
+        // Same as fighters[], dead[] follows dead unit in such fashion : [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
         int dead[] = new int[6];
 
         // Priority variables added if a side got 2 units with the same power
@@ -149,7 +152,7 @@ public class Territory {
             String defense_name = (String) defense_unit.getValue();
 
             // Populating the graveyard
-            if (attack_power > defense_power) {
+            if (Math.floor(attack_power) > Math.floor(defense_power)) {
                 switch (defense_name) {
                     case "Soldier" :
                         dead[3]++;
