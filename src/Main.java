@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int width = 1125;
-        int height = 559;
-        Menu menu = new Menu();
-
-        //Fenetre fen_2 = new Fenetre("map", width, height);
+        /**
+         * int width = 1125;
+         * int height = 559;
+         */
+        new Menu();
     }
 }

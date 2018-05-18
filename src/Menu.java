@@ -181,7 +181,6 @@ public class Menu extends JFrame {
     class ButtonPlayListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             /**
-             * TODO No empty names, different colors. If ok : create the players, move to map
              * TODO Place the units (soldiers) in the map relative to the number of players
              * TODO Let the players place their units
              */
@@ -206,9 +205,8 @@ public class Menu extends JFrame {
                     Player player = new Player(name, colorOfPlayer[i]);
                     System.out.println(player.getName() + " : " + player.getColor());
                 }
-                Fenetre fen = new Fenetre("map", 1125, 559);
+                new Fenetre("map", 1125, 559);
                 closeWindow();
-
             }
             // check if name is not empty, if not too long [DONE]
             // check if all players have different colors [DONE]
