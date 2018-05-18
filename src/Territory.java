@@ -178,7 +178,7 @@ public class Territory {
      * Counts the dead (to be used right after the "Hajime" function").
      * @param dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      */
-    public void Delete_Army(int [] dead, Territory ennemy_land) {
+    public void TombRaider(int [] dead, Territory ennemy_land) {
         for (int role = 0; role < 6; role++) {
             while (dead[role] > 0 ) {
                 switch(role) {
@@ -228,6 +228,35 @@ public class Territory {
                         break;
                 }
                 babies[role]--;
+            }
+        }
+    }
+
+    /*
+     * Move units between adjacent territories
+     * @param infantry[3] = [Soldier, Rider, Cannon]
+     */
+    public void Landing(int [] infantry, Territory promised_land) {
+        for (int role = 0; role < 3; role++) {
+            while (infantry[role] > 0 ) {
+                switch(role) {
+                    case 0:
+                        Soldier infantry_soldier = new Soldier();
+                        this.army_soldiers.remove(1);
+                        promised_land.army_soldiers.add(infantry_soldier)
+                        break;
+                    case 1:
+                        Rider infantry_rider = new Rider();
+                        this.army_riders.remove(1);
+                        promised_land.army_riders.add(infantry_rider);
+                        break;
+                    case 2:
+                        Cannon infantry_cannon = new Cannon();
+                        this.army_cannons.remove(1);
+                        promised_land.army_cannons.add(infantry_cannon);
+                        break;
+                }
+                infantry[role]--;
             }
         }
     }

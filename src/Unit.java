@@ -13,9 +13,11 @@ public abstract class Unit {
     private double priorityDEF;
 
     /**
-     * Movement per turn
+     * Movement per turn and counter per turn
      */
     private int mpt;
+    private int cpt;
+
 
 
     /**
