@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 
+ *
  */
 public class Territory {
 
@@ -30,15 +30,28 @@ public class Territory {
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
     /**
-     *
-
-    /**
-     * @param territory
+     * Default constructor
      */
-    public void setAdjacents(Territory territory) {
-        this.adjacents = adjacents;
+    public Territory(String name, Color color) {
+        this.name = name;
+        this.color = color;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * @param territory
@@ -56,6 +69,7 @@ public class Territory {
     }
 
 
+
     /**
      * Fights attack/defense according to the following hash map parameter : [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      * Example : (2 Soldiers and 1 Cannon) in attack VS (1 Rider and 1 Cannon) in defense ==> [2, 0, 1, 0, 1, 1]
@@ -71,42 +85,39 @@ public class Territory {
         // Same as fighters[], dead[] follows dead unit in such fashion : [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
         int dead[] = new int[6];
 
-        // Priority variables added if a side got 2 units with the same power
-        double first = 0.3;
-        double second = 0.2;
-        double third = 0.1;
 
-
+        // Sample for territory methods
+        Soldier soldier = new Soldier();
+        Rider rider = new Rider();
+        Cannon cannon = new Cannon();
 
         // Dice roll
         for (int role = 0; role < 6; role++) {
             while (fighters[role] > 0 ) {
                 switch(role) {
                     case 0:
-                        attack.put(Myfunction.random(1,6) + second, "Soldier");
+                        attack.put(Myfunction.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
                         break;
                     case 1:
-                        attack.put(Myfunction.random(2,7) + first, "Rider");
+                        attack.put(Myfunction.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
                         break;
                     case 2:
-                        attack.put(Myfunction.random(4,9) + third, "Cannon");
+                        attack.put(Myfunction.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
                         break;
                     case 3:
-                        defense.put(Myfunction.random(1,6) + first, "Soldier");
+                        defense.put(Myfunction.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
                         break;
                     case 4:
-                        defense.put( Myfunction.random(2,7) + third, "Rider");
+                        defense.put( Myfunction.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
                         break;
                     case 5:
-                        defense.put(Myfunction.random(4,9) + second, "Cannon");
+                        defense.put(Myfunction.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
                         break;
                 }
                 fighters[role]--;
-                if (role < 3) {
-
                 }
             }
-        }
+
 
         // Dead people
         // -- Prepare the attacking wave
@@ -202,16 +213,16 @@ public class Territory {
             while (babies[role] > 0 ) {
                 switch(role) {
                     case 0:
-                        Soldier baby = new Soldier();
-                        this.army_soldiers.add(baby);
+                        Soldier baby_soldier = new Soldier();
+                        this.army_soldiers.add(baby_soldier);
                         break;
                     case 1:
-                        Rider baby = new Rider();
-                        this.army_riders.add(baby);
+                        Rider baby_rider = new Rider();
+                        this.army_riders.add(baby_rider);
                         break;
                     case 2:
-                        Cannon baby = new Cannon();
-                        this.army_cannons.add(baby);
+                        Cannon baby_cannon = new Cannon();
+                        this.army_cannons.add(baby_cannon);
                         break;
                 }
                 babies[role]--;
