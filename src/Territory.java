@@ -31,7 +31,7 @@ public class Territory {
         this.color = color;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
@@ -43,7 +43,7 @@ public class Territory {
         this.adjacents = adjacents;
     }
 
-    private Color getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -56,25 +56,26 @@ public class Territory {
      * @param territory
      * Set the adjacents list adding the territory in it
      */
-    private void addAdjacents(Territory territory) {
+    public void addAdjacents(Territory territory) {
         adjacents.add(territory);
     }
 
     /**
      * @return ArrayList of all adjacents of the current territory
      */
-    private ArrayList<Territory> getAdjacents() {
+    public ArrayList<Territory> getAdjacents() {
         return adjacents;
     }
 
 
 
     /**
-     * Fights attack/defense according to the following hash map parameter : [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
+     * Fights attack/defense according to the following hash map parameter :
+     * [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      * Example : (2 Soldiers and 1 Cannon) in attack VS (1 Rider and 1 Cannon) in defense ==> [2, 0, 1, 0, 1, 1]
      * TODO : Add war animation !!!!!!!! because it's cool
      */
-    public static int [] Hajime(int [] fighters) {
+    public static int[] Hajime(int [] fighters) {
 
         // Armies ready, attacking side and defending side
         // TreeMap naturally sorts the keys in ascending order. "Collections.reverseOrder()" reverse that order to put the most powerful unit first in the list.
