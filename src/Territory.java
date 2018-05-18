@@ -34,7 +34,7 @@ public class Territory {
         this.color = color;
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
@@ -46,7 +46,7 @@ public class Territory {
         this.adjacents = adjacents;
     }
 
-    public Color getColor() {
+    private Color getColor() {
         return color;
     }
 
@@ -59,14 +59,14 @@ public class Territory {
      * @param territory
      * Set the adjacents list adding the territory in it
      */
-    public void addAdjacents(Territory territory) {
+    private void addAdjacents(Territory territory) {
         adjacents.add(territory);
     }
 
     /**
      * @return ArrayList of all adjacents of the current territory
      */
-    public ArrayList<Territory> getAdjacents() {
+    private ArrayList<Territory> getAdjacents() {
         return adjacents;
     }
 
@@ -75,6 +75,7 @@ public class Territory {
     /**
      * Fights attack/defense according to the following hash map parameter : [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      * Example : (2 Soldiers and 1 Cannon) in attack VS (1 Rider and 1 Cannon) in defense ==> [2, 0, 1, 0, 1, 1]
+     * TODO : Add war animation !!!!!!!! because it's cool
      */
     public static int [] Hajime(int [] fighters) {
 
@@ -206,11 +207,12 @@ public class Territory {
         }
     }
 
-    /*
+    /**
      * Adds new units.
      * @param babies[3] = [Soldier, Rider, Cannon]
+     * TODO : Add GUI unit movement.
      */
-    public void UncleBenNeedsYou(int [] babies) {
+    private void UncleBenNeedsYou(int [] babies) {
         for (int role = 0; role < 3; role++) {
             while (babies[role] > 0 ) {
                 switch(role) {
@@ -232,32 +234,73 @@ public class Territory {
         }
     }
 
-    /*
+    /**
      * Move units between adjacent territories
      * @param infantry[3] = [Soldier, Rider, Cannon]
+     * TODO : if (return false), add GUI error message that the player can't move its units.
      */
-    public void Landing(int [] infantry, Territory promised_land) {
+    public boolean MoveYourAss(int [] prophets, Territory promised_land) {
         for (int role = 0; role < 3; role++) {
-            while (infantry[role] > 0 ) {
+            while (prophets[role] > 0 ) {
                 switch(role) {
                     case 0:
-                        Soldier infantry_soldier = new Soldier();
-                        this.army_soldiers.remove(1);
-                        promised_land.army_soldiers.add(infantry_soldier)
+                        if (CheckImmigrant("Soldier")) {
+                            Soldier soldier = this.army_soldiers.get(1);
+                            this.army_soldiers.remove(soldier);
+                            promised_land.army_soldiers.add(soldier);
+                            soldier.addCpt();
+                        }
+                        else { return false; }
                         break;
                     case 1:
-                        Rider infantry_rider = new Rider();
-                        this.army_riders.remove(1);
-                        promised_land.army_riders.add(infantry_rider);
+                        if (CheckImmigrant("Rider")) {
+                            Rider rider = this.army_riders.get(1);
+                            this.army_riders.remove(1);
+                            promised_land.army_riders.add(rider);
+                            rider.addCpt();
+                        }
+                        else { return false; }
                         break;
                     case 2:
-                        Cannon infantry_cannon = new Cannon();
-                        this.army_cannons.remove(1);
-                        promised_land.army_cannons.add(infantry_cannon);
+                        if (CheckImmigrant("Cannon")) {
+                            Cannon cannon = this.army_cannons.get(1);
+                            this.army_cannons.remove(1);
+                            promised_land.army_cannons.add(cannon);
+                            cannon.addCpt();
+                        }
+                        else { return false; }
                         break;
                 }
-                infantry[role]--;
+                prophets[role]--;
             }
         }
+        return true;
+    }
+
+    /**
+     * Check if moving units is possible
+     */
+    private boolean CheckImmigrant(String immigrant) {
+        switch(immigrant){
+            case "Soldier":
+                if ((this.army_soldiers.get(1) == null) &&
+                     this.army_soldiers.get(1).getCpt() != this.army_soldiers.get(1).getMpt()) {
+                    return false;
+                }
+                break;
+            case "Rider":
+                if ((this.army_riders.get(1) == null) &&
+                     this.army_riders.get(1).getCpt() != this.army_riders.get(1).getMpt()) {
+                    return false;
+                }
+                break;
+            case "Cannon":
+                if ((this.army_cannons.get(1) == null) &&
+                     this.army_cannons.get(1).getCpt() != this.army_cannons.get(1).getMpt()) {
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 }

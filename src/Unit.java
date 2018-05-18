@@ -80,4 +80,16 @@ public abstract class Unit {
     public void setMpt(int mpt) {
         this.mpt = mpt;
     }
+
+    public int getCpt() {
+        return cpt;
+    }
+
+    public void setCpt(int cpt) {
+        this.cpt = cpt;
+    }
+
+    public void addCpt() {
+        this.cpt++;
+    }
 }
