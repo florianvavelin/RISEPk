@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.awt.Color;
 import java.util.TreeMap;
@@ -7,9 +6,7 @@ import java.util.Set;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- *
- */
+
 public class Territory {
 
     private String name;
@@ -209,10 +206,10 @@ public class Territory {
 
     /**
      * Adds new units.
-     * @param babies[3] = [Soldier, Rider, Cannon]
+     * @param babies = [Soldier, Rider, Cannon]
      * TODO : Add GUI unit movement.
      */
-    private void UncleBenNeedsYou(int [] babies) {
+    private void UncleBenNeedsYou(int[] babies) {
         for (int role = 0; role < 3; role++) {
             while (babies[role] > 0 ) {
                 switch(role) {
@@ -236,7 +233,8 @@ public class Territory {
 
     /**
      * Move units between adjacent territories
-     * @param infantry[3] = [Soldier, Rider, Cannon]
+     * @param prophets = [Soldier, Rider, Cannon]
+     * @param promised_land
      * TODO : if (return false), add GUI error message that the player can't move its units.
      */
     public boolean MoveYourAss(int [] prophets, Territory promised_land) {

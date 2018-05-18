@@ -19,11 +19,6 @@ public abstract class Unit {
     private int cpt;
 
 
-
-    /**
-     * Default constructor
-     */
-
     public Unit(int cost, int min_power, int max_power, double priorityATT, double priorityDEF, int mpt) {
         this.cost = cost;
         this.min_power = min_power;
