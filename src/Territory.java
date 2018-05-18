@@ -21,42 +21,16 @@ public class Territory {
      */
     private Color color;
 
-    public Territory(String name, Color color) {
-        this.name = name;
-        this.color = color;
-    }
-
-
-
-
+    /**
+     * Each territory can have a player, and therefore armies within affiliated only to this player.
+     */
+    private Player player;
+    private ArrayList<Soldier> army_soldiers = new ArrayList<>();
+    private ArrayList<Rider> army_riders = new ArrayList<>();
+    private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
     /**
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return name
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * @param color
-     */
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    /**
-     * @return color
-     */
-    public Color getColor() {
-        return this.color;
-    }
+     *
 
     /**
      * @param territory
@@ -65,11 +39,12 @@ public class Territory {
         this.adjacents = adjacents;
     }
 
+
+    /**
+     * @param territory
+     * Set the adjacents list adding the territory in it
+     */
     public void addAdjacents(Territory territory) {
-        /**
-         * @param territory
-         * Set the adjacents list adding the territory in it
-         */
         adjacents.add(territory);
     }
 
@@ -101,6 +76,8 @@ public class Territory {
         double second = 0.2;
         double third = 0.1;
 
+
+
         // Dice roll
         for (int role = 0; role < 6; role++) {
             while (fighters[role] > 0 ) {
@@ -122,10 +99,12 @@ public class Territory {
                         break;
                     case 5:
                         defense.put(Myfunction.random(4,9) + second, "Cannon");
-
                         break;
                 }
                 fighters[role]--;
+                if (role < 3) {
+
+                }
             }
         }
 
@@ -179,6 +158,64 @@ public class Territory {
         }
             // Sing the song of the fallen ones
             return(dead);
+    }
 
+
+    /**
+     * Counts the dead (to be used right after the "Hajime" function").
+     * @param dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
+     */
+    public void Delete_Army(int [] dead, Territory ennemy_land) {
+        for (int role = 0; role < 6; role++) {
+            while (dead[role] > 0 ) {
+                switch(role) {
+                    case 0:
+                        this.army_soldiers.remove(1);
+                        break;
+                    case 1:
+                        this.army_riders.remove(1);
+                        break;
+                    case 2:
+                        this.army_cannons.remove(1);
+                        break;
+                    case 3:
+                        ennemy_land.army_soldiers.remove(1);
+                        break;
+                    case 4:
+                        ennemy_land.army_riders.remove(1);
+                        break;
+                    case 5:
+                        ennemy_land.army_cannons.remove(1);
+                        break;
+                }
+                dead[role]--;
+            }
+        }
+    }
+
+    /*
+     * Adds new units.
+     * @param babies[3] = [Soldier, Rider, Cannon]
+     */
+    public void UncleBenNeedsYou(int [] babies) {
+        for (int role = 0; role < 3; role++) {
+            while (babies[role] > 0 ) {
+                switch(role) {
+                    case 0:
+                        Soldier baby = new Soldier();
+                        this.army_soldiers.add(baby);
+                        break;
+                    case 1:
+                        Rider baby = new Rider();
+                        this.army_riders.add(baby);
+                        break;
+                    case 2:
+                        Cannon baby = new Cannon();
+                        this.army_cannons.add(baby);
+                        break;
+                }
+                babies[role]--;
+            }
+        }
     }
 }
