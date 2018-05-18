@@ -10,9 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Fenetre extends JFrame {
@@ -40,7 +38,6 @@ public class Fenetre extends JFrame {
     private Color[] colorOfPlayer = {Color.white, Color.black, Color.blue, Color.orange, Color.red, Color.green};
     private JLabel errorText = new JLabel();
     private JButton buttonPlay = new JButton("JOUER");
-
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -107,7 +104,9 @@ public class Fenetre extends JFrame {
             final BufferedImage img3 = img2;
 
             JLabel contentPane = new JLabel();
-            contentPane.setIcon(new ImageIcon(img));
+            if (img != null) {
+                contentPane.setIcon(new ImageIcon(img));
+            }
             contentPane.setLayout(new BorderLayout());
             contentPane.addMouseListener(new MyMouseListener() {
                 @Override
@@ -122,14 +121,14 @@ public class Fenetre extends JFrame {
 
     }
 
-    public abstract class MyMouseListener implements MouseListener {
-        public void mouseClicked(MouseEvent event, BufferedImage img) {
+    abstract class MyMouseListener implements MouseListener {
+        private void mouseClicked(MouseEvent event, BufferedImage img) {
             int x = event.getX();
             int y = event.getY();
             Color color = new Color(img.getRGB(x, y));
             System.out.println(color);
             String nigga = WhatsTerritoryNigga(color);
-            //System.out.println(nigga);
+            System.out.println(nigga);
         }
         public void mouseEntered(MouseEvent event) {
         }
@@ -303,7 +302,10 @@ public class Fenetre extends JFrame {
             /**
              * Everytime we change the number of players in the form, we set it in the variable
              */
-            setNumberOfPlayers(Integer.parseInt((String) combo.getSelectedItem()));
+            String selectedItem = (String) combo.getSelectedItem();
+            if (selectedItem != null) {
+                setNumberOfPlayers(Integer.parseInt(selectedItem));
+            }
         }
     }
 
