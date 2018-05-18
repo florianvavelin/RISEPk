@@ -22,15 +22,16 @@ public class Match {
      * @param region
      */
     public void setVictory(Territory territory, Player player, Mission mission, Region region) {
-        // TODO implement here
     }
 
     /**
      * @return
      */
     public boolean getVictory() {
-        // TODO implement here
         return this.victory;
     }
 
+    public void setVictory(boolean victory) {
+        this.victory = victory;
+    }
 }

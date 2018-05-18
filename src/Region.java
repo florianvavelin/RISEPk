@@ -29,29 +29,27 @@ public class Region {
      * @param name
      */
     public void setName(String name) {
-        // TODO implement here
+        this.name = name;
     }
 
     /**
      * @return
      */
     public String getName() {
-        // TODO implement here
-        return "";
+        return this.name;
     }
 
     /**
      * @param listTerritoire
      */
     public void setTheBiggest(int listTerritoire) {
-        // TODO implement here
     }
 
     /**
      * @return
+     * TODO Set the biggest (maybe not in this class)
      */
     public Region getTheBiggest() {
-        // TODO implement here
         return null;
     }
 }

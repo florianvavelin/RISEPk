@@ -28,7 +28,6 @@ public class Mission {
      * @return
      */
     public String getName() {
-        // TODO implement here
         return this.name;
     }
 
