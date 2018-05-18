@@ -128,7 +128,7 @@ public class Fenetre extends JFrame {
             Color color = new Color(img.getRGB(x, y));
             System.out.println(color);
             String nigga = WhatsTerritoryNigga(color);
-            System.out.println(nigga);
+            //System.out.println(nigga);
         }
         public void mouseEntered(MouseEvent event) {
         }
@@ -145,12 +145,13 @@ public class Fenetre extends JFrame {
         for (Territory territory : Territories) {
             for (int l=0; l<5; l++) {
                 try {
-                    Color color_temp = new Color(255, 255, blue + 2 - l);
+                    Color color_temp = new Color(255, 255, blue - 2 + l);
                     if (color_temp.equals(territory.getColor())) {
                         System.out.print("Les adjacents de " + territory.getName() + " sont ");
                         for (Territory adjacents : territory.getAdjacents()) {
                             System.out.print(adjacents.getName() + ", ");
                         }
+                        System.out.println("");
                         return territory.getName();
                     }
                 } catch (IllegalArgumentException iae) {
