@@ -14,7 +14,8 @@ public class Main {
     public static void main(String[] args) {
         int width = 1125;
         int height = 559;
-        //Fenetre fen = new Fenetre();
-        Fenetre fen_2 = new Fenetre("map", width, height);
+        Menu menu = new Menu();
+
+        //Fenetre fen_2 = new Fenetre("map", width, height);
     }
 }
