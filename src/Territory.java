@@ -29,9 +29,6 @@ public class Territory {
     private ArrayList<Rider> army_riders = new ArrayList<>();
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
-    /**
-     * Default constructor
-     */
     public Territory(String name, Color color) {
         this.name = name;
         this.color = color;
@@ -39,6 +36,14 @@ public class Territory {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAdjacents(ArrayList<Territory> adjacents) {
+        this.adjacents = adjacents;
     }
 
     public Color getColor() {
@@ -49,9 +54,6 @@ public class Territory {
         this.color = color;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * @param territory

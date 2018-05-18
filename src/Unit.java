@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class  Unit {
+public abstract class Unit {
 
     private int cost;
     private int min_power;
