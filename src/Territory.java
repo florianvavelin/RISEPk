@@ -9,12 +9,17 @@ import java.util.Map;
 
 public class Territory {
 
+
+
+    //
+    // Attributes //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
     private String name;
     private ArrayList<Territory> adjacents = new ArrayList<>();
 
     /**
      * Each territory will have a specific color.
-     * This color will be used to differentiate all the territories
+     * This color will be used to differentiate all the territories.
      */
     private Color color;
 
@@ -26,11 +31,21 @@ public class Territory {
     private ArrayList<Rider> army_riders = new ArrayList<>();
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
+
+
+    //
+    // Default constructor /////////////////////////////////////////////////////////////////////////////////////////////
+    //
     public Territory(String name, Color color) {
         this.name = name;
         this.color = color;
     }
 
+
+
+    //
+    // Getters and setters /////////////////////////////////////////////////////////////////////////////////////////////
+    //
     public String getName() {
         return name;
     }
@@ -51,28 +66,29 @@ public class Territory {
         this.color = color;
     }
 
-
-    /**
-     * @param territory
-     * Set the adjacents list adding the territory in it
-     */
-    public void addAdjacents(Territory territory) {
-        adjacents.add(territory);
-    }
-
-    /**
-     * @return ArrayList of all adjacents of the current territory
-     */
     public ArrayList<Territory> getAdjacents() {
         return adjacents;
     }
 
 
 
+    //
+    // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    /**
+     * @param territory (Territory)
+     * Set the adjacents list adding the territory in it.
+     */
+    public void addAdjacents(Territory territory) {
+        adjacents.add(territory);
+    }
+
+
     /**
      * Fights attack/defense according to the following hash map parameter :
      * [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      * Example : (2 Soldiers and 1 Cannon) in attack VS (1 Rider and 1 Cannon) in defense ==> [2, 0, 1, 0, 1, 1]
+     * @return dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
      * TODO : Add war animation !!!!!!!! because it's cool
      */
     public static int[] Hajime(int [] fighters) {
@@ -174,8 +190,10 @@ public class Territory {
 
 
     /**
-     * Counts the dead (to be used right after the "Hajime" function").
-     * @param dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
+     * Remove dead units from both territories (to be used right after the "Hajime" function").
+     * @param dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
+     * @param ennemy_land (Territory)
+     * TODO : Add GUY unit death.
      */
     public void TombRaider(int [] dead, Territory ennemy_land) {
         for (int role = 0; role < 6; role++) {
@@ -205,9 +223,10 @@ public class Territory {
         }
     }
 
+
     /**
-     * Adds new units.
-     * @param babies = [Soldier, Rider, Cannon]
+     * Adds new units to this territory.
+     * @param babies = [Soldier, Rider, Cannon] (int [])
      * TODO : Add GUI unit movement.
      */
     private void UncleBenNeedsYou(int[] babies) {
@@ -232,10 +251,12 @@ public class Territory {
         }
     }
 
+
     /**
-     * Move units between adjacent territories
-     * @param prophets = [Soldier, Rider, Cannon]
-     * @param promised_land
+     * Move units between adjacent territories.
+     * @param prophets = [Soldier, Rider, Cannon] (int [])
+     * @param promised_land (Territory)
+     * @return true if the transfer of units has been made, false otherwise.
      * TODO : if (return false), add GUI error message that the player can't move its units.
      */
     public boolean MoveYourAss(int [] prophets, Territory promised_land) {
@@ -276,30 +297,75 @@ public class Territory {
         return true;
     }
 
+
     /**
      * Check if moving units is possible
+     * @param immigrant (String)
+     * @return true is unit can be transfered, false otherwise.
      */
     private boolean CheckImmigrant(String immigrant) {
         switch(immigrant){
             case "Soldier":
-                if ((this.army_soldiers.get(1) == null) &&
+                if ((this.army_soldiers.get(1) != null) &&
                      this.army_soldiers.get(1).getCpt() != this.army_soldiers.get(1).getMpt()) {
                     return false;
                 }
                 break;
             case "Rider":
-                if ((this.army_riders.get(1) == null) &&
+                if ((this.army_riders.get(1) != null) &&
                      this.army_riders.get(1).getCpt() != this.army_riders.get(1).getMpt()) {
                     return false;
                 }
                 break;
             case "Cannon":
-                if ((this.army_cannons.get(1) == null) &&
+                if ((this.army_cannons.get(1) != null) &&
                      this.army_cannons.get(1).getCpt() != this.army_cannons.get(1).getMpt()) {
                     return false;
                 }
                 break;
         }
         return true;
+    }
+
+
+    /**
+     * Automatically pick defensive units.
+     * @param kingdom (Territory)
+     * @return royal_guards [3] = [Soldier, Rider, Cannon] (int [])
+     * TODO : Add GUI chosen units.
+     */
+    public static int [] ProtectTheQueen(Territory kingdom) {
+        // Prepare the number of defending unit
+        int [] royal_guards = new int[3];
+        int call = 0;
+
+        // Check the available units
+        int plebe = kingdom.army_cannons.size() + kingdom.army_riders.size() + kingdom.army_soldiers.size();
+
+        // Set aside units that were already chosen
+        int called_soldier = 0;
+        int called_rider = 0;
+        int called_cannon = 0;
+
+        // Pick defending units according to their defense priority
+        while ((call < 2) || (call < plebe)) {
+            if (kingdom.army_soldiers.get(called_soldier) != null) {
+                royal_guards[0]++;
+                called_soldier++;
+                call++;
+            }
+            else if (kingdom.army_cannons.get(called_cannon) != null) {
+                royal_guards[2]++;
+                called_cannon++;
+                call++;
+            }
+            else if (kingdom.army_riders.get(called_rider) != null) {
+                royal_guards[1]++;
+                called_rider++;
+                call++;
+            }
+        }
+
+        return (royal_guards);
     }
 }
