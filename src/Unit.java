@@ -16,7 +16,7 @@ public abstract class Unit {
      * Movement per turn and counter per turn
      */
     private int mpt;
-    private int cpt;
+    private int cpt = 0;
 
 
     public Unit(int cost, int min_power, int max_power, double priorityATT, double priorityDEF, int mpt) {

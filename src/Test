@@ -1,0 +1,110 @@
+// Initialize the test
+        Territory OurTerritory =  new Territory("OurTerritory", Color.blue);
+                OurTerritory.getArmy_cannons().clear();
+                OurTerritory.getArmy_soldiers().clear();
+                OurTerritory.getArmy_riders().clear();
+                Territory EnnemyTerritory = new Territory("EnnemyTerritory", Color.red);
+                EnnemyTerritory.getArmy_cannons().clear();
+                EnnemyTerritory.getArmy_soldiers().clear();
+                EnnemyTerritory.getArmy_riders().clear();
+                Territory AllyTerritory = new Territory("AllyTerritory", Color.green);
+                AllyTerritory.getArmy_cannons().clear();
+                AllyTerritory.getArmy_soldiers().clear();
+                AllyTerritory.getArmy_riders().clear();
+                Territory AllyTerritory2 = new Territory("AllyTerritory2", Color.green);
+                AllyTerritory2.getArmy_cannons().clear();
+                AllyTerritory2.getArmy_soldiers().clear();
+                AllyTerritory2.getArmy_riders().clear();
+
+
+                // Check if AllyTerritory becomes adjacent of OurTerritory
+                OurTerritory.addAdjacents(AllyTerritory);
+                OurTerritory.addAdjacents(AllyTerritory2);
+                for (Territory territory: OurTerritory.getAdjacents()) {
+                System.out.println("Our new ally is " + territory.getName());
+                }
+
+                System.out.println("//////////////////////////////////////////////////////");
+
+                // Check if ourUnits are added in OurTerritory
+                int [] babies = {10, 5, 3};
+                OurTerritory.UncleBenNeedsYou(babies);
+                int [] ennemybabies = {1, 3, 0};
+                EnnemyTerritory.UncleBenNeedsYou(ennemybabies);
+
+                HowMuchUnits(OurTerritory);
+                HowMuchUnits(AllyTerritory);
+                HowMuchUnits(EnnemyTerritory);
+
+                System.out.println("//////////////////////////////////////////////////////");
+
+                // Check if ourUnits can be transferred to adjacent territories
+                int [] transfer = {2, 1, 1};
+                for (int i=0; i<3; i++) {
+        System.out.println("Transfer " + transfer[i]);
+        }
+        boolean example = OurTerritory.MoveYourAss(transfer, AllyTerritory);
+
+
+        int [] allyUnits = new int[3];
+        for (Soldier soldier: AllyTerritory.getArmy_soldiers()) {
+        allyUnits[0]++;
+        }
+
+        HowMuchUnits(OurTerritory);
+        HowMuchUnits(AllyTerritory);
+        HowMuchUnits(EnnemyTerritory);
+
+        System.out.println("//////////////////////////////////////////////////////");
+
+        // Check if defense is prepared
+        int [] attack = {1, 1, 0};
+        int [] defense = EnnemyTerritory.ProtectTheQueen();
+        for (int i=0; i<3; i++) {
+        System.out.println("Attack " + attack[i]);
+        System.out.println("Defense " + defense[i]);
+        }
+
+        System.out.println("//////////////////////////////////////////////////////");
+
+        // Check if forces are merged
+        int [] fighters = OurTerritory.MoshPit(attack, defense);
+        for (int i=0; i<6; i++) {
+        System.out.println("Fighters" + fighters[i]);
+        }
+
+        System.out.println("//////////////////////////////////////////////////////");
+
+        // Check if people are dead
+        int [] dead = OurTerritory.Hajime(fighters);
+        for (int i=0; i<6; i++) {
+        System.out.println("Dead " + dead[i]);
+        }
+
+        System.out.println("//////////////////////////////////////////////////////");
+
+        // Check if dead people are really dead
+        OurTerritory.KillBill(dead, EnnemyTerritory);
+
+
+        HowMuchUnits(OurTerritory);
+        HowMuchUnits(AllyTerritory);
+        HowMuchUnits(EnnemyTerritory);
+
+        }
+
+private static void HowMuchUnits(Territory OurTerritory) {
+        int [] ourUnits = new int[3];
+        for (Soldier soldier: OurTerritory.getArmy_soldiers()) {
+        ourUnits[0]++;
+        }
+        System.out.println(OurTerritory.getName() + " got " + ourUnits[0] + " soldiers");
+        for (Rider rider: OurTerritory.getArmy_riders()) {
+        ourUnits[1]++;
+        }
+        System.out.println(OurTerritory.getName() + " got " + ourUnits[1] + " riders");
+        for (Cannon cannon: OurTerritory.getArmy_cannons()) {
+        ourUnits[2]++;
+        }
+        System.out.println(OurTerritory.getName() + " got " + ourUnits[2] + " cannons");
+        }
