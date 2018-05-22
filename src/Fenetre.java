@@ -14,46 +14,66 @@ import java.util.ArrayList;
 
 
 public class Fenetre extends JFrame {
-    private ArrayList <Territory> Territories = new ArrayList<>();
+    private ArrayList<Territory> Territories = new ArrayList<>();
+    private ArrayList<Player> allPlayers = new ArrayList<>();
 
 
-    public Fenetre(String whatIsItMan, int width, int height) {
+    public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
+        this.allPlayers = allPlayers;
         ReadTheFileHarry();
-        if (whatIsItMan.equals("map")) {
-            this.setTitle("RISK");
-            this.setSize(new Dimension(width, height+30));
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setLocationRelativeTo(null);
+        this.setTitle("RISK");
+        this.setSize(new Dimension(width, height + 30));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
-            BufferedImage img = null;
-            BufferedImage img2 = null;
-            try {
-                img = ImageIO.read(new File("map3.jpg"));
-                img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            final BufferedImage img3 = img2;
 
-            JLabel contentPane = new JLabel();
-            if (img != null) {
-                contentPane.setIcon(new ImageIcon(img));
-            }
-            contentPane.setLayout(new BorderLayout());
-            contentPane.addMouseListener(new MyMouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent event) {
-                    super.mouseClicked(event, img3);
-                }
-            });
-
-            this.setContentPane(contentPane);
-            this.setVisible(true);
+        /**
+         * Set the map in the background - map3.jpg
+         * Set the map to check the color (for checking the territories - map_Yellow_1125.jpg)
+         */
+        BufferedImage img = null;
+        BufferedImage img2 = null;
+        try {
+            img = ImageIO.read(new File("map3.jpg"));
+            img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
+        final BufferedImage img3 = img2; // Must set the BufferedImage final to put it in the mouseClicked
+
+        JLabel contentPane = new JLabel();
+        if (img != null) {
+            contentPane.setIcon(new ImageIcon(img));
+        }
+        contentPane.setLayout(new BorderLayout());
+        contentPane.addMouseListener(new MyMouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                super.mouseClicked(event, img3);
+            }
+        });
+
+        initializeTerritoryWithPlayer();
+
+        this.setContentPane(contentPane);
+        this.setVisible(true);
 
     }
 
+    public ArrayList<Player> getAllPlayers() {
+        return allPlayers;
+    }
+
+    public void setAllPlayers(ArrayList<Player> allPlayers) {
+        this.allPlayers = allPlayers;
+    }
+
     abstract class MyMouseListener implements MouseListener {
+        /**
+         * @param event
+         * @param img to check the color
+         *            We set it one time, otherwise we'll have to open it every time we click on the map
+         */
         private void mouseClicked(MouseEvent event, BufferedImage img) {
             int x = event.getX();
             int y = event.getY();
@@ -62,12 +82,16 @@ public class Fenetre extends JFrame {
             String nigga = WhatsTerritoryNigga(color);
             //System.out.println(nigga);
         }
+
         public void mouseEntered(MouseEvent event) {
         }
+
         public void mouseExited(MouseEvent event) {
         }
+
         public void mousePressed(MouseEvent event) {
         }
+
         public void mouseReleased(MouseEvent event) {
         }
     }
@@ -75,7 +99,12 @@ public class Fenetre extends JFrame {
     private String WhatsTerritoryNigga(Color color) {
         int blue = color.getBlue();
         for (Territory territory : Territories) {
-            for (int l=0; l<5; l++) {
+            for (int l = 0; l < 5; l++) {
+                /**
+                 * The blue component is not exactly the same as set
+                 * We check in a range of values of more or less 2
+                 *      (for example if blue is 200, we check 198 through 202)
+                 */
                 try {
                     Color color_temp = new Color(255, 255, blue - 2 + l);
                     if (color_temp.equals(territory.getColor())) {
@@ -87,6 +116,7 @@ public class Fenetre extends JFrame {
                         return territory.getName();
                     }
                 } catch (IllegalArgumentException iae) {
+                    // Can go over 255
                     return "";
                 }
             }
@@ -95,11 +125,11 @@ public class Fenetre extends JFrame {
 
     }
 
-    private void ReadTheFileHarry () {
+    private void ReadTheFileHarry() {
         try {
             String currentLine;
             BufferedReader br = new BufferedReader(new FileReader("territoires.txt"));  // FileNotFoundException
-            while(( currentLine=br.readLine())!= null) {
+            while ((currentLine = br.readLine()) != null) {
                 String[] line = currentLine.split("/"); // Separate territory from his color
                 String country = line[0]; // Name of the territory
                 String color_str = line[1]; // Color of the territory
@@ -108,7 +138,7 @@ public class Fenetre extends JFrame {
                 int r = Integer.parseInt(color_line[0]);
                 int g = Integer.parseInt(color_line[1]);
                 int b = Integer.parseInt(color_line[2]);
-                Color color = new Color(r,g,b);
+                Color color = new Color(r, g, b);
 
                 Territory territory = new Territory(country, color);
                 Territories.add(territory);
@@ -133,12 +163,16 @@ public class Fenetre extends JFrame {
         return territory;
     }
 
+    /**
+     * @param territory
+     * This function set the ArrayList of adjacents of the territory in parameter
+     */
     private void setMyMates(Territory territory) {
         try {
             String currentLine_adj;
             BufferedReader br_adj = new BufferedReader(new FileReader("adjacents.txt"));  // FileNotFoundException
 
-            while (( currentLine_adj=br_adj.readLine()) != null) {
+            while ((currentLine_adj = br_adj.readLine()) != null) {
                 String[] line_adj = currentLine_adj.split("/"); // Separate territory from adjacents
                 if (territory.getName().equals(line_adj[0])) {
                     String[] adjacents = line_adj[1].split(",");
@@ -152,6 +186,9 @@ public class Fenetre extends JFrame {
         }
     }
 
-
-
+    private void initializeTerritoryWithPlayer() {
+        Soldier soldier = new Soldier();
+        int numberOfPlayers = allPlayers.size();
+        int numberOfTerritories = Territories.size();
+    }
 }

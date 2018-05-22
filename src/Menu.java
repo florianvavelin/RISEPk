@@ -40,7 +40,7 @@ public class Menu extends JFrame {
     public Menu() {
         // General information about the panel
         this.setTitle("RISK");
-        this.setSize(1125, 558+30);
+        this.setSize(1125, 558 + 30);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -82,7 +82,7 @@ public class Menu extends JFrame {
 
         // Edit the middle panel
         middle.setLayout(new BoxLayout(middle, BoxLayout.PAGE_AXIS));
-        for (int i=1; i <= numberOfPlayers; i++) {
+        for (int i = 1; i <= numberOfPlayers; i++) {
             // Create a panel for each player
             JPanel players = new JPanel();
             players.setLayout(new BoxLayout(players, BoxLayout.LINE_AXIS));
@@ -141,7 +141,7 @@ public class Menu extends JFrame {
          * @return true if there are duplicates, false if not
          */
         for (int i = 0; i < colorPlayers.size() - 1; i++) {
-            for (int j = i + 1 ; j < colorPlayers.size(); j++) {
+            for (int j = i + 1; j < colorPlayers.size(); j++) {
                 String temp_i = (String) colorPlayers.get(i).getSelectedItem();
                 String temp_j = (String) colorPlayers.get(j).getSelectedItem();
                 if (temp_i.equals(temp_j)) {
@@ -187,7 +187,7 @@ public class Menu extends JFrame {
             errorText.setText("");
             boolean colorOK = true;
             boolean nameOK = true;
-            for (int i=0; i<getNumberOfPlayers(); i++) {
+            for (int i = 0; i < getNumberOfPlayers(); i++) {
                 String name = namePlayers.get(i).getText();
                 if (name.equals("")) {
                     nameOK = false;
@@ -199,13 +199,15 @@ public class Menu extends JFrame {
                 colorOK = false;
                 setErrorText("color");
             }
-            if (nameOK && colorOK){
-                for (int i=0; i<getNumberOfPlayers(); i++) {
+            if (nameOK && colorOK) {
+                ArrayList<Player> allPlayers = new ArrayList<>();
+                for (int i = 0; i < getNumberOfPlayers(); i++) {
                     String name = namePlayers.get(i).getText();
                     Player player = new Player(name, colorOfPlayer[i]);
+                    allPlayers.add(player);
                     System.out.println(player.getName() + " : " + player.getColor());
                 }
-                new Fenetre("map", 1125, 559);
+                new Fenetre(allPlayers, 1125, 559);
                 closeWindow();
             }
             // check if name is not empty, if not too long [DONE]

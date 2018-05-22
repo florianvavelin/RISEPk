@@ -41,11 +41,6 @@ public class Territory {
         this.color = color;
     }
 
-
-
-    //
-    // Getters and setters /////////////////////////////////////////////////////////////////////////////////////////////
-    //
     public String getName() {
         return name;
     }

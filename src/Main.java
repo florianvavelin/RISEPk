@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+
 import edu.princeton.cs.introcs.StdDraw;
 import java.util.ArrayList;
 import java.lang.Object;
@@ -13,9 +14,6 @@ import java.lang.Object;
 
 public class Main {
     public static void main(String[] args) {
-        /**
-         * int width = 1125;
-         * int height = 559;
-         */
         new Menu();
+    }
 }
