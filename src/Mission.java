@@ -31,4 +31,7 @@ public class Mission {
         return this.name;
     }
 
+
+    String [] MissionName = {};
+    String [] MissionText = {};
 }
