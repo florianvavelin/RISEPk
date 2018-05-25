@@ -46,6 +46,22 @@ public class Fenetre extends JFrame {
             contentPane.setIcon(new ImageIcon(img));
         }
         contentPane.setLayout(new BorderLayout());
+
+        JPanel right = new JPanel();
+        right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
+        for (Player player: allPlayers
+             ) {
+            JPanel playerPanel = new JPanel();
+            playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
+            playerPanel.setPreferredSize(new Dimension(60,40));
+            JLabel Name = new JLabel(player.getName());
+            Name.setText(Name.getText() + " : " + player.getColor());
+            Name.setLayout(new FlowLayout(FlowLayout.LEFT));
+            playerPanel.add(Name);
+            right.add(playerPanel);
+        }
+
+        contentPane.add(right, BorderLayout.EAST);
         contentPane.addMouseListener(new MyMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
@@ -171,6 +187,7 @@ public class Fenetre extends JFrame {
      * @param territory
      * This function set the ArrayList of adjacents of the territory in parameter
      */
+
     private void setMyMates(Territory territory) {
         try {
             String currentLine_adj;
@@ -194,5 +211,11 @@ public class Fenetre extends JFrame {
         Soldier soldier = new Soldier();
         int numberOfPlayers = allPlayers.size();
         int numberOfTerritories = Territories.size();
+        for (Player player: allPlayers
+                ) {
+            System.out.println(player.getName() + " : " + player.getColor());
+            
+        }
     }
+    
 }

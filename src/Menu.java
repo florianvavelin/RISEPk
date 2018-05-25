@@ -94,6 +94,8 @@ public class Menu extends JFrame {
 
             // Field for the pseudo of each player
             JTextField field = new JTextField(2);
+            String[] NamePlayer = {"Asterix", "Obelix", "Panoramix", "Idefix", "Cesar"};
+            field.setText(NamePlayer[i-1]);
             namePlayers.add(field);
             players.add(field, BorderLayout.SOUTH);
 
@@ -206,7 +208,6 @@ public class Menu extends JFrame {
                     String name = namePlayers.get(i).getText();
                     Player player = new Player(name, colorOfPlayer[i]);
                     allPlayers.add(player);
-                    System.out.println(player.getName() + " : " + player.getColor());
                 }
                 new Fenetre(allPlayers, 1125, 559);
                 closeWindow();
