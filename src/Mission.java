@@ -32,6 +32,11 @@ public class Mission {
     }
 
 
-    String [] MissionName = {};
-    String [] MissionText = {};
+    String [] MissionName = {"Hitler", "Attila" ,"Staline", "Kim Jong Un", "Fidel Castro", "Omar Bongo"};
+    String [] MissionText = {"Conquer Europe",
+                                "Conquer Asia",
+                                "Conquer North America",
+                                "Destroy 2 players",
+                                "Conquer South America",
+                                "Conquer Africa"};
 }
