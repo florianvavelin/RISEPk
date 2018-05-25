@@ -49,8 +49,7 @@ public class Fenetre extends JFrame {
 
         JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
-        for (Player player: allPlayers
-             ) {
+        for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
             playerPanel.setPreferredSize(new Dimension(90,40));
@@ -60,7 +59,6 @@ public class Fenetre extends JFrame {
             playerPanel.add(Name);
             right.add(playerPanel);
         }
-
         contentPane.add(right, BorderLayout.EAST);
         contentPane.addMouseListener(new MyMouseListener() {
             @Override
