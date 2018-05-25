@@ -53,9 +53,9 @@ public class Fenetre extends JFrame {
              ) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(60,40));
+            playerPanel.setPreferredSize(new Dimension(90,40));
             JLabel Name = new JLabel(player.getName());
-            Name.setText(Name.getText() + " : " + player.getColor());
+            Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
             right.add(playerPanel);
