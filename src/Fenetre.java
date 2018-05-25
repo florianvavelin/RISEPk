@@ -16,13 +16,15 @@ import java.util.ArrayList;
 public class Fenetre extends JFrame {
     private ArrayList<Territory> Territories = new ArrayList<>();
     private ArrayList<Player> allPlayers = new ArrayList<>();
+    String type ;
 
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         ReadTheFileHarry();
         this.setTitle("RISK");
-        this.setSize(new Dimension(width, height + 30));
+        this.setSize(new Dimension(width + 200, height + 30));
+        this.setBackground(new Color(132,180,226));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -47,19 +49,37 @@ public class Fenetre extends JFrame {
         }
         contentPane.setLayout(new BorderLayout());
 
+        JPanel map = new JPanel();
+        map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
+        map.setBackground(new Color(132,180,226));
+        map.add(contentPane);
+
         JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
+        right.setBackground(new Color(132,180,226));
+        right.setBorder(BorderFactory.createMatteBorder(0,2,0,0, Color.black));
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(90,40));
-            JLabel Name = new JLabel(player.getName());
+            playerPanel.setPreferredSize(new Dimension(200,60));
+            playerPanel.setBackground(new Color(132,180,226));
+            if(player.getIsAnIa())
+            {
+                type = "IA";
+            }
+            else
+            {
+                type = "Human";
+            }
+
+            JLabel Name = new JLabel(player.getName() + " (" + type + ")");
             Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
             right.add(playerPanel);
         }
         contentPane.add(right, BorderLayout.EAST);
+
         contentPane.addMouseListener(new MyMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
@@ -211,7 +231,7 @@ public class Fenetre extends JFrame {
         int numberOfTerritories = Territories.size();
         for (Player player: allPlayers
                 ) {
-            System.out.println(player.getName() + " : " + player.getColor());
+            System.out.println(player.getName() + " : " + player.getColor() + " : " + player.getIsAnIa());
             
         }
     }

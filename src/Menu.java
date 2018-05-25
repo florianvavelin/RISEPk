@@ -24,6 +24,7 @@ public class Menu extends JFrame {
     private JPanel middle = new JPanel();
     private ArrayList<JTextField> namePlayers = new ArrayList<>();
     private ArrayList<JComboBox> colorPlayers = new ArrayList<>();
+    private ArrayList<JRadioButton> radioList = new ArrayList<>();
     private Color[] colorOfPlayer = {Color.white, Color.black, Color.blue, Color.orange, Color.red, Color.green};
     private JLabel errorText = new JLabel();
     private JButton buttonPlay = new JButton("JOUER");
@@ -100,8 +101,8 @@ public class Menu extends JFrame {
             comboColor.setSelectedIndex(i-1);
             colorPlayers.add(comboColor);
             players.add(comboColor);
-
             JRadioButton radio = new JRadioButton("IA");
+            radioList.add(radio);
             players.add(radio);
 
             // Add the panel of player in the parent panel
@@ -200,7 +201,7 @@ public class Menu extends JFrame {
                 ArrayList<Player> allPlayers = new ArrayList<>();
                 for (int i = 0; i < getNumberOfPlayers(); i++) {
                     String name = namePlayers.get(i).getText();
-                    Player player = new Player(name, colorOfPlayer[i],radio.isChecked()); //Il faut encore checker si le radio est coché
+                    Player player = new Player(name, colorOfPlayer[i],radioList.get(i).isSelected());
                     allPlayers.add(player);
                 }
                 new Fenetre(allPlayers, 1125, 559);
