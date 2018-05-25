@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
-    String type ;
     private Google google = new Google();
-
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -58,15 +56,12 @@ public class Fenetre extends JFrame {
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
             playerPanel.setPreferredSize(new Dimension(200,60));
             playerPanel.setBackground(new Color(132,180,226));
-            if(player.getIsAnIa())
-            {
+            String type;
+            if (player.getIsAnIa()) {
                 type = "IA";
-            }
-            else
-            {
+            } else {
                 type = "Human";
             }
-
             JLabel Name = new JLabel(player.getName() + " (" + type + ")");
             Name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             Name.setForeground(player.getColor());
@@ -145,7 +140,5 @@ public class Fenetre extends JFrame {
             }
         }
         return "";
-
     }
-
-}
+} //Permet l'affichage du pays dans la console
