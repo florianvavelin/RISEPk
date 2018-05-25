@@ -13,7 +13,6 @@ public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
 
-
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         this.setTitle("RISK");
@@ -142,5 +141,4 @@ public class Fenetre extends JFrame {
         }
         return "";
     }
-
-}
+} //Permet l'affichage du pays dans la console
