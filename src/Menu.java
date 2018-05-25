@@ -100,6 +100,7 @@ public class Menu extends JFrame {
             // Each player can choose a color
             String[] arraySColor = {"Blanc", "Noir", "Bleu", "Orange", "Rouge", "Vert"};
             JComboBox<String> comboColor = new JComboBox<>(arraySColor);
+            comboColor.setSelectedIndex(i-1);
             colorPlayers.add(comboColor);
             players.add(comboColor);
 
