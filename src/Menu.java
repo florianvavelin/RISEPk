@@ -15,7 +15,6 @@ public class Menu extends JFrame {
     private JLabel label = new JLabel("Nombre de joueurs");
     private String[] choicePlayers = {"2", "3", "4", "5", "6"};
     private JComboBox<String> combo = new JComboBox<>(choicePlayers);
-    private JButton buttonNbPlayers = new JButton("OK");
     private int numberOfPlayers = 2;
 
     /**
@@ -53,11 +52,8 @@ public class Menu extends JFrame {
         // Choose the number of players
         top.add(label);
         top.add(combo);
-        top.add(buttonNbPlayers);
         container.add(top, BorderLayout.NORTH);
 
-        // When clicking on button "OK", create the panels to create the players
-        buttonNbPlayers.addActionListener(new ButtonOKListener());
         buttonPlay.addActionListener(new ButtonPlayListener());
 
         // Who did this
@@ -163,11 +159,6 @@ public class Menu extends JFrame {
             if (selectedItem != null) {
                 setNumberOfPlayers(Integer.parseInt(selectedItem));
             }
-        }
-    }
-
-    class ButtonOKListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
             /*
              * Clear all information relative to the players
              * Create the panels again
