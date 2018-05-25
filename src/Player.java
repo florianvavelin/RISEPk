@@ -8,13 +8,15 @@ public class Player {
 
     private String name;
     private Color color;
+    private Boolean IsAnIa;
 
     /**
      * Default constructor
      */
-    public Player(String name, Color color) {
+    public Player(String name, Color color, Boolean IsAnIa) {
         this.name = name;
         this.color = color;
+        this.IsAnIa = IsAnIa;
     }
 
 
@@ -50,4 +52,12 @@ public class Player {
         return this.color;
     }
 
+
+    public Boolean getAnIa() {
+        return IsAnIa;
+    }
+
+    public void setAnIa(Boolean anIa) {
+        IsAnIa = anIa;
+    }
 }

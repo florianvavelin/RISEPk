@@ -101,9 +101,13 @@ public class Menu extends JFrame {
             colorPlayers.add(comboColor);
             players.add(comboColor);
 
+            JRadioButton radio = new JRadioButton("IA");
+            players.add(radio);
+
             // Add the panel of player in the parent panel
             middle.add(players);
         }
+
         JPanel errorPanel = new JPanel();
         errorPanel.setLayout(new BoxLayout(errorPanel, BoxLayout.LINE_AXIS));
         errorPanel.add(errorText);
@@ -196,7 +200,7 @@ public class Menu extends JFrame {
                 ArrayList<Player> allPlayers = new ArrayList<>();
                 for (int i = 0; i < getNumberOfPlayers(); i++) {
                     String name = namePlayers.get(i).getText();
-                    Player player = new Player(name, colorOfPlayer[i]);
+                    Player player = new Player(name, colorOfPlayer[i],radio.isChecked()); //Il faut encore checker si le radio est coché
                     allPlayers.add(player);
                 }
                 new Fenetre(allPlayers, 1125, 559);
