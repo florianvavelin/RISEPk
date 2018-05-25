@@ -94,7 +94,7 @@ public class Menu extends JFrame {
 
             // Field for the pseudo of each player
             JTextField field = new JTextField(2);
-            String[] NamePlayer = {"Asterix", "Obelix", "Panoramix", "Idefix", "Cesar"};
+            String[] NamePlayer = {"Asterix", "Obelix", "Panoramix", "Idefix", "Cesar", "Falbala"};
             field.setText(NamePlayer[i-1]);
             namePlayers.add(field);
             players.add(field, BorderLayout.SOUTH);
