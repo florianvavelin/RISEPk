@@ -102,6 +102,14 @@ public class Fenetre extends JFrame {
         this.allPlayers = allPlayers;
     }
 
+    public ArrayList<Territory> getTerritories() {
+        return Territories;
+    }
+
+    public void setTerritories(ArrayList<Territory> territories) {
+        Territories = territories;
+    }
+
     abstract class MyMouseListener implements MouseListener {
         /**
          * @param event
@@ -235,5 +243,6 @@ public class Fenetre extends JFrame {
             
         }
     }
-    
+
+
 }
