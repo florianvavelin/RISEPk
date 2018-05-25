@@ -80,6 +80,20 @@ public class Fenetre extends JFrame {
         this.setContentPane(contentPane);
         this.setVisible(true);
 
+        JPanel bottom = new JPanel();
+        contentPane.add(bottom, BorderLayout.SOUTH);
+
+        JButton deplacement = new JButton("Déplacement");
+        JButton combattre = new JButton("Combattre");
+        JButton annuler = new JButton("Annuler");
+        JButton findutour = new JButton("Fin du tour");
+
+        bottom.add(combattre);
+        bottom.add(deplacement);
+        bottom.add(annuler);
+        bottom.add(findutour);
+
+
     }
 
     abstract class MyMouseListener implements MouseListener {
