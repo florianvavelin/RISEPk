@@ -86,4 +86,20 @@ public class Google {
     public void setAllPlayers(ArrayList<Player> allPlayers) {
         this.allPlayers = allPlayers;
     }
+
+    /**
+     * Share territories between players at the beginning of a new game.
+     */
+    public void YouAreALizardHarry() {
+        ArrayList<Territory> Territories = this.Territories;
+        ArrayList<Player> allPlayers = this.allPlayers;
+
+        while (Territories.size() != 0) {
+            for (Player player : allPlayers) {
+                int promised_number = Myfunction.random(0, Territories.size());
+                Territories.get(promised_number).setPlayer(player);
+                Territories.remove(promised_number);
+            }
+        }
+    }
 }
