@@ -27,7 +27,7 @@ public class Fenetre extends JFrame {
         this.setBackground(new Color(132,180,226));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
+        this.setResizable(false);
 
         /**
          * Set the map in the background - map3.jpg
@@ -73,6 +73,7 @@ public class Fenetre extends JFrame {
             }
 
             JLabel Name = new JLabel(player.getName() + " (" + type + ")");
+            Name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
