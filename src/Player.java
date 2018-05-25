@@ -53,11 +53,11 @@ public class Player {
     }
 
 
-    public Boolean getAnIa() {
+    public Boolean getIsAnIa() {
         return IsAnIa;
     }
 
-    public void setAnIa(Boolean anIa) {
+    public void setIsAnIa(Boolean anIa) {
         IsAnIa = anIa;
     }
 }
