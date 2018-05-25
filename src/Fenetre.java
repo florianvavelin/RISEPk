@@ -97,27 +97,31 @@ public class Fenetre extends JFrame {
     }
 
     private String WhatsTerritoryNigga(Color color) {
-        int blue = color.getBlue();
-        for (Territory territory : Territories) {
-            for (int l = 0; l < 5; l++) {
-                /**
-                 * The blue component is not exactly the same as set
-                 * We check in a range of values of more or less 2
-                 *      (for example if blue is 200, we check 198 through 202)
-                 */
-                try {
-                    Color color_temp = new Color(255, 255, blue - 2 + l);
-                    if (color_temp.equals(territory.getColor())) {
-                        System.out.print("Les adjacents de " + territory.getName() + " sont ");
-                        for (Territory adjacents : territory.getAdjacents()) {
-                            System.out.print(adjacents.getName() + ", ");
+        int red = color.getRed();
+        int green = color.getGreen();
+        if (red > 253 && green > 253) {
+            int blue = color.getBlue();
+            for (Territory territory : Territories) {
+                for (int l = 0; l < 5; l++) {
+                    /**
+                     * The blue component is not exactly the same as set
+                     * We check in a range of values of more or less 2
+                     *      (for example if blue is 200, we check 198 through 202)
+                     */
+                    try {
+                        Color color_temp = new Color(255, 255, blue - 2 + l);
+                        if (color_temp.equals(territory.getColor())) {
+                            System.out.print("Les adjacents de " + territory.getName() + " sont ");
+                            for (Territory adjacents : territory.getAdjacents()) {
+                                System.out.print(adjacents.getName() + ", ");
+                            }
+                            System.out.println("");
+                            return territory.getName();
                         }
-                        System.out.println("");
-                        return territory.getName();
+                    } catch (IllegalArgumentException iae) {
+                        // Can go over 255
+                        return "";
                     }
-                } catch (IllegalArgumentException iae) {
-                    // Can go over 255
-                    return "";
                 }
             }
         }
