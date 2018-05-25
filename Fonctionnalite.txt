@@ -1,0 +1,4 @@
+- Choix du nombre de joueur, leur pseudo et leur couleur
+- Affichage de la carte
+- Reconnaissance de clique sur le pays (en fonction de la couleur)
+- Reconnaissance des pays adjacents
