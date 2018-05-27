@@ -120,7 +120,6 @@ public class Menu extends JFrame {
         container.add(middle, BorderLayout.CENTER);
 
         // Set it visible
-        this.setContentPane(container);
         this.setVisible(true);
     }
 
