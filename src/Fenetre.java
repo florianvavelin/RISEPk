@@ -51,6 +51,11 @@ public class Fenetre extends JFrame {
         map.setBackground(new Color(132,180,226));
         map.add(contentPane);
 
+        /*
+         Panel where we show information about all players such as their name, the number
+         of territories they have.
+         Also show the choices of game (players can choose the number of riders, soldiers, etc.)
+          */
         JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
         right.setBackground(new Color(132,180,226));
@@ -67,7 +72,7 @@ public class Fenetre extends JFrame {
                 type = "Human";
             }
             JLabel Name = new JLabel(player.getName() + " (" + type + " : " +
-                    google.getTerrByPlayer(player).size() + ")");
+                    player.getTerritories().size() + ")");
             Name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -76,14 +81,14 @@ public class Fenetre extends JFrame {
         }
         contentPane.add(right, BorderLayout.EAST);
 
+        // When clicking on the map
         contentPane.addMouseListener(new MyMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 super.mouseClicked(event, img3);
             }
         });
-        this.setContentPane(contentPane);
-        this.setVisible(true);
+
 
         JPanel bottom = new JPanel();
         contentPane.add(bottom, BorderLayout.SOUTH);
@@ -98,7 +103,8 @@ public class Fenetre extends JFrame {
         bottom.add(annuler);
         bottom.add(findutour);
 
-
+        this.setContentPane(contentPane);
+        this.setVisible(true);
     }
 
     abstract class MyMouseListener implements MouseListener {
@@ -161,4 +167,4 @@ public class Fenetre extends JFrame {
         }
         return "";
     }
-} //Permet l'affichage du pays dans la console
+}

@@ -101,6 +101,8 @@ public class Menu extends JFrame {
             comboColor.setSelectedIndex(i-1);
             colorPlayers.add(comboColor);
             players.add(comboColor);
+
+            // Set the player to be an AI with a radio button
             JRadioButton radio = new JRadioButton("IA");
             radioList.add(radio);
             players.add(radio);
@@ -206,13 +208,6 @@ public class Menu extends JFrame {
                 new Fenetre(allPlayers, 1125, 559);
                 closeWindow();
             }
-            // check if name is not empty, if not too long [DONE]
-            // check if all players have different colors [DONE]
-            // create the players [DONE]
-            // go to the game
-            // when going to the game, place randomly one army in each territory in the map
-            // then give a mission to each player OR common mission to all
-            // each player place his armies where he wants
         }
     }
 

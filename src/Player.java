@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  * 
@@ -9,6 +10,7 @@ public class Player {
     private String name;
     private Color color;
     private Boolean IsAnIa;
+    private ArrayList<Territory> territories = new ArrayList<>();
 
     /**
      * Default constructor
@@ -59,5 +61,17 @@ public class Player {
 
     public void setIsAnIa(Boolean anIa) {
         IsAnIa = anIa;
+    }
+
+    public ArrayList<Territory> getTerritories() {
+        return territories;
+    }
+
+    public void addTerritory(Territory territory) {
+        this.territories.add(territory);
+    }
+
+    public void removeTerritory(Territory territory) {
+        this.territories.remove(territory);
     }
 }

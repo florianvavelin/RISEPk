@@ -70,6 +70,10 @@ public class Territory {
     }
 
     public void setPlayer(Player player) {
+        if (this.player != null) {
+            this.player.removeTerritory(this);
+        }
+        player.addTerritory(this);
         this.player = player;
     }
 

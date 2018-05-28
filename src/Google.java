@@ -92,6 +92,7 @@ public class Google {
      */
     public void YouAreALizardHarry() {
         ArrayList<Territory> Territories = new ArrayList<>();
+        // Copy the ArrayList of territories otherwise it will affect the actual ArrayList and not a copy
         Territories.addAll(this.Territories);
         ArrayList<Player> allPlayers = this.allPlayers;
         while (Territories.size() > 0) {
@@ -101,27 +102,10 @@ public class Google {
                 Territories.remove(promised_number);
                 Territories.trimToSize();
                 if (Territories.size() == 0) {
+                    // size can be zero inside the for loop
                     break;
                 }
-                System.out.println(this.Territories.size());
             }
         }
-    }
-
-    /**
-     * Retrieve list of territories owned by a player
-     * @param player (Player)
-     * @return terrOfPlayer (ArrayList<Territory>)
-     */
-    public ArrayList<Territory> getTerrByPlayer(Player player) {
-        ArrayList<Territory> territories = this.Territories;
-        ArrayList<Territory> terrOfPlayer = new ArrayList<>();
-
-        for (Territory terr : territories) {
-            if (terr.getPlayer().getName().equals(player.getName())) {
-                terrOfPlayer.add(terr);
-            }
-        }
-        return terrOfPlayer;
     }
 }
