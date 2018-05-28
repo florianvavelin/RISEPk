@@ -106,4 +106,22 @@ public class Google {
             }
         }
     }
+
+    /**
+     * Retrieve list of territories owned by a player
+     * @param player (Player)
+     * @return terrOfPlayer (ArrayList<Player>)
+     */
+    public ArrayList<Territory> getTerrByPlayer(Player player) {
+        ArrayList<Territory> territories = this.Territories;
+        ArrayList<Territory> terrOfPlayer = new ArrayList<>();
+
+        for (Territory terr : territories) {
+            if (terr.getPlayer() == player) {
+                terrOfPlayer.add(terr);
+            }
+        }
+
+        return terrOfPlayer;
+    }
 }
