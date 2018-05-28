@@ -91,9 +91,9 @@ public class Google {
      * Share territories between players at the beginning of a new game.
      */
     public void YouAreALizardHarry() {
-        ArrayList<Territory> Territories = this.Territories;
+        ArrayList<Territory> Territories = new ArrayList<>();
+        Territories.addAll(this.Territories);
         ArrayList<Player> allPlayers = this.allPlayers;
-
         while (Territories.size() > 0) {
             for (Player player : allPlayers) {
                 int promised_number = Myfunction.random(0, Territories.size()-1); // remove the last index
@@ -103,6 +103,7 @@ public class Google {
                 if (Territories.size() == 0) {
                     break;
                 }
+                System.out.println(this.Territories.size());
             }
         }
     }
@@ -110,18 +111,17 @@ public class Google {
     /**
      * Retrieve list of territories owned by a player
      * @param player (Player)
-     * @return terrOfPlayer (ArrayList<Player>)
+     * @return terrOfPlayer (ArrayList<Territory>)
      */
     public ArrayList<Territory> getTerrByPlayer(Player player) {
         ArrayList<Territory> territories = this.Territories;
         ArrayList<Territory> terrOfPlayer = new ArrayList<>();
 
         for (Territory terr : territories) {
-            if (terr.getPlayer() == player) {
+            if (terr.getPlayer().getName().equals(player.getName())) {
                 terrOfPlayer.add(terr);
             }
         }
-
         return terrOfPlayer;
     }
 }
