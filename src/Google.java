@@ -94,11 +94,15 @@ public class Google {
         ArrayList<Territory> Territories = this.Territories;
         ArrayList<Player> allPlayers = this.allPlayers;
 
-        while (Territories.size() != 0) {
+        while (Territories.size() > 0) {
             for (Player player : allPlayers) {
-                int promised_number = Myfunction.random(0, Territories.size());
+                int promised_number = Myfunction.random(0, Territories.size()-1); // remove the last index
                 Territories.get(promised_number).setPlayer(player);
                 Territories.remove(promised_number);
+                Territories.trimToSize();
+                if (Territories.size() == 0) {
+                    break;
+                }
             }
         }
     }

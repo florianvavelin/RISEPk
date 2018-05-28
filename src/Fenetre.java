@@ -22,6 +22,10 @@ public class Fenetre extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
+        google.setAllPlayers(allPlayers);
+        google.YouAreALizardHarry();
+
+
         /**
          * Set the map in the background - map3.jpg
          * Set the map to check the color (for checking the territories - map_Yellow_1125.jpg)
@@ -139,6 +143,7 @@ public class Fenetre extends JFrame {
                     try {
                         Color color_temp = new Color(255, 255, blue - 2 + l);
                         if (color_temp.equals(territory.getColor())) {
+                            System.out.println(territory.getName() + " : " + territory.getPlayer());
                             System.out.print("Les adjacents de " + territory.getName() + " sont ");
                             for (Territory adjacents : territory.getAdjacents()) {
                                 System.out.print(adjacents.getName() + ", ");
