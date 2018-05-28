@@ -66,7 +66,7 @@ public class Fenetre extends JFrame {
             } else {
                 type = "Human";
             }
-            JLabel Name = new JLabel(player.getName() + " (" + type + ")");
+            JLabel Name = new JLabel(player.getName() + " (" + type + " : " + "" + ")");
             Name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
