@@ -69,6 +69,7 @@ public class Menu extends JFrame {
 
         this.setContentPane(container);
         this.setVisible(true);
+        showPlayersInfo(getNumberOfPlayers());
     }
 
     private void showPlayersInfo(int numberOfPlayers) {
