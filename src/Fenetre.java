@@ -16,7 +16,7 @@ public class Fenetre extends JFrame {
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         this.setTitle("RISK");
-        this.setSize(new Dimension(width + 200, height + 30));
+        this.setSize(new Dimension(width, height + allPlayers.size()*20));
         this.setBackground(new Color(132,180,226));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -56,14 +56,15 @@ public class Fenetre extends JFrame {
          of territories they have.
          Also show the choices of game (players can choose the number of riders, soldiers, etc.)
           */
+
         JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
         right.setBackground(new Color(132,180,226));
-        right.setBorder(BorderFactory.createMatteBorder(0,2,0,0, Color.black));
+        right.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(200,60));
+            playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*5));
             playerPanel.setBackground(new Color(132,180,226));
             String type;
             if (player.getIsAnIa()) {
@@ -79,7 +80,7 @@ public class Fenetre extends JFrame {
             playerPanel.add(Name);
             right.add(playerPanel);
         }
-        contentPane.add(right, BorderLayout.EAST);
+        contentPane.add(right, BorderLayout.SOUTH);
 
         // When clicking on the map
         contentPane.addMouseListener(new MyMouseListener() {
@@ -90,7 +91,7 @@ public class Fenetre extends JFrame {
         });
 
 
-        JPanel bottom = new JPanel();
+        /*JPanel bottom = new JPanel();
         contentPane.add(bottom, BorderLayout.SOUTH);
 
         JButton deplacement = new JButton("Déplacement");
@@ -101,7 +102,7 @@ public class Fenetre extends JFrame {
         bottom.add(combattre);
         bottom.add(deplacement);
         bottom.add(annuler);
-        bottom.add(findutour);
+        bottom.add(findutour); */
 
         this.setContentPane(contentPane);
         this.setVisible(true);
