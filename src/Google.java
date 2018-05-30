@@ -50,24 +50,20 @@ public class Google {
             for (int x = 0; x < img.getWidth(); x++) {
                 for (int y = 0; y < img.getHeight(); y++) {
                     Color color = new Color(img.getRGB(x, y));
+                    int red = color.getRed();
+                    int green = color.getGreen();
                     int blue = color.getBlue();
-                    if (blue > 0) {
-                        blue--;
-                    }
-                    for (Territory territory:Territories) {
-                        if (territory.getColor().equals(color) ||
-                                territory.getColor().equals(new Color(255,255,blue))) {
-                            territory.addCoordinatesXY(x,y);
+                    if (red > 253 && green > 253 && blue < 240) {
+                        for (Territory territory:Territories) {
+                            if (territory.getColor().equals(new Color(255, 255, blue + 1)) ||
+                                    territory.getColor().equals(new Color(255, 255, blue))) {
+                                territory.addCoordinatesXY(x, y);
+                                break;
+                            }
                         }
                     }
                 }
             }
-            System.out.println(Territories.get(1).getName());
-            System.out.println(Territories.get(1).getCoordinatesXY().size());
-            for (ArrayList<Integer> coordinates:Territories.get(1).getCoordinatesXY()) {
-                System.out.println("x = " + coordinates.get(1) + ", y = " + coordinates.get(1));
-            }
-
 
             // Set all the adjacents
             for (Territory territory : Territories) {
@@ -144,7 +140,7 @@ public class Google {
         ArrayList<Player> allPlayers = this.allPlayers;
         while (Territories.size() > 0) {
             for (Player player : allPlayers) {
-                int promised_number = Myfunction.random(0, Territories.size()-1); // remove the last index
+                int promised_number = (new Myfunction()).random(0, Territories.size()-1); // remove the last index
                 Territories.get(promised_number).setPlayer(player);
                 Territories.remove(promised_number);
                 Territories.trimToSize();

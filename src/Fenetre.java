@@ -3,6 +3,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
+    private JPanel unitsPanel = new JPanel();
     JLabel CountryName = new JLabel("POUET");
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
@@ -47,6 +49,9 @@ public class Fenetre extends JFrame {
         }
         contentPane.setLayout(new BorderLayout());
 
+        setUnitsOnMap(contentPane);
+
+
         JPanel map = new JPanel();
         map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
         map.setBackground(new Color(132,180,226));
@@ -65,7 +70,8 @@ public class Fenetre extends JFrame {
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*7));
+            //playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*7));
+            playerPanel.setPreferredSize(new Dimension(200,0));
             playerPanel.setBackground(new Color(132,180,226));
             String type;
             if (player.getIsAnIa()) {
@@ -83,7 +89,8 @@ public class Fenetre extends JFrame {
 
             JPanel Country = new JPanel();
             //Country.setLayout(new BoxLayout(Country, BoxLayout.PAGE_AXIS));
-            Country.setPreferredSize(new Dimension(200,18));
+            //Country.setPreferredSize(new Dimension(200,18));
+            Country.setPreferredSize(new Dimension(200,1));
             Country.setBackground(new Color(132,180,226));
 
             CountryName.setFont(new Font("TimesRoman", Font.PLAIN, 15));
@@ -117,8 +124,80 @@ public class Fenetre extends JFrame {
         bottom.add(deplacement);
         bottom.add(annuler);
         bottom.add(findutour); */
-        this.setContentPane(contentPane);
+        this.setContentPane(map);
         this.setVisible(true);
+    }
+
+    public void setUnitsOnMap(JLabel contentPane) {
+        unitsPanel.removeAll();
+        /*
+        Refresh the map after fight or move
+         */
+        this.unitsPanel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                for (Territory territory : google.getTerritories()) {
+                    Player playerInTerritory = territory.getPlayer();
+                    Color colorToDraw = playerInTerritory.getColor();
+                    ArrayList<ArrayList<Integer>> coordinatesXY = territory.getCoordinatesXY();
+
+                    // Put a soldier in the territory (just to try)
+                    ArrayList<Soldier> soldierArray = new ArrayList<>();
+                    soldierArray.add(new Soldier());
+                    territory.setArmy_soldiers(soldierArray);
+                    BufferedImage img = null;
+                    try {
+                        img = ImageIO.read(new File("horseman2.png"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Riders
+                    ArrayList<Rider> riderArray = new ArrayList<>();
+                    riderArray.add(new Rider());
+                    riderArray.add(new Rider());
+                    territory.setArmy_riders(riderArray);
+
+
+                    int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                    int x = coordinatesXY.get(rand).get(0);
+                    int y = coordinatesXY.get(rand).get(1);
+                    g2.setColor(colorToDraw);
+                    Color colorText = Color.white;
+                    if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+                        colorText = Color.black;
+                    }
+                    g2.setColor(colorText);
+                    g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), x+3,y+11);
+
+
+
+                    int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                    int x1 = 0;
+                    int y1 = 0;
+                    x1 = coordinatesXY.get(rand1).get(0);
+                    y1 = coordinatesXY.get(rand1).get(1);
+                    g2.setColor(colorToDraw);
+                    g2.drawImage(img, x1,y1, 20,20,null);
+                    //g2.fillRect(x1,y1,15,15);
+                    colorText = Color.white;
+                    if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+                        colorText = Color.black;
+                    }
+                    g2.setColor(colorText);
+                    g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);
+
+                    /*for (ArrayList<Integer> coordinates: coordinatesXY) {
+                        int x = coordinates.get(0);
+                        int y = coordinates.get(1);
+                        g2.setColor(colorToDraw);
+                        g2.fillOval(x, y, 3, 3);
+                    }*/
+                }
+            }
+        };
+        contentPane.add(unitsPanel);
     }
 
     abstract class MyMouseListener implements MouseListener {

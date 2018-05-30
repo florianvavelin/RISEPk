@@ -5,7 +5,7 @@ import java.awt.image.*;
 
 public class Myfunction {
 
-    public static int random(int min, int max) {
+    public int random(int min, int max) {
         int res = ThreadLocalRandom.current().nextInt(min, max + 1);
         return res;
     }

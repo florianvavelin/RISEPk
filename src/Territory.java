@@ -114,8 +114,8 @@ public class Territory {
     // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     /**
-     * @param territory (Territory)
      * Set the adjacents list adding the territory in it.
+     * @param territory (Territory)
      */
     public void addAdjacents(Territory territory) {
         adjacents.add(territory);
@@ -147,26 +147,27 @@ public class Territory {
         Cannon cannon = new Cannon();
 
         // Dice roll
+        Myfunction mf = new Myfunction();
         for (int role = 0; role < 6; role++) {
             while (fighters[role] > 0 ) {
                 switch(role) {
                     case 0:
-                        attack.put(Myfunction.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
+                        attack.put(mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
                         break;
                     case 1:
-                        attack.put(Myfunction.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
+                        attack.put(mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
                         break;
                     case 2:
-                        attack.put(Myfunction.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
+                        attack.put(mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
                         break;
                     case 3:
-                        defense.put(Myfunction.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
+                        defense.put(mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
                         break;
                     case 4:
-                        defense.put( Myfunction.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
+                        defense.put(mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
                         break;
                     case 5:
-                        defense.put(Myfunction.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
+                        defense.put(mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
                         break;
                 }
                 fighters[role]--;
