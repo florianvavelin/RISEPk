@@ -1,10 +1,6 @@
-import java.util.ArrayList;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.awt.Color;
-import java.util.TreeMap;
-import java.util.Collections;
-import java.util.Set;
-import java.util.Iterator;
-import java.util.Map;
 
 
 public class Territory {
@@ -31,6 +27,8 @@ public class Territory {
     private ArrayList<Rider> army_riders = new ArrayList<>();
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
+    private ArrayList<ArrayList<Integer>> coordinatesXY = new ArrayList<>();
+
 
 
     //
@@ -39,6 +37,17 @@ public class Territory {
     public Territory(String name, Color color) {
         this.name = name;
         this.color = color;
+    }
+
+    public ArrayList<ArrayList<Integer>> getCoordinatesXY() {
+        return coordinatesXY;
+    }
+
+    public void addCoordinatesXY(int x, int y) {
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(x);
+        temp.add(y);
+        this.coordinatesXY.add(temp);
     }
 
     public String getName() {

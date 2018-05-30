@@ -1,6 +1,11 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Google {
@@ -30,9 +35,47 @@ public class Google {
                 Territories.add(territory);
             }
 
+
+            /*
+            In this part, we set all the coordinates of all the territories
+            Then we can put a unit in a specific territory by placing it in
+            a specific set of coordinates.
+             */
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(new File("map_Yellow_1125.jpg"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            for (int x = 0; x < img.getWidth(); x++) {
+                for (int y = 0; y < img.getHeight(); y++) {
+                    Color color = new Color(img.getRGB(x, y));
+                    int blue = color.getBlue();
+                    if (blue > 0) {
+                        blue--;
+                    }
+                    for (Territory territory:Territories) {
+                        if (territory.getColor().equals(color) ||
+                                territory.getColor().equals(new Color(255,255,blue))) {
+                            territory.addCoordinatesXY(x,y);
+                        }
+                    }
+                }
+            }
+            System.out.println(Territories.get(1).getName());
+            System.out.println(Territories.get(1).getCoordinatesXY().size());
+            for (ArrayList<Integer> coordinates:Territories.get(1).getCoordinatesXY()) {
+                System.out.println("x = " + coordinates.get(1) + ", y = " + coordinates.get(1));
+            }
+
+
+            // Set all the adjacents
             for (Territory territory : Territories) {
                 setMyMates(territory);
             }
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,6 +99,10 @@ public class Google {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setCoordinates(BufferedImage image, Territory territory) {
+
     }
 
     private Territory getTerritoryByName(String name) {
