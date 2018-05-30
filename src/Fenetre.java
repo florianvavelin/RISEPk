@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
-    JPanel right = new JPanel();
+    JLabel CountryName = new JLabel("POUET");
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -58,13 +58,14 @@ public class Fenetre extends JFrame {
          Also show the choices of game (players can choose the number of riders, soldiers, etc.)
           */
 
+        JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
         right.setBackground(new Color(132,180,226));
         right.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*5));
+            playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*7));
             playerPanel.setBackground(new Color(132,180,226));
             String type;
             if (player.getIsAnIa()) {
@@ -72,13 +73,26 @@ public class Fenetre extends JFrame {
             } else {
                 type = "Human";
             }
+
             JLabel Name = new JLabel(player.getName() + " (" + type + " : " +
                     player.getTerritories().size() + ")");
-            Name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            Name.setFont(new Font("TimesRoman", Font.PLAIN, 15));
             Name.setForeground(player.getColor());
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
+
+            JPanel Country = new JPanel();
+            //Country.setLayout(new BoxLayout(Country, BoxLayout.PAGE_AXIS));
+            Country.setPreferredSize(new Dimension(200,18));
+            Country.setBackground(new Color(132,180,226));
+
+            CountryName.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+            CountryName.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            Country.add(CountryName);
+
+
             right.add(playerPanel);
+            right.add(Country);
         }
         contentPane.add(right, BorderLayout.SOUTH);
 
@@ -103,7 +117,6 @@ public class Fenetre extends JFrame {
         bottom.add(deplacement);
         bottom.add(annuler);
         bottom.add(findutour); */
-
         this.setContentPane(contentPane);
         this.setVisible(true);
     }
@@ -118,14 +131,8 @@ public class Fenetre extends JFrame {
             int x = event.getX();
             int y = event.getY();
             Color color = new Color(img.getRGB(x, y));
-            System.out.println(color);
             String nigga = WhatsTerritoryNigga(color);
-            /** Label pour marqué le nom du pays **/
-            JLabel name = new JLabel(nigga);
-            name.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-            right.add(name);
-            /** Fin du label **/
+
         }
 
         public void mouseEntered(MouseEvent event) {
@@ -162,6 +169,7 @@ public class Fenetre extends JFrame {
                                 System.out.print(adjacents.getName() + ", ");
                             }
                             System.out.println("");
+                            CountryName.setText(territory.getName());
                             return territory.getName();
                         }
                     } catch (IllegalArgumentException iae) {
