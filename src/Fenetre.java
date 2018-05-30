@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
+    JPanel right = new JPanel();
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -57,7 +58,6 @@ public class Fenetre extends JFrame {
          Also show the choices of game (players can choose the number of riders, soldiers, etc.)
           */
 
-        JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
         right.setBackground(new Color(132,180,226));
         right.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
@@ -120,7 +120,12 @@ public class Fenetre extends JFrame {
             Color color = new Color(img.getRGB(x, y));
             System.out.println(color);
             String nigga = WhatsTerritoryNigga(color);
-            //System.out.println(nigga);
+            /** Label pour marqué le nom du pays **/
+            JLabel name = new JLabel(nigga);
+            name.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            right.add(name);
+            /** Fin du label **/
         }
 
         public void mouseEntered(MouseEvent event) {
@@ -151,7 +156,7 @@ public class Fenetre extends JFrame {
                     try {
                         Color color_temp = new Color(255, 255, blue - 2 + l);
                         if (color_temp.equals(territory.getColor())) {
-                            System.out.println(territory.getName() + " : " + territory.getPlayer());
+                            System.out.println(territory.getName() + " : " + territory.getPlayer().getName());
                             System.out.print("Les adjacents de " + territory.getName() + " sont ");
                             for (Territory adjacents : territory.getAdjacents()) {
                                 System.out.print(adjacents.getName() + ", ");
