@@ -137,26 +137,29 @@ public class Fenetre extends JFrame {
             @Override
             public void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
+                ArrayList<Soldier> soldierArray = new ArrayList<>();
+                soldierArray.add(new Soldier());
+
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new File("horseman2.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Riders
+                ArrayList<Rider> riderArray = new ArrayList<>();
+                riderArray.add(new Rider());
+                riderArray.add(new Rider());
+
                 for (Territory territory : google.getTerritories()) {
                     Player playerInTerritory = territory.getPlayer();
                     Color colorToDraw = playerInTerritory.getColor();
                     ArrayList<ArrayList<Integer>> coordinatesXY = territory.getCoordinatesXY();
 
                     // Put a soldier in the territory (just to try)
-                    ArrayList<Soldier> soldierArray = new ArrayList<>();
-                    soldierArray.add(new Soldier());
                     territory.setArmy_soldiers(soldierArray);
-                    BufferedImage img = null;
-                    try {
-                        img = ImageIO.read(new File("horseman2.png"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Riders
-                    ArrayList<Rider> riderArray = new ArrayList<>();
-                    riderArray.add(new Rider());
-                    riderArray.add(new Rider());
+                    // Put 2 riders
                     territory.setArmy_riders(riderArray);
 
 
@@ -164,6 +167,7 @@ public class Fenetre extends JFrame {
                     int x = coordinatesXY.get(rand).get(0);
                     int y = coordinatesXY.get(rand).get(1);
                     g2.setColor(colorToDraw);
+                    g2.fillOval(x,y,15,15);
                     Color colorText = Color.white;
                     if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
                         colorText = Color.black;
@@ -174,26 +178,17 @@ public class Fenetre extends JFrame {
 
 
                     int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
-                    int x1 = 0;
-                    int y1 = 0;
-                    x1 = coordinatesXY.get(rand1).get(0);
-                    y1 = coordinatesXY.get(rand1).get(1);
+                    int x1 = coordinatesXY.get(rand1).get(0);
+                    int y1 = coordinatesXY.get(rand1).get(1);
                     g2.setColor(colorToDraw);
-                    g2.drawImage(img, x1,y1, 20,20,null);
-                    //g2.fillRect(x1,y1,15,15);
+                    //g2.drawImage(img, x1,y1, 20,20,null);
+                    g2.fillRect(x1,y1,15,15);
                     colorText = Color.white;
                     if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
                         colorText = Color.black;
                     }
                     g2.setColor(colorText);
                     g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);
-
-                    /*for (ArrayList<Integer> coordinates: coordinatesXY) {
-                        int x = coordinates.get(0);
-                        int y = coordinates.get(1);
-                        g2.setColor(colorToDraw);
-                        g2.fillOval(x, y, 3, 3);
-                    }*/
                 }
             }
         };
