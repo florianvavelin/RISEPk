@@ -1,6 +1,10 @@
+import org.opencv.core.Mat;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Array;
 import java.util.*;
-import java.awt.Color;
 
 
 public class Territory {
@@ -29,6 +33,9 @@ public class Territory {
 
     private ArrayList<ArrayList<Integer>> coordinatesXY = new ArrayList<>();
 
+    private int[] soldierCoordinates = {0,0};
+    private int[] ridersCoordinates = {0,0};
+    private int[] cannonsCoordinates = {0,0};
 
 
     //
@@ -37,6 +44,90 @@ public class Territory {
     public Territory(String name, Color color) {
         this.name = name;
         this.color = color;
+    }
+
+    public void setPanelSoldiers(Graphics2D g2) {
+        Territory territory = this;
+        Color colorToDraw = territory.getPlayer().getColor();
+        if (territory.getSoldierCoordinates()[0] == 0 &&
+                territory.getSoldierCoordinates()[0] == 0) {
+            int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+            int x = coordinatesXY.get(rand).get(0);
+            int y = coordinatesXY.get(rand).get(1);
+            territory.setSoldierCoordinates(x,y);
+        }
+        int xL = territory.getSoldierCoordinates()[0];
+        int yL = territory.getSoldierCoordinates()[1];
+        g2.setColor(colorToDraw);
+        g2.fillOval(xL,yL,15,15);
+        Color colorText = Color.white;
+        if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+            colorText = Color.black;
+        }
+        g2.setColor(colorText);
+        g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL+3,yL+11);
+    }
+
+    public void setPanelRiders(Graphics2D g2) {
+        Territory territory = this;
+        Color colorToDraw = territory.getPlayer().getColor();
+        if (territory.getRidersCoordinates()[0] == 0 &&
+                territory.getRidersCoordinates()[0] == 0) {
+            boolean ok = false;
+            do {
+                int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                int x = coordinatesXY.get(rand).get(0);
+                int y = coordinatesXY.get(rand).get(1);
+                int xCoordSoldier = territory.getSoldierCoordinates()[0];
+                int yCoordSoldier = territory.getSoldierCoordinates()[1];
+                territory.setRidersCoordinates(x,y);
+                if (Math.sqrt(Math.pow((double)(y - yCoordSoldier), 2) + Math.pow((double)(x - xCoordSoldier), 2)) < 15 ) {
+                    ok = true;
+                } else {
+                    ok = false;
+                }
+            } while (ok);
+        }
+        int xL = territory.getRidersCoordinates()[0];
+        int yL = territory.getRidersCoordinates()[1];
+        g2.setColor(colorToDraw);
+        g2.fillRect(xL,yL,15,15);
+        Color colorText = Color.white;
+        if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+            colorText = Color.black;
+        }
+        g2.setColor(colorText);
+        g2.drawString(String.valueOf(territory.getArmy_riders().size()), xL+3,yL+11);
+    }
+
+    public void setPanelCannons(JPanel panelCannons) {
+    }
+
+    public int[] getSoldierCoordinates() {
+        return soldierCoordinates;
+    }
+
+    public void setSoldierCoordinates(int x, int y) {
+        this.soldierCoordinates[0] = x;
+        this.soldierCoordinates[1] = y;
+    }
+
+    public int[] getRidersCoordinates() {
+        return ridersCoordinates;
+    }
+
+    public void setRidersCoordinates(int x, int y) {
+        this.ridersCoordinates[0] = x;
+        this.ridersCoordinates[1] = y;
+    }
+
+    public int[] getCannonsCoordinates() {
+        return cannonsCoordinates;
+    }
+
+    public void setCannonsCoordinates(int x, int y) {
+        this.cannonsCoordinates[0] = x;
+        this.cannonsCoordinates[1] = y;
     }
 
     public ArrayList<ArrayList<Integer>> getCoordinatesXY() {

@@ -49,8 +49,6 @@ public class Fenetre extends JFrame {
         }
         contentPane.setLayout(new BorderLayout());
 
-        setUnitsOnMap(contentPane);
-
 
         JPanel map = new JPanel();
         map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
@@ -111,6 +109,7 @@ public class Fenetre extends JFrame {
             }
         });
 
+        setUnitsOnMap(contentPane);
 
         /*JPanel bottom = new JPanel();
         contentPane.add(bottom, BorderLayout.SOUTH);
@@ -126,6 +125,29 @@ public class Fenetre extends JFrame {
         bottom.add(findutour); */
         this.setContentPane(map);
         this.setVisible(true);
+    }
+
+    public void initialize(JLabel contentPane) {
+        unitsPanel.setLayout(null);
+        unitsPanel.setOpaque(false);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("horseman2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Territory territory : google.getTerritories()) {
+            ArrayList<Soldier> soldierArray = new ArrayList<>();
+            Soldier soldier = new Soldier();
+            soldierArray.add(soldier);
+            territory.setArmy_soldiers(soldierArray);
+
+            //territory.setPanelSoldiers(img);
+            //JLabel panelSoldier = territory.getPanelSoldiers();
+
+            //unitsPanel.add(panelSoldier);
+        }
+        contentPane.add(unitsPanel);
     }
 
     public void setUnitsOnMap(JLabel contentPane) {
@@ -162,22 +184,9 @@ public class Fenetre extends JFrame {
                     // Put 2 riders
                     territory.setArmy_riders(riderArray);
 
-
-                    int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
-                    int x = coordinatesXY.get(rand).get(0);
-                    int y = coordinatesXY.get(rand).get(1);
-                    g2.setColor(colorToDraw);
-                    g2.fillOval(x,y,15,15);
-                    Color colorText = Color.white;
-                    if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
-                        colorText = Color.black;
-                    }
-                    g2.setColor(colorText);
-                    g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), x+3,y+11);
-
-
-
-                    int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                    territory.setPanelSoldiers(g2);
+                    territory.setPanelRiders(g2);
+                    /*int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
                     int x1 = coordinatesXY.get(rand1).get(0);
                     int y1 = coordinatesXY.get(rand1).get(1);
                     g2.setColor(colorToDraw);
@@ -188,7 +197,7 @@ public class Fenetre extends JFrame {
                         colorText = Color.black;
                     }
                     g2.setColor(colorText);
-                    g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);
+                    g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);*/
                 }
             }
         };
