@@ -1,3 +1,5 @@
+import org.opencv.core.Mat;
+
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -158,50 +160,109 @@ public class Fenetre extends JFrame {
         this.unitsPanel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g;
-                ArrayList<Soldier> soldierArray = new ArrayList<>();
-                soldierArray.add(new Soldier());
+            Graphics2D g2 = (Graphics2D) g;
+            ArrayList<Soldier> soldierArray = new ArrayList<>();
+            soldierArray.add(new Soldier());
 
-                BufferedImage img = null;
-                try {
-                    img = ImageIO.read(new File("horseman2.png"));
-                } catch (IOException e) {
-                    e.printStackTrace();
+            BufferedImage img = null;
+            try {
+                img = ImageIO.read(new File("horseman2.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Riders
+            ArrayList<Rider> riderArray = new ArrayList<>();
+            riderArray.add(new Rider());
+            riderArray.add(new Rider());
+
+            for (Territory territory : google.getTerritories()) {
+
+
+                // Put a soldier in the territory (just to try)
+                territory.setArmy_soldiers(soldierArray);
+                // Put 2 riders
+                territory.setArmy_riders(riderArray);
+
+                setUnitsPanel(g2, territory);
+                /*int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                int x1 = coordinatesXY.get(rand1).get(0);
+                int y1 = coordinatesXY.get(rand1).get(1);
+                g2.setColor(colorToDraw);
+                //g2.drawImage(img, x1,y1, 20,20,null);
+                g2.fillRect(x1,y1,15,15);
+                colorText = Color.white;
+                if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+                    colorText = Color.black;
                 }
-
-                // Riders
-                ArrayList<Rider> riderArray = new ArrayList<>();
-                riderArray.add(new Rider());
-                riderArray.add(new Rider());
-
-                for (Territory territory : google.getTerritories()) {
-                    Player playerInTerritory = territory.getPlayer();
-                    Color colorToDraw = playerInTerritory.getColor();
-                    ArrayList<ArrayList<Integer>> coordinatesXY = territory.getCoordinatesXY();
-
-                    // Put a soldier in the territory (just to try)
-                    territory.setArmy_soldiers(soldierArray);
-                    // Put 2 riders
-                    territory.setArmy_riders(riderArray);
-
-                    territory.setPanelSoldiers(g2);
-                    territory.setPanelRiders(g2);
-                    /*int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
-                    int x1 = coordinatesXY.get(rand1).get(0);
-                    int y1 = coordinatesXY.get(rand1).get(1);
-                    g2.setColor(colorToDraw);
-                    //g2.drawImage(img, x1,y1, 20,20,null);
-                    g2.fillRect(x1,y1,15,15);
-                    colorText = Color.white;
-                    if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
-                        colorText = Color.black;
-                    }
-                    g2.setColor(colorText);
-                    g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);*/
-                }
+                g2.setColor(colorText);
+                g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);*/
+            }
             }
         };
         contentPane.add(unitsPanel);
+    }
+
+    private void setUnitsPanel(Graphics2D g2, Territory territory) {
+        Player playerInTerritory = territory.getPlayer();
+        Color colorToDraw = playerInTerritory.getColor();
+        ArrayList<ArrayList<Integer>> coordinatesXY = territory.getCoordinatesXY();
+
+        int[][] unitsCoordinates = {territory.getSoldierCoordinates(), territory.getRidersCoordinates(),
+                                    territory.getCannonsCoordinates()};
+
+        for (int i = 0; i < unitsCoordinates.length; i++) {
+            int tempX = i==2? 0 : 2;
+            int tempY = i==1? 0 : 1;
+            if (unitsCoordinates[i][0] == 0 &&
+                    unitsCoordinates[i][1] == 0) {
+                boolean ok;
+                do {
+                    int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
+                    int x = coordinatesXY.get(rand).get(0);
+                    int y = coordinatesXY.get(rand).get(1);
+                    int xCoord1 = unitsCoordinates[tempX][0];
+                    int yCoord1 = unitsCoordinates[tempY][1];
+                    int xCoord2 = unitsCoordinates[tempX][0];
+                    int yCoord2 = unitsCoordinates[tempY][1];
+                    if (i==0) {
+                        territory.setSoldierCoordinates(x,y);
+                    } else if (i==1) {
+                        territory.setRidersCoordinates(x,y);
+                    } else {
+                        territory.setCannonsCoordinates(x,y);
+                    }
+                    if (Math.sqrt(Math.pow((double)(y - yCoord1), 2) + Math.pow((double)(x - xCoord1), 2)) < 21
+                            && Math.sqrt(Math.pow((double)(y - yCoord2), 2) + Math.pow((double)(x - xCoord2), 2)) < 21) {
+                        ok = true;
+                    } else {
+                        ok = false;
+                    }
+                } while (ok);
+            }
+            int xL = unitsCoordinates[i][0];
+            int yL = unitsCoordinates[i][1];
+            g2.setColor(colorToDraw);
+            if (i==0 && territory.getArmy_soldiers().size() != 0) {
+                g2.fillRect(xL,yL,15,15);
+            } else if (i==1 && territory.getArmy_riders().size() != 0) {
+                g2.fillOval(xL,yL,15,15);
+            } else if (i==2 && territory.getArmy_cannons().size() != 0){
+                g2.fillRoundRect(xL,yL,15,15, 2,2);
+            }
+            Color colorText = Color.white;
+            if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
+                colorText = Color.black;
+            }
+            g2.setColor(colorText);
+            if (i==0 && territory.getArmy_soldiers().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL+4,yL+11);
+            } else if (i==1 && territory.getArmy_riders().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_riders().size()), xL+4,yL+11);
+            } else if (i==2 && territory.getArmy_cannons().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_cannons().size()), xL+4,yL+11);
+            }
+        }
     }
 
     abstract class MyMouseListener implements MouseListener {
