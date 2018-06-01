@@ -42,17 +42,17 @@ public class Fenetre extends JFrame {
         }
         final BufferedImage img3 = img2; // Must set the BufferedImage final to put it in the mouseClicked
 
-        JLabel contentPane = new JLabel();
+        JLabel map = new JLabel();
         if (img != null) {
-            contentPane.setIcon(new ImageIcon(img));
+            map.setIcon(new ImageIcon(img));
         }
-        contentPane.setLayout(new BorderLayout());
+        map.setLayout(new BorderLayout());
 
 
-        JPanel map = new JPanel();
-        map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
-        map.setBackground(new Color(132,180,226));
-        map.add(contentPane);
+        JPanel contentPane = new JPanel();
+        contentPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
+        contentPane.setBackground(new Color(132,180,226));
+        contentPane.add(map);
 
         /*
          Panel where we show information about all players such as their name, the number
@@ -63,8 +63,8 @@ public class Fenetre extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
         bottomPanel.setBackground(new Color(132,180,226));
-        bottomPanel.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
-        bottomPanel.setOpaque(false);
+        bottomPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.black));
+        bottomPanel.setOpaque(true);
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
@@ -78,26 +78,30 @@ public class Fenetre extends JFrame {
             }
 
             JLabel Name = new JLabel(player.getName() + " (" + type + " : " +
-                    player.getTerritories().size() + ")");
+                    player.getTerritories().size() + ")", SwingConstants.LEFT);
             Name.setFont(new Font("TimesRoman", Font.PLAIN, 15));
             Name.setForeground(player.getColor());
-            Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
-
+            playerPanel.setAlignmentX(0);
             bottomPanel.add(playerPanel);
         }
-        map.add(bottomPanel, BorderLayout.SOUTH);
-        contentPane.setVisible(true);
+        bottomPanel.setAlignmentY(0);
+        bottomPanel.setAlignmentX(0);
+        contentPane.add(bottomPanel);
+
+        map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(255,0,0)));
+        contentPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(0,255,0)));
+        map.setVisible(true);
 
         // When clicking on the map
-        contentPane.addMouseListener(new MyMouseListener() {
+        map.addMouseListener(new MyMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 super.mouseClicked(event, img3);
             }
         });
 
-        setUnitsOnMap(contentPane);
+        setUnitsOnMap(map);
 
         /*JPanel bottom = new JPanel();
         contentPane.add(bottom, BorderLayout.SOUTH);
@@ -115,7 +119,7 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
-    public void setUnitsOnMap(JLabel contentPane) {
+    public void setUnitsOnMap(JLabel map) {
         unitsPanel.removeAll();
         /*
         Refresh the map after fight or move
@@ -158,7 +162,7 @@ public class Fenetre extends JFrame {
         }
     };
         unitsPanel.setOpaque(false);
-        contentPane.add(unitsPanel);
+        map.add(unitsPanel);
     }
 
     private void setUnitsPanel(Graphics2D g2, Territory territory) {
