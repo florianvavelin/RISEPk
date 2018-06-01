@@ -127,29 +127,6 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
-    public void initialize(JLabel contentPane) {
-        unitsPanel.setLayout(null);
-        unitsPanel.setOpaque(false);
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("horseman2.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (Territory territory : google.getTerritories()) {
-            ArrayList<Soldier> soldierArray = new ArrayList<>();
-            Soldier soldier = new Soldier();
-            soldierArray.add(soldier);
-            territory.setArmy_soldiers(soldierArray);
-
-            //territory.setPanelSoldiers(img);
-            //JLabel panelSoldier = territory.getPanelSoldiers();
-
-            //unitsPanel.add(panelSoldier);
-        }
-        contentPane.add(unitsPanel);
-    }
-
     public void setUnitsOnMap(JLabel contentPane) {
         unitsPanel.removeAll();
         /*
