@@ -478,7 +478,7 @@ public class Territory {
 
         // Too many units
         if (power > 3) {
-            System.out.prinln("YOU SHALL NOT PASS");
+            System.out.println("YOU SHALL NOT PASS");
             return(false);
         }
 

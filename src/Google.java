@@ -133,6 +133,7 @@ public class Google {
     /**
      * Share territories between players at the beginning of a new game.
      */
+
     public void YouAreALizardHarry() {
         ArrayList<Territory> Territories = new ArrayList<>();
         // Copy the ArrayList of territories otherwise it will affect the actual ArrayList and not a copy
