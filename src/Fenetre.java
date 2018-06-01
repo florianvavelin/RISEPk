@@ -201,13 +201,9 @@ public class Fenetre extends JFrame {
                     } else {
                         territory.setCannonsCoordinates(x,y);
                     }
-                    if (Math.sqrt((y - yCoord1)*(y - yCoord1) + (x - xCoord1)*(x - xCoord1)) < 21
-                            && Math.sqrt((y - yCoord2)*(y - yCoord2) + (x - xCoord2)*(x - xCoord2)) < 21
-                            && Math.sqrt((yCoord1 - yCoord2)*(yCoord1 - yCoord2) + (xCoord1 - xCoord2)*(xCoord1 - xCoord2)) < 21) {
-                        ok = true;
-                    } else {
-                        ok = false;
-                    }
+                    ok = Math.sqrt((y - yCoord1) * (y - yCoord1) + (x - xCoord1) * (x - xCoord1)) < 21
+                      && Math.sqrt((y - yCoord2) * (y - yCoord2) + (x - xCoord2) * (x - xCoord2)) < 21
+                      && Math.sqrt((yCoord1 - yCoord2) * (yCoord1 - yCoord2) + (xCoord1 - xCoord2) * (xCoord1 - xCoord2)) < 21;
                 } while (ok);
             }
             int xL = unitsCoordinates[i][0];
@@ -268,14 +264,14 @@ public class Fenetre extends JFrame {
         if (red > 253 && green > 253) {
             int blue = color.getBlue();
             for (Territory territory : google.getTerritories()) {
-                for (int l = 0; l < 5; l++) {
+                for (int l = 0; l < 3; l++) {
                     /**
                      * The blue component is not exactly the same as set
                      * We check in a range of values of more or less 2
                      *      (for example if blue is 200, we check 198 through 202)
                      **/
                     try {
-                        Color color_temp = new Color(255, 255, blue - 2 + l);
+                        Color color_temp = new Color(255, 255, blue - 1 + l);
                         if (color_temp.equals(territory.getColor())) {
                             System.out.println(territory.getName() + " : " + territory.getPlayer().getName());
                             System.out.print("Les adjacents de " + territory.getName() + " sont ");
