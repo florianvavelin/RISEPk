@@ -149,6 +149,10 @@ public class Fenetre extends JFrame {
         this.setVisible(true);
     }
 
+    public ArrayList<Player> getAllPlayers() {
+        return allPlayers;
+    }
+
     public void setUnitsOnMap(JLabel map) {
         unitsPanel.removeAll();
         /*
@@ -313,4 +317,5 @@ public class Fenetre extends JFrame {
         }
         return "";
     }
+
 }
