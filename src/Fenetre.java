@@ -14,7 +14,6 @@ public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
     private JPanel unitsPanel = new JPanel();
-    JLabel CountryName = new JLabel("POUET");
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -65,7 +64,6 @@ public class Fenetre extends JFrame {
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
         bottomPanel.setBackground(new Color(132,180,226));
         bottomPanel.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
-        //bottomPanel.setPreferredSize(new Dimension(200,(allPlayers.size() + 1) * 17));
         bottomPanel.setOpaque(false);
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
@@ -86,21 +84,10 @@ public class Fenetre extends JFrame {
             Name.setLayout(new FlowLayout(FlowLayout.LEFT));
             playerPanel.add(Name);
 
-            JPanel Country = new JPanel();
-            Country.setLayout(new BoxLayout(Country, BoxLayout.PAGE_AXIS));
-            Country.setPreferredSize(new Dimension(200,18));
-            Country.setBackground(new Color(132,180,226));
-
-            CountryName.setFont(new Font("TimesRoman", Font.PLAIN, 15));
-            CountryName.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            Country.add(CountryName);
-
-
             bottomPanel.add(playerPanel);
-            bottomPanel.add(Country);
         }
         map.add(bottomPanel, BorderLayout.SOUTH);
-        contentPane.setOpaque(true);
+        contentPane.setVisible(true);
 
         // When clicking on the map
         contentPane.addMouseListener(new MyMouseListener() {
@@ -170,6 +157,7 @@ public class Fenetre extends JFrame {
             }
         }
     };
+        unitsPanel.setOpaque(false);
         contentPane.add(unitsPanel);
     }
 
@@ -280,7 +268,6 @@ public class Fenetre extends JFrame {
                                 System.out.print(adjacents.getName() + ", ");
                             }
                             System.out.println("");
-                            CountryName.setText(territory.getName());
                             return territory.getName();
                         }
                     } catch (IllegalArgumentException iae) {
