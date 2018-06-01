@@ -29,6 +29,12 @@ public class Menu extends JFrame {
     private JLabel errorText = new JLabel();
     private JButton buttonPlay = new JButton("JOUER");
 
+    private Fenetre fen;
+
+    public Fenetre getFen() {
+        return fen;
+    }
+
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -206,7 +212,7 @@ public class Menu extends JFrame {
                     Player player = new Player(name, colorOfPlayer[i],radioList.get(i).isSelected());
                     allPlayers.add(player);
                 }
-                new Fenetre(allPlayers, 1125, 559);
+                fen = new Fenetre(allPlayers, 1125, 559);
                 closeWindow();
             }
         }
