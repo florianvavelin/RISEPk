@@ -11,7 +11,7 @@ public class Player {
     private Color color;
     private Boolean IsAnIa;
     private ArrayList<Territory> territories = new ArrayList<>();
-    private int past_territories;   // To be updated at the end of a player's turn
+    private int past_territories;   // To be lastly updated when initializing a player's turn
 
     /**
      * Default constructor
@@ -131,5 +131,29 @@ public class Player {
             gifts = 2;
         }
         return gifts;
+    }
+
+    /**
+     * Initializing a player's turn
+     */
+    public void YuGiOooooooh () {
+        // Compute the number of new recruits
+        this.Christmas();
+
+        // Update the number of conquered territories (this parameter was only useful for Christmas()
+        this.setPast_territories(this.territories.size());
+
+        // Reset every unit's mouvement counter per turn to 0
+        for (Territory territory : this.territories) {
+            for (Soldier soldier : territory.getArmy_soldiers()) {
+                soldier.setCpt(0);
+            }
+            for (Rider rider : territory.getArmy_riders()) {
+                rider.setCpt(0);
+            }
+            for (Cannon cannon : territory.getArmy_cannons()) {
+                cannon.setCpt(0);
+            }
+        }
     }
 }
