@@ -46,36 +46,6 @@ public class Territory {
         this.color = color;
     }
 
-    public void setPanelSoldiers(Graphics2D g2) {
-        Territory territory = this;
-        Color colorToDraw = territory.getPlayer().getColor();
-        if (territory.getSoldierCoordinates()[0] == 0 &&
-                territory.getSoldierCoordinates()[0] == 0) {
-            int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
-            int x = coordinatesXY.get(rand).get(0);
-            int y = coordinatesXY.get(rand).get(1);
-            territory.setSoldierCoordinates(x,y);
-        }
-        int xL = territory.getSoldierCoordinates()[0];
-        int yL = territory.getSoldierCoordinates()[1];
-        g2.setColor(colorToDraw);
-        g2.fillOval(xL,yL,15,15);
-        Color colorText = Color.white;
-        if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
-            colorText = Color.black;
-        }
-        g2.setColor(colorText);
-        g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL+3,yL+11);
-    }
-
-    public void setPanelRiders(Graphics2D g2) {
-        Territory territory = this;
-
-    }
-
-    public void setPanelCannons(JPanel panelCannons) {
-    }
-
     public int[] getSoldierCoordinates() {
         return soldierCoordinates;
     }
