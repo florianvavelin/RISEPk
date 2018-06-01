@@ -1,5 +1,3 @@
-import org.opencv.core.Mat;
-
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -176,30 +174,24 @@ public class Fenetre extends JFrame {
             riderArray.add(new Rider());
             riderArray.add(new Rider());
 
+            // Cannons
+            ArrayList<Cannon> canonArray = new ArrayList<>();
+            canonArray.add(new Cannon());
+            canonArray.add(new Cannon());
+            canonArray.add(new Cannon());
+
             for (Territory territory : google.getTerritories()) {
-
-
                 // Put a soldier in the territory (just to try)
                 territory.setArmy_soldiers(soldierArray);
                 // Put 2 riders
                 territory.setArmy_riders(riderArray);
+                // Put 3 cannons
+                territory.setArmy_cannons(canonArray);
 
                 setUnitsPanel(g2, territory);
-                /*int rand1 = (new Myfunction()).random(0, coordinatesXY.size() - 1);
-                int x1 = coordinatesXY.get(rand1).get(0);
-                int y1 = coordinatesXY.get(rand1).get(1);
-                g2.setColor(colorToDraw);
-                //g2.drawImage(img, x1,y1, 20,20,null);
-                g2.fillRect(x1,y1,15,15);
-                colorText = Color.white;
-                if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
-                    colorText = Color.black;
-                }
-                g2.setColor(colorText);
-                g2.drawString(String.valueOf(territory.getArmy_riders().size()), x1+3,y1+11);*/
             }
-            }
-        };
+        }
+    };
         contentPane.add(unitsPanel);
     }
 
@@ -212,8 +204,8 @@ public class Fenetre extends JFrame {
                                     territory.getCannonsCoordinates()};
 
         for (int i = 0; i < unitsCoordinates.length; i++) {
-            int tempX = i==2? 0 : 2;
-            int tempY = i==1? 0 : 1;
+            int temp1 = i==2? 0 : 2;
+            int temp2 = i==1? 0 : 1;
             if (unitsCoordinates[i][0] == 0 &&
                     unitsCoordinates[i][1] == 0) {
                 boolean ok;
@@ -221,10 +213,10 @@ public class Fenetre extends JFrame {
                     int rand = (new Myfunction()).random(0, coordinatesXY.size() - 1);
                     int x = coordinatesXY.get(rand).get(0);
                     int y = coordinatesXY.get(rand).get(1);
-                    int xCoord1 = unitsCoordinates[tempX][0];
-                    int yCoord1 = unitsCoordinates[tempY][1];
-                    int xCoord2 = unitsCoordinates[tempX][0];
-                    int yCoord2 = unitsCoordinates[tempY][1];
+                    int xCoord1 = unitsCoordinates[temp1][0];
+                    int yCoord1 = unitsCoordinates[temp1][1];
+                    int xCoord2 = unitsCoordinates[temp2][0];
+                    int yCoord2 = unitsCoordinates[temp2][1];
                     if (i==0) {
                         territory.setSoldierCoordinates(x,y);
                     } else if (i==1) {
@@ -232,8 +224,9 @@ public class Fenetre extends JFrame {
                     } else {
                         territory.setCannonsCoordinates(x,y);
                     }
-                    if (Math.sqrt(Math.pow((double)(y - yCoord1), 2) + Math.pow((double)(x - xCoord1), 2)) < 21
-                            && Math.sqrt(Math.pow((double)(y - yCoord2), 2) + Math.pow((double)(x - xCoord2), 2)) < 21) {
+                    if (Math.sqrt((y - yCoord1)*(y - yCoord1) + (x - xCoord1)*(x - xCoord1)) < 21
+                            && Math.sqrt((y - yCoord2)*(y - yCoord2) + (x - xCoord2)*(x - xCoord2)) < 21
+                            && Math.sqrt((yCoord1 - yCoord2)*(yCoord1 - yCoord2) + (xCoord1 - xCoord2)*(xCoord1 - xCoord2)) < 21) {
                         ok = true;
                     } else {
                         ok = false;
