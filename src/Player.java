@@ -156,4 +156,26 @@ public class Player {
             }
         }
     }
+
+    /**
+     * Store remaining units
+     * @param nigga (int)
+     * @param gang = [Soldier, Rider, Cannon] (int [])
+     * @return nigga (int)
+     */
+    public int HelpmeNIGGA (int nigga, int [] gang, Territory bled) {
+        // Check if the player has enough remaning units
+        if (nigga < (gang[0] + gang[1] + gang[2])) {
+            return nigga; // Return an unchanged remaining number of units
+        }
+
+        // Set units in the chosen territory
+        else {
+            bled.UncleBenNeedsYou(gang);
+        }
+
+        // Remove set units from the remaining units
+        nigga -= gang[0] + gang[1] + gang[2];
+        return nigga;
+    }
 }
