@@ -1,5 +1,3 @@
-import org.opencv.core.Mat;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
