@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Fenetre extends JFrame {
@@ -18,20 +19,41 @@ public class Fenetre extends JFrame {
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         this.setTitle("RISK");
-        this.setSize(new Dimension(width, height + (allPlayers.size() + 1) * 20));
         this.setBackground(new Color(132,180,226));
+        Dimension screen = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setLayout(null);
+        this.setResizable(true);
 
         google.setAllPlayers(allPlayers);
         google.YouAreALizardHarry();
 
+        /**
+         * MenuBar qui permettra de sauvegarder et d'autres actions
+         */
+
+        JMenuBar MenuBar = new JMenuBar();
+        JMenu File = new JMenu("File");
+        JMenuItem Save = new JMenuItem("Save");
+        JMenuItem Exit = new JMenuItem("Exit");
+        File.add(Save);
+        File.add(Exit);
+        MenuBar.add(File);
+        this.setJMenuBar(MenuBar);
+
+        /**
+         * Create the contentPane
+         */
+
+        JPanel contentPane = new JPanel();
+        contentPane.setBackground(new Color(132,180,226));
+        this.setContentPane(contentPane);
 
         /**
          * Set the map in the background - map3.jpg
          * Set the map to check the color (for checking the territories - map_Yellow_1125.jpg)
          */
+
         BufferedImage img = null;
         BufferedImage img2 = null;
         try {
@@ -48,11 +70,14 @@ public class Fenetre extends JFrame {
         }
         map.setLayout(new BorderLayout());
 
+        JPanel MapPanel = new JPanel();
+        getContentPane().setLayout(null);
+        MapPanel.setBounds(0, 0, width, height);
+        MapPanel.setBackground(new Color(132,180,226));
+        contentPane.add(MapPanel);
 
-        JPanel contentPane = new JPanel();
-        contentPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(132,180,226)));
-        contentPane.setBackground(new Color(132,180,226));
-        contentPane.add(map);
+        MapPanel.add(map);
+        contentPane.add(MapPanel);
 
         /*
          Panel where we show information about all players such as their name, the number
@@ -83,14 +108,11 @@ public class Fenetre extends JFrame {
             Name.setForeground(player.getColor());
             playerPanel.add(Name);
             playerPanel.setAlignmentX(0);
+            bottomPanel.setLocation(0,0);
             bottomPanel.add(playerPanel);
         }
-        bottomPanel.setAlignmentY(0);
-        bottomPanel.setAlignmentX(0);
+        bottomPanel.setBounds(0, height, width, allPlayers.size()* 20);
         contentPane.add(bottomPanel);
-
-        map.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(255,0,0)));
-        contentPane.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(0,255,0)));
         map.setVisible(true);
 
         // When clicking on the map
@@ -115,7 +137,15 @@ public class Fenetre extends JFrame {
         bottom.add(deplacement);
         bottom.add(annuler);
         bottom.add(findutour); */
-        this.setContentPane(contentPane);
+
+        System.out.println(MapPanel.getHeight());
+        System.out.println(bottomPanel.getHeight());
+
+        this.setSize(new Dimension(width, MapPanel.getHeight() + (bottomPanel.getHeight() + 20) + 40));
+
+        System.out.println(this.getHeight());
+
+        this.setLocation((screen.width - this.getSize().width)/2,(screen.height - this.getSize().height)/2);
         this.setVisible(true);
     }
 
