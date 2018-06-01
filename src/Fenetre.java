@@ -115,7 +115,7 @@ public class Fenetre extends JFrame {
         bottom.add(deplacement);
         bottom.add(annuler);
         bottom.add(findutour); */
-        this.setContentPane(map);
+        this.setContentPane(contentPane);
         this.setVisible(true);
     }
 
