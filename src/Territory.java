@@ -467,4 +467,25 @@ public class Territory {
         int [] graveyard = Hajime(champions);
         this.KillBill(graveyard, noxus);
     }
+
+    /**
+     * Check if the attacking team doesn't go beyond 3 units
+     * @param monsters (int [3] = [AttackSoldier, AttackRider, AttackCannon] (int [])
+     * @return pass (boolean)
+     */
+    public boolean Gandalf (int [] monsters) {
+        int power = monsters[0] + monsters [1] + monsters [2];
+
+        // Too many units
+        if (power > 3) {
+            System.out.prinln("YOU SHALL NOT PASS");
+            return(false);
+        }
+
+        // Enough units
+        else {
+            System.out.println("cool bro");
+            return(true);
+        }
+    }
 }
