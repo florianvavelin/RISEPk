@@ -19,7 +19,7 @@ public class Fenetre extends JFrame {
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         this.setTitle("RISK");
-        this.setSize(new Dimension(width, height + allPlayers.size()*20));
+        this.setSize(new Dimension(width, height + (allPlayers.size() + 1) * 20));
         this.setBackground(new Color(132,180,226));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -61,15 +61,16 @@ public class Fenetre extends JFrame {
          Also show the choices of game (players can choose the number of riders, soldiers, etc.)
           */
 
-        JPanel right = new JPanel();
-        right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
-        right.setBackground(new Color(132,180,226));
-        right.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
+        bottomPanel.setBackground(new Color(132,180,226));
+        bottomPanel.setBorder(BorderFactory.createMatteBorder(2,0,0,0, Color.black));
+        //bottomPanel.setPreferredSize(new Dimension(200,(allPlayers.size() + 1) * 17));
+        bottomPanel.setOpaque(false);
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel();
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            //playerPanel.setPreferredSize(new Dimension(200,allPlayers.size()*7));
-            playerPanel.setPreferredSize(new Dimension(200,0));
+            playerPanel.setPreferredSize(new Dimension(200,15));
             playerPanel.setBackground(new Color(132,180,226));
             String type;
             if (player.getIsAnIa()) {
@@ -86,9 +87,8 @@ public class Fenetre extends JFrame {
             playerPanel.add(Name);
 
             JPanel Country = new JPanel();
-            //Country.setLayout(new BoxLayout(Country, BoxLayout.PAGE_AXIS));
-            //Country.setPreferredSize(new Dimension(200,18));
-            Country.setPreferredSize(new Dimension(200,1));
+            Country.setLayout(new BoxLayout(Country, BoxLayout.PAGE_AXIS));
+            Country.setPreferredSize(new Dimension(200,18));
             Country.setBackground(new Color(132,180,226));
 
             CountryName.setFont(new Font("TimesRoman", Font.PLAIN, 15));
@@ -96,10 +96,11 @@ public class Fenetre extends JFrame {
             Country.add(CountryName);
 
 
-            right.add(playerPanel);
-            right.add(Country);
+            bottomPanel.add(playerPanel);
+            bottomPanel.add(Country);
         }
-        contentPane.add(right, BorderLayout.SOUTH);
+        map.add(bottomPanel, BorderLayout.SOUTH);
+        contentPane.setOpaque(true);
 
         // When clicking on the map
         contentPane.addMouseListener(new MyMouseListener() {
