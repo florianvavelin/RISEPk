@@ -1,5 +1,4 @@
-﻿x/x
-Asie/﻿Afghanistan,Inde,Japon,Kamchatka,Mongolie,Moyen Orient,Oural,Chine,Siam,Sibérie,Yakoutie,Tchita
+﻿Asie/﻿Afghanistan,Inde,Japon,Kamchatka,Mongolie,Moyen Orient,Oural,Chine,Siam,Sibérie,Yakoutie,Tchita
 Afrique/Afrique du Nord,Afrique du Sud,Afrique Orientale,Madagascar,Congo,Egypte,
 Océanie/Indonésie,Australie Occidentale,Nouvelle Guinée,Australie orientale,
 Europe/Islande,Scandinavie,Europe du Nord,Europe du Sud,Europe Occidentale,Ukraine,Grande Bretagne
