@@ -203,40 +203,16 @@ public class Google {
             BufferedReader br = new BufferedReader(new FileReader("regions.txt"));  // FileNotFoundException
             while ((currentLine = br.readLine()) != null) {
                 String[] line = currentLine.split("/"); // Separate region from its territories
-                String region = line[0]; // Name of the region
+                String regionName = line[0]; // Name of the region
                 String territories_str = line[1]; // Territories in the current region
                 String[] territories_line = territories_str.split(","); // Separate the territories
-                switch(region) {
-                    case "Asie":
-                        for (String territory : territories_line) {
-                            this.asia.add(getTerritoryByName(territory));
-                        }
-                        break;
-                    case "Afrique":
-                        for (String territory : territories_line) {
-                            this.africa.add(getTerritoryByName(territory));
-                        }
-                        break;
-                    case "Océanie":
-                        for (String territory : territories_line) {
-                            this.oceania.add(getTerritoryByName(territory));
-                        }
-                        break;
-                    case "Europe":
-                        for (String territory : territories_line) {
-                            this.europe.add(getTerritoryByName(territory));
-                        }
-                        break;
-                    case "Amérique du Nord":
-                        for (String territory : territories_line) {
-                            this.north_america.add(getTerritoryByName(territory));
-                        }
-                        break;
-                    case "Amérique du Sud":
-                        for (String territory : territories_line) {
-                            this.south_america.add(getTerritoryByName(territory));
-                        }
-                        break;
+
+                Region region = new Region();
+                region.setName(regionName);
+
+                for (String territoryName : territories_line) {
+                    Territory territory = getTerritoryByName(territoryName);
+                    territory.setRegion(region);
                 }
             }
 

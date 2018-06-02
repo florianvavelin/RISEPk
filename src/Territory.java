@@ -25,6 +25,7 @@ public class Territory {
      * Each territory can have a player, and therefore armies within affiliated only to this player.
      */
     private Player player;
+    private Region region;
     private ArrayList<Soldier> army_soldiers = new ArrayList<>();
     private ArrayList<Rider> army_riders = new ArrayList<>();
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
@@ -142,7 +143,15 @@ public class Territory {
         this.army_cannons = army_cannons;
     }
 
-//
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    //
     // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     /**
