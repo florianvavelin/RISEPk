@@ -13,6 +13,12 @@ public class Menu extends JFrame {
      */
     private JPanel top = new JPanel();
     private JLabel label = new JLabel("Nombre de joueurs");
+
+    /*
+    JComboBox is a drop-down menu.
+    In parameter you put an array of String, then you can change the array into int with
+    Integer.parseInt(yourString)
+     */
     private String[] choicePlayers = {"2", "3", "4", "5", "6"};
     private JComboBox<String> combo = new JComboBox<>(choicePlayers);
     private int numberOfPlayers = 2;
@@ -22,7 +28,7 @@ public class Menu extends JFrame {
      * Information players
      */
     private JPanel middle = new JPanel();
-    private ArrayList<JTextField> namePlayers = new ArrayList<>();
+    private ArrayList<JTextField> namePlayers = new ArrayList<>(); // write a novel here
     private ArrayList<JComboBox> colorPlayers = new ArrayList<>();
     private ArrayList<JRadioButton> radioList = new ArrayList<>();
     private Color[] colorOfPlayer = {Color.white, Color.black, Color.blue, Color.orange, Color.red, Color.green};
@@ -50,7 +56,7 @@ public class Menu extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        combo.addActionListener(new FormListener());
+        combo.addActionListener(new FormListener()); // you can create a listener boy
         container.setBackground(Color.white);
         container.setLayout(new BorderLayout());
         combo.setPreferredSize(new Dimension(100, 20));
@@ -98,7 +104,7 @@ public class Menu extends JFrame {
             // Field for the pseudo of each player
             JTextField field = new JTextField(2);
             String[] NamePlayer = {"Asterix", "Obelix", "Ramix", "Idefix", "Cesar", "Falbala"};
-            field.setText(NamePlayer[i-1]);
+            field.setText(NamePlayer[i-1]); // put a name automatically for Marin
             namePlayers.add(field);
             players.add(field, BorderLayout.SOUTH);
 
@@ -174,12 +180,13 @@ public class Menu extends JFrame {
             }
             /*
              * Clear all information relative to the players
-             * Create the panels again
              */
             namePlayers.clear();
             colorPlayers.clear();
             errorText.setText("");
             middle.removeAll();
+
+            // Create the panels again
             showPlayersInfo(getNumberOfPlayers());
         }
     }
@@ -187,7 +194,6 @@ public class Menu extends JFrame {
     class ButtonPlayListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             /**
-             * TODO Place the units (soldiers) in the map relative to the number of players
              * TODO Let the players place their units
              */
             errorText.setText("");

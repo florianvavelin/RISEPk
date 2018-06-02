@@ -17,13 +17,13 @@ public class Main {
 
             for (Territory territory : google.getTerritories()) {
                 match.setVictory(territory, territory.getPlayer(),
-                        territory.getPlayer().getMission(), google.getRegions().get(0));
+                        territory.getPlayer().getMission(), territory.getRegion());
                 if (match.getVictory()) {
                     winner = territory.getPlayer().getName();
                     break;
                 }
             }
         }
-        System.out.println(winner + "wins.");
+        System.out.println(winner + " wins.");
     }
 }
