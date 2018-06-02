@@ -289,6 +289,11 @@ public class Fenetre extends JFrame {
         }
     }
 
+    /**
+     * Checks which territory matches the color in parameter
+     * @param color : each territory has a specific color in the map_Yellow image
+     * @return name of the territory
+     */
     private String WhatsTerritoryNigga(Color color) {
         int red = color.getRed();
         int green = color.getGreen();

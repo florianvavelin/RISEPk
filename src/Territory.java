@@ -149,6 +149,7 @@ public class Territory {
 
     public void setRegion(Region region) {
         this.region = region;
+        this.region.addInAllTerritories(this);
     }
 
     //

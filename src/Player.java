@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -89,10 +91,10 @@ public class Player {
      * @return gifts (int)
      */
     public int Christmas() {
-        Google tmp_google = new Google();
-        Myfunction mf = new Myfunction();
+        ArrayList<Region> arrayRegion = new ArrayList<>();
+        Set<Region> setRegion = new HashSet<>();
 
-        int gifts = 0;
+        int gifts;
         int factor_one = 0;
         int factor_two = 0;
         int factor_three = 0;
@@ -101,28 +103,20 @@ public class Player {
         factor_one += Math.floor(this.territories.size() / 3);
 
         // Factor 2 : Number of owned regions
-        if (this.territories.containsAll(tmp_google.getAsia())) {
-            factor_two += Math.floor(tmp_google.getAsia().size() / 2);
+        for (Territory territory : this.territories) {
+            arrayRegion.add(territory.getRegion());
         }
-        if (this.territories.containsAll(tmp_google.getAfrica())) {
-            factor_two += Math.floor(tmp_google.getAfrica().size() / 2);
-        }
-        if (this.territories.containsAll(tmp_google.getOceania())) {
-            factor_two += Math.floor(tmp_google.getOceania().size() / 2);
-        }
-        if (this.territories.containsAll(tmp_google.getEurope())) {
-            factor_two += Math.floor(tmp_google.getEurope().size() / 2);
-        }
-        if (this.territories.containsAll(tmp_google.getNorth_america())) {
-            factor_two += Math.floor(tmp_google.getNorth_america().size() / 2);
-        }
-        if (this.territories.containsAll(tmp_google.getSouth_america())) {
-            factor_two += Math.floor(tmp_google.getSouth_america().size() / 2);
+        setRegion.addAll(arrayRegion);
+        arrayRegion.clear();
+        arrayRegion.addAll(setRegion);
+
+        for (Region region : arrayRegion) {
+            if (this.territories.containsAll(region.getAllTerritories()));
         }
 
         // Factor 3 : Newly conquered territories
         for (int i=0; i<this.past_territories; i++) {
-            factor_three += mf.random(0,1);
+            factor_three += (new Myfunction()).random(0,1);
         }
 
         // Sum and recruits

@@ -1,27 +1,14 @@
 
 import java.util.*;
 
-/**
- * 
- */
+
 public class Region {
-    /**
-     * Default constructor
-     */
+
+    public String name;
+    private ArrayList<Territory> allTerritories = new ArrayList<>();
+
     public Region() {
     }
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
-    /**public void boolean{
-
-    }*/
 
 
     /**
@@ -36,6 +23,18 @@ public class Region {
      */
     public String getName() {
         return this.name;
+    }
+
+    public ArrayList<Territory> getAllTerritories() {
+        return allTerritories;
+    }
+
+    public void setAllTerritories(ArrayList<Territory> allTerritories) {
+        this.allTerritories = allTerritories;
+    }
+
+    public void addInAllTerritories(Territory territory) {
+        this.allTerritories.add(territory);
     }
 
     /**

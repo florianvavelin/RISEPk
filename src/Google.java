@@ -11,13 +11,7 @@ import java.util.ArrayList;
 public class Google {
     private ArrayList<Territory> Territories = new ArrayList<>();
     private ArrayList<Player> allPlayers = new ArrayList<>();
-    private ArrayList<Region> regions = new ArrayList<>();
-    private ArrayList<Territory> asia = new ArrayList<>();
-    private ArrayList<Territory> africa = new ArrayList<>();
-    private ArrayList<Territory> oceania = new ArrayList<>();
-    private ArrayList<Territory> europe = new ArrayList<>();
-    private ArrayList<Territory> north_america = new ArrayList<>();
-    private ArrayList<Territory> south_america = new ArrayList<>();
+    private ArrayList<Region> allregions = new ArrayList<>();
 
 
     public Google() {
@@ -78,7 +72,7 @@ public class Google {
                 setMyMates(territory);
             }
 
-
+            ONUisUseless();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,35 +133,11 @@ public class Google {
     }
 
     public ArrayList<Region> getRegions() {
-        return regions;
+        return allregions;
     }
 
     public void setRegions(ArrayList<Region> regions) {
-        this.regions = regions;
-    }
-
-    public ArrayList<Territory> getAsia() {
-        return asia;
-    }
-
-    public ArrayList<Territory> getAfrica() {
-        return africa;
-    }
-
-    public ArrayList<Territory> getOceania() {
-        return oceania;
-    }
-
-    public ArrayList<Territory> getEurope() {
-        return europe;
-    }
-
-    public ArrayList<Territory> getNorth_america() {
-        return north_america;
-    }
-
-    public ArrayList<Territory> getSouth_america() {
-        return south_america;
+        this.allregions = regions;
     }
 
     /**
@@ -209,6 +179,7 @@ public class Google {
 
                 Region region = new Region();
                 region.setName(regionName);
+                this.allregions.add(region);
 
                 for (String territoryName : territories_line) {
                     Territory territory = getTerritoryByName(territoryName);
