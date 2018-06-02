@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Google {
     private ArrayList<Territory> Territories = new ArrayList<>();
     private ArrayList<Player> allPlayers = new ArrayList<>();
+    private ArrayList<Region> regions = new ArrayList<>();
     private ArrayList<Territory> asia = new ArrayList<>();
     private ArrayList<Territory> africa = new ArrayList<>();
     private ArrayList<Territory> oceania = new ArrayList<>();
@@ -135,6 +136,14 @@ public class Google {
 
     public void setAllPlayers(ArrayList<Player> allPlayers) {
         this.allPlayers = allPlayers;
+    }
+
+    public ArrayList<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(ArrayList<Region> regions) {
+        this.regions = regions;
     }
 
     public ArrayList<Territory> getAsia() {

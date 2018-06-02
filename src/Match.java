@@ -14,7 +14,6 @@ public class Match {
     }
 
 
-
     /**
      * @param territory 
      * @param player 

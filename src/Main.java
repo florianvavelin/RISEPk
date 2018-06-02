@@ -2,12 +2,28 @@ public class Main {
     public static void main(String[] args) {
         Menu menu = new Menu();
 
-        while(menu.getFen()==null)
-        {
-            try{
-            Thread.sleep(10);}catch(Exception e){}
+        while (menu.getFen() == null) {
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         Fenetre fenetre = menu.getFen();
-        System.out.println(fenetre.getAllPlayers().size());
+        Google google = fenetre.getGoogle();
+        Match match = new Match(false);
+        String winner = "";
+        while (!match.getVictory()) {
+
+            for (Territory territory : google.getTerritories()) {
+                match.setVictory(territory, territory.getPlayer(),
+                        new Mission("nameMission"), google.getRegions().get(0));
+                if (match.getVictory()) {
+                    winner = territory.getPlayer().getName();
+                    break;
+                }
+            }
+        }
+        System.out.println(winner + "wins.");
     }
 }
