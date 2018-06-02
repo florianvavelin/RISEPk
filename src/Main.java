@@ -17,7 +17,7 @@ public class Main {
 
             for (Territory territory : google.getTerritories()) {
                 match.setVictory(territory, territory.getPlayer(),
-                        new Mission("nameMission"), google.getRegions().get(0));
+                        territory.getPlayer().getMission(), google.getRegions().get(0));
                 if (match.getVictory()) {
                     winner = territory.getPlayer().getName();
                     break;

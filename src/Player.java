@@ -12,6 +12,7 @@ public class Player {
     private String name;
     private Color color;
     private Boolean IsAnIa;
+    private Mission mission;
     private ArrayList<Territory> territories = new ArrayList<>();
     private int past_territories;   // To be lastly updated when initializing a player's turn
 
@@ -86,6 +87,14 @@ public class Player {
         this.past_territories = past_territories;
     }
 
+    public Mission getMission() {
+        return mission;
+    }
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
+    }
+
     /**
      * Count the total of potential units earned at the beginning of a player's turn
      * @return gifts (int)
@@ -111,7 +120,9 @@ public class Player {
         arrayRegion.addAll(setRegion);
 
         for (Region region : arrayRegion) {
-            if (this.territories.containsAll(region.getAllTerritories()));
+            if (this.territories.containsAll(region.getAllTerritories())) {
+                factor_two += Math.floor(region.getAllTerritories().size() / 2);
+            }
         }
 
         // Factor 3 : Newly conquered territories
