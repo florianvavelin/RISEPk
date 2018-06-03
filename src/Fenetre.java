@@ -15,6 +15,11 @@ public class Fenetre extends JFrame {
     private ArrayList<Player> allPlayers = new ArrayList<>();
     private Google google = new Google();
     private JPanel unitsPanel = new JPanel();
+    private JPanel dashboard = new JPanel();
+    private JPanel bottomPanel = new JPanel();
+    private JLabel map = new JLabel();
+    private Territory territoryChosenOne = null;
+    private boolean waitForClick = true;
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -24,9 +29,14 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         google.setAllPlayers(allPlayers);
         google.YouAreALizardHarry();
+        for (Territory territory : google.getTerritories()) {
+            int[] babiesInitializer = {1,0,0};
+            territory.UncleBenNeedsYou(babiesInitializer);
+        }
 
         /**
          * MenuBar qui permettra de sauvegarder et d'autres actions
@@ -64,7 +74,7 @@ public class Fenetre extends JFrame {
         }
         final BufferedImage img3 = img2; // Must set the BufferedImage final to put it in the mouseClicked
 
-        JLabel map = new JLabel();
+
         if (img != null) {
             map.setIcon(new ImageIcon(img));
         }
@@ -79,19 +89,34 @@ public class Fenetre extends JFrame {
         MapPanel.add(map);
         contentPane.add(MapPanel);
 
+        unitsPanel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                for (Territory territory : google.getTerritories()) {
+                    setUnitsPanel(g2, territory);
+                }
+            }
+        };
+        unitsPanel.setOpaque(false);
+        map.add(unitsPanel);
+
         /*
          Panel where we show information about all players such as their name, the number
          of territories they have.
          Also show the choices of game (players can choose the number of riders, soldiers, etc.)
           */
 
-        JPanel bottomPanel = new JPanel();
+
+        /*
+        Page axis and line axis to put the panels line by line
+         */
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
         bottomPanel.setBackground(new Color(132,180,226));
         bottomPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.black));
         bottomPanel.setOpaque(true);
         for (Player player: allPlayers) {
-            JPanel playerPanel = new JPanel();
+            JPanel playerPanel = new JPanel(); // Each player has a panel
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
             playerPanel.setPreferredSize(new Dimension(200,15));
             playerPanel.setBackground(new Color(132,180,226));
@@ -102,16 +127,27 @@ public class Fenetre extends JFrame {
                 type = "Human";
             }
 
+            // JLabel is just a text, you can change the text with, in this case, Name.setText("new text");
             JLabel Name = new JLabel(player.getName() + " (" + type + " : " +
                     player.getTerritories().size() + ")", SwingConstants.LEFT);
+
             Name.setFont(new Font("TimesRoman", Font.PLAIN, 15));
-            Name.setForeground(player.getColor());
-            playerPanel.add(Name);
+            Name.setForeground(player.getColor()); // change the color of the text
+            playerPanel.add(Name); // add the text into the panel
             playerPanel.setAlignmentX(0);
             bottomPanel.setLocation(0,0);
+            /*
+            Add the panel into the bottom panel.
+            Remember that each playerPanel will be placed line by line
+             */
             bottomPanel.add(playerPanel);
         }
-        bottomPanel.setBounds(0, height, width, allPlayers.size()* 20);
+        bottomPanel.setBounds(width, 0, 2*width, MapPanel.getHeight()); // maybe the location
+
+        dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
+        dashboard.setAlignmentX(0);
+        dashboard.setBackground(new Color(132,180,226));
+
         contentPane.add(bottomPanel);
         map.setVisible(true);
 
@@ -123,25 +159,12 @@ public class Fenetre extends JFrame {
             }
         });
 
-        setUnitsOnMap(map);
-
-        /*JPanel bottom = new JPanel();
-        contentPane.add(bottom, BorderLayout.SOUTH);
-
-        JButton deplacement = new JButton("Déplacement");
-        JButton combattre = new JButton("Combattre");
-        JButton annuler = new JButton("Annuler");
-        JButton findutour = new JButton("Fin du tour");
-
-        bottom.add(combattre);
-        bottom.add(deplacement);
-        bottom.add(annuler);
-        bottom.add(findutour); */
+        setUnitsOnMap();
 
         System.out.println(MapPanel.getHeight());
         System.out.println(bottomPanel.getHeight());
 
-        this.setSize(new Dimension(width, MapPanel.getHeight() + (bottomPanel.getHeight() + 20) + 40));
+        this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (bottomPanel.getHeight() + 20)*/ + 40));
 
         System.out.println(this.getHeight());
 
@@ -157,50 +180,71 @@ public class Fenetre extends JFrame {
         return allPlayers;
     }
 
-    public void setUnitsOnMap(JLabel map) {
-        unitsPanel.removeAll();
+    public boolean isWaitForClick() {
+        return waitForClick;
+    }
+
+    public void setWaitForClick(boolean waitForClick) {
+        this.waitForClick = waitForClick;
+    }
+
+    public Territory getTerritoryChosenOne() {
+        return territoryChosenOne;
+    }
+
+    public void setTerritoryChosenOne(Territory territoryChosenOne) {
+        this.territoryChosenOne = territoryChosenOne;
+    }
+
+    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
+        Color colorPlayer = player.getColor();
+        JLabel jlb = new JLabel(player.getName() + ": " + toPlace + " soldats à placer");
+        jlb.setForeground(colorPlayer);
+        dashboard.removeAll();
+        dashboard.add(jlb);
+        validate();
+        repaint();
+
+
         /*
-        Refresh the map after fight or move
-         */
-        this.unitsPanel = new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g;
-            ArrayList<Soldier> soldierArray = new ArrayList<>();
-            soldierArray.add(new Soldier());
+        topDashboard.setSize(new Dimension(bottomPanel.getWidth(), 50));
+        JPanel namePlayerPanel = new JPanel();
+        namePlayerPanel.setPreferredSize(new Dimension(topDashboard.getWidth()/3, topDashboard.getHeight()));
+        namePlayerPanel.setBackground(colorPlayer);
+        JLabel namePlayerText = new JLabel();
+        namePlayerPanel.setPreferredSize(new Dimension(namePlayerPanel.getWidth(),10));
 
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(new File("horseman2.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // Riders
-            ArrayList<Rider> riderArray = new ArrayList<>();
-            riderArray.add(new Rider());
-            riderArray.add(new Rider());
-
-            // Cannons
-            ArrayList<Cannon> canonArray = new ArrayList<>();
-            canonArray.add(new Cannon());
-            canonArray.add(new Cannon());
-            canonArray.add(new Cannon());
-
-            for (Territory territory : google.getTerritories()) {
-                // Put a soldier in the territory (just to try)
-                territory.setArmy_soldiers(soldierArray);
-                // Put 2 riders
-                territory.setArmy_riders(riderArray);
-                // Put 3 cannons
-                territory.setArmy_cannons(canonArray);
-
-                setUnitsPanel(g2, territory);
-            }
+        JPanel nameTitlePanel = new JPanel();
+        nameTitlePanel.setPreferredSize(new Dimension(2*topDashboard.getWidth()/3, topDashboard.getHeight()));
+        JLabel titleText = new JLabel();
+        if (colorPlayer.equals(Color.green) || colorPlayer.equals(Color.white)) {
+            namePlayerText.setForeground(Color.black);
+            titleText.setForeground(Color.black);
+        } else {
+            namePlayerText.setForeground(Color.white);
+            titleText.setForeground(Color.white);
         }
-    };
-        unitsPanel.setOpaque(false);
-        map.add(unitsPanel);
+        titleText.setForeground(Color.black);
+        titleText.setText("Renforts");
+        nameTitlePanel.add(titleText);
+
+        namePlayerText.setText(player.getName());
+        namePlayerPanel.add(namePlayerText);
+
+        topDashboard.add(namePlayerPanel);
+        topDashboard.add(nameTitlePanel);
+
+        JPanel middleDashboard = new JPanel();
+
+        JPanel bottomDashboard = new JPanel();
+        dashboard.add(topDashboard);*/
+        //dashboard.add(middleDashboard);
+        //dashboard.add(bottomDashboard);
+        bottomPanel.add(dashboard);
+    }
+
+    public void setUnitsOnMap() {
+        repaint();
     }
 
     private void setUnitsPanel(Graphics2D g2, Territory territory) {
@@ -241,9 +285,9 @@ public class Fenetre extends JFrame {
             int yL = unitsCoordinates[i][1];
             g2.setColor(colorToDraw);
             if (i==0 && territory.getArmy_soldiers().size() != 0) {
-                g2.fillRect(xL,yL,15,15);
-            } else if (i==1 && territory.getArmy_riders().size() != 0) {
                 g2.fillOval(xL,yL,15,15);
+            } else if (i==1 && territory.getArmy_riders().size() != 0) {
+                g2.fillRect(xL,yL,15,15);
             } else if (i==2 && territory.getArmy_cannons().size() != 0){
                 g2.fillRoundRect(xL,yL,15,15, 2,2);
             }
@@ -269,10 +313,26 @@ public class Fenetre extends JFrame {
          *            We set it one time, otherwise we'll have to open it every time we click on the map
          */
         private void mouseClicked(MouseEvent event, BufferedImage img) {
-            int x = event.getX();
-            int y = event.getY();
-            Color color = new Color(img.getRGB(x, y));
-            String nigga = WhatsTerritoryNigga(color);
+            if (waitForClick) {
+                int x = event.getX();
+                int y = event.getY();
+                Color color = new Color(img.getRGB(x, y));
+                if(event.getButton() == MouseEvent.BUTTON1) {
+                    System.out.print("Left Click : ");
+                }
+                if(event.getButton() == MouseEvent.BUTTON2) {
+                    System.out.print("Middle Click : ");
+                }
+                if(event.getButton() == MouseEvent.BUTTON3) {
+                    System.out.print("Right Click : ");
+                }
+                territoryChosenOne = WhatsTerritoryNigga(color);
+                if (territoryChosenOne != null) {
+                    System.out.println(territoryChosenOne.getName());
+                }
+            } else {
+                territoryChosenOne = null;
+            }
 
         }
 
@@ -294,7 +354,7 @@ public class Fenetre extends JFrame {
      * @param color : each territory has a specific color in the map_Yellow image
      * @return name of the territory
      */
-    private String WhatsTerritoryNigga(Color color) {
+    private Territory WhatsTerritoryNigga(Color color) {
         int red = color.getRed();
         int green = color.getGreen();
         if (red > 253 && green > 253) {
@@ -309,22 +369,22 @@ public class Fenetre extends JFrame {
                     try {
                         Color color_temp = new Color(255, 255, blue - 1 + l);
                         if (color_temp.equals(territory.getColor())) {
-                            System.out.println(territory.getName() + " : " + territory.getPlayer().getName());
-                            System.out.print("Les adjacents de " + territory.getName() + " sont ");
+                            //System.out.println(territory.getName() + " : " + territory.getPlayer().getName());
+                            //System.out.print("Les adjacents de " + territory.getName() + " sont ");
                             for (Territory adjacents : territory.getAdjacents()) {
-                                System.out.print(adjacents.getName() + ", ");
+                                //System.out.print(adjacents.getName() + ", ");
                             }
-                            System.out.println("");
-                            return territory.getName();
+                            //System.out.println("");
+                            return territory;
                         }
                     } catch (IllegalArgumentException iae) {
                         // Can go over 255
-                        return "";
+                        return null;
                     }
                 }
             }
         }
-        return "";
+        return null;
     }
 
 }

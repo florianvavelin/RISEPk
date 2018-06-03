@@ -72,6 +72,7 @@ public class Google {
                 setMyMates(territory);
             }
 
+            // Set the regions
             ONUisUseless();
 
         } catch (Exception e) {
