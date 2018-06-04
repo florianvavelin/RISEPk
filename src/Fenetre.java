@@ -198,9 +198,9 @@ public class Fenetre extends JFrame {
         this.territoryChosenOne = territoryChosenOne;
     }
 
-<<<<<<< HEAD
     public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
 
+        dashboard.removeAll();
         JPanel test = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -214,7 +214,12 @@ public class Fenetre extends JFrame {
         test.add(name, c);
         name.setBorder((BorderFactory.createLineBorder(Color.black)));
 
-        JLabel action = new JLabel("Action");
+        JLabel action = new JLabel();
+        if (toPlace > 5) {
+            action.setText(toPlace + " soldats à placer");
+        } else {
+            action.setText(toPlace + "");
+        }
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 1;
@@ -301,38 +306,14 @@ public class Fenetre extends JFrame {
         test.add(validate, c);
 
 
-
-        bottomPanel.add(test);
+        dashboard.add(test);
 
         bottomPanel.add(dashboard);
 
-        /**
-         * JLabel mili = new JLabel("1 cavalier = 3 soldats et 1 canon = 7 soldats");
-         *
-         */
-
-        //validate();
-        //repaint();
-=======
-    public void initializeDashboard(Player player, int toPlace) {
-        Color colorPlayer = player.getColor();
-        JLabel jlb = new JLabel();
-        if (toPlace > 5) {
-            jlb.setText(player.getName() + ": " + toPlace + " soldats à placer");
-        } else {
-            jlb.setText(player.getName() + ": " + toPlace);
-        }
-        jlb.setForeground(colorPlayer);
-        dashboard.removeAll();
-        dashboard.add(jlb);
         validate();
         repaint();
-        bottomPanel.add(dashboard);
-        if (toPlace == 0) {
-            dashboard.removeAll();
-        }
+
     }
->>>>>>> 814e55a30e975ffe41d832683bf89699dd6a2bfd
 
     public void setDashboardPanel() {
         /*
@@ -366,16 +347,12 @@ public class Fenetre extends JFrame {
         JPanel middleDashboard = new JPanel();
 
         JPanel bottomDashboard = new JPanel();
-<<<<<<< HEAD
-        dashboard.add(topDashboard);*/
-        //dashboard.add(middleDashboard);
-        //dashboard.add(bottomDashboard);
-=======
+
         dashboard.add(topDashboard);
         dashboard.add(middleDashboard);
         dashboard.add(bottomDashboard);
         bottomPanel.add(dashboard);*/
->>>>>>> 814e55a30e975ffe41d832683bf89699dd6a2bfd
+
     }
 
     public void setUnitsOnMap() {

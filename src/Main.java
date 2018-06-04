@@ -20,7 +20,7 @@ public class Main {
         for (Player player : google.getAllPlayers()) {
             int toPlace = army - player.getTerritories().size();
             while (toPlace > 0) {
-                fenetre.initializeDashboard(player, toPlace);
+                fenetre.setDashboardPanelRelativeTo(player, " ", toPlace);
                 boolean notYouTerritory = true;
                 while (fenetre.isWaitForClick() && notYouTerritory) {
                     try {
