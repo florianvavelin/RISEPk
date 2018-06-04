@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
@@ -22,6 +24,8 @@ public class Fenetre extends JFrame {
     private JLabel map = new JLabel();
     private Territory territoryChosenOne = null;
     private boolean waitForClick = true;
+    private boolean FinDuTour = false;
+    private boolean FinDesAttaques = false;
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
@@ -198,7 +202,7 @@ public class Fenetre extends JFrame {
         this.territoryChosenOne = territoryChosenOne;
     }
 
-    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace, Territory theChosenOne) {
+    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
 
         dashboard.removeAll();
         JPanel test = new JPanel(new GridBagLayout());
@@ -220,7 +224,13 @@ public class Fenetre extends JFrame {
         test.add(name, c);
 
         JLabel action = new JLabel();
-        action.setText(toPlace + " soldats à placer");
+        if(type == "placement")
+        {
+            action.setText(toPlace + " soldats à placer");
+        }
+        else {
+            action.setText(type);
+        }
         c.fill = GridBagConstraints.NONE;
         c.weightx = 1;
         c.gridx = 1;
@@ -241,7 +251,11 @@ public class Fenetre extends JFrame {
 
         insertBlanck(3,test);
 
-        JLabel territory = new JLabel(theChosenOne.getName());
+        JLabel territory = new JLabel(" ");
+        if (getTerritoryChosenOne() != null)
+        {
+            territory.setText(getTerritoryChosenOne().getName());
+        }
         territory.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         c.weightx = 1;
         c.gridx = 0;
@@ -311,14 +325,41 @@ public class Fenetre extends JFrame {
 
         insertBlanck(10, test);
 
+        JButton EndOfattacks = new JButton("Fin des attaques");
+        EndOfattacks.addMouseListener(new FinDesAttaques() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 11;
+        c.gridwidth = 1;
+        test.add(EndOfattacks, c);
+
+
         JButton TheEnd = new JButton("Fin du tour");
+        TheEnd.addMouseListener(new FinDuTour() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+            }
+        });
+
         TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         c.weightx = 1;
         c.gridx = 1;
         c.gridy = 11;
         c.gridwidth = 1;
-        test.add(TheEnd, c);
 
+        if(isFinDesAttaques())
+        {
+            test.remove(EndOfattacks);
+            test.add(TheEnd, c);
+        }
 
         dashboard.add(test);
         bottomPanel.add(dashboard);
@@ -523,5 +564,70 @@ public class Fenetre extends JFrame {
         }
         return null;
     }
+
+    public boolean isFinDuTour() {
+        return FinDuTour;
+    }
+
+    public void setFinDuTour(boolean finDuTour) {
+        FinDuTour = finDuTour;
+    }
+
+    public boolean isFinDesAttaques() {
+        return FinDesAttaques;
+    }
+
+    public void setFinDesAttaques(boolean finDesAttaques) {
+        FinDesAttaques = finDesAttaques;
+    }
+
+    abstract class FinDuTour implements MouseListener {
+        /**
+         * TO check is the "Fin du tour" button is clicked
+         */
+
+
+        public void mouseClicked(MouseEvent event) {
+            System.out.println();
+            setFinDuTour(true);
+            setFinDesAttaques(false);
+        }
+
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mousePressed(MouseEvent event) {
+        }
+
+        public void mouseReleased(MouseEvent event) {
+        }
+    }
+
+    abstract class FinDesAttaques implements MouseListener {
+        /**
+         * TO check is the "Fin du tour" button is clicked
+         */
+
+
+        public void mouseClicked(MouseEvent event) {
+            setFinDesAttaques(true);
+        }
+
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mousePressed(MouseEvent event) {
+        }
+
+        public void mouseReleased(MouseEvent event) {
+        }
+    }
+
 
 }
