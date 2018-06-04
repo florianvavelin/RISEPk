@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.swing.border.TitledBorder;
 
 
 public class Fenetre extends JFrame {
@@ -142,7 +144,7 @@ public class Fenetre extends JFrame {
              */
             bottomPanel.add(playerPanel);
         }
-        bottomPanel.setBounds(width, 0, 2*width, MapPanel.getHeight()); // maybe the location
+        bottomPanel.setBounds(width, 0, width/4, MapPanel.getHeight()); // maybe the location
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
         dashboard.setAlignmentX(0);
@@ -162,7 +164,7 @@ public class Fenetre extends JFrame {
         setUnitsOnMap();
 
         System.out.println(MapPanel.getHeight());
-        System.out.println(bottomPanel.getHeight());
+        System.out.println("width : " + bottomPanel.getWidth());
 
         this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (bottomPanel.getHeight() + 20)*/ + 40));
 
@@ -196,23 +198,121 @@ public class Fenetre extends JFrame {
         this.territoryChosenOne = territoryChosenOne;
     }
 
-    public void initializeDashboard(Player player, int toPlace) {
-        Color colorPlayer = player.getColor();
-        JLabel jlb = new JLabel();
-        if (toPlace > 5) {
-            jlb.setText(player.getName() + ": " + toPlace + " soldats à placer");
-        } else {
-            jlb.setText(player.getName() + ": " + toPlace);
-        }
-        jlb.setForeground(colorPlayer);
+    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
+
         dashboard.removeAll();
-        dashboard.add(jlb);
+        JPanel test = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        JLabel name = new JLabel(player.getName());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        name.setForeground(player.getColor());
+        test.add(name, c);
+        name.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        JLabel action = new JLabel();
+        if (toPlace > 5) {
+            action.setText(toPlace + " soldats à placer");
+        } else {
+            action.setText(toPlace + "");
+        }
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 2;
+        test.add(action, c);
+        action.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        JLabel rappel = new JLabel("1 cavalier = 3 soldats et 1 canon = 7 soldats");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 3;
+        test.add(rappel, c);
+        rappel.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        JLabel territory = new JLabel("Classique");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 3;
+        c.anchor = GridBagConstraints.EAST;
+        test.add(territory, c);
+        territory.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        /**
+         * Choix du nombre de soldat
+         */
+
+        Integer[] NbOfUnit = {1, 2, 3, 4, 5, 6};
+
+        JLabel soldat = new JLabel("Soldats");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 1;
+        test.add(soldat, c);
+        c.gridy = 4;
+        JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
+        test.add(NbOfsoldats, c);
+        soldat.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        JLabel cavaliers = new JLabel("Cavaliers");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 3;
+        c.gridwidth = 1;
+        test.add(cavaliers, c);
+        c.gridy = 4;
+        JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
+        test.add(NbOfCav, c);
+        cavaliers.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        JLabel canons = new JLabel("Canons");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 2;
+        c.gridy = 3;
+        c.gridwidth = 1;
+        test.add(canons, c);
+        c.gridy = 4;
+        JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
+        test.add(NbOfCan, c);
+        canons.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+
+        JButton cancel = new JButton("Annuler");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 1;
+        test.add(cancel, c);
+
+        JButton validate = new JButton("Valider");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridwidth = 1;
+        test.add(validate, c);
+
+
+        dashboard.add(test);
+        bottomPanel.add(dashboard);
+
         validate();
         repaint();
-        bottomPanel.add(dashboard);
-        if (toPlace == 0) {
-            dashboard.removeAll();
-        }
+
     }
 
     public void setDashboardPanel() {
@@ -247,10 +347,12 @@ public class Fenetre extends JFrame {
         JPanel middleDashboard = new JPanel();
 
         JPanel bottomDashboard = new JPanel();
+
         dashboard.add(topDashboard);
         dashboard.add(middleDashboard);
         dashboard.add(bottomDashboard);
         bottomPanel.add(dashboard);*/
+
     }
 
     public void setUnitsOnMap() {
