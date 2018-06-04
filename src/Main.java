@@ -48,7 +48,7 @@ public class Main {
         }
         while (!match.getVictory()) {
             for (Player player : google.getAllPlayers()) {
-                boolean goOnMan = false;
+                /*boolean goOnMan = false;
                 for (Territory territory : player.getTerritories()) {
                     if (territory.getArmy_soldiers().size() == 1) {
                         goOnMan = false;
@@ -56,9 +56,9 @@ public class Main {
                     } else {
                         goOnMan = true;
                     }
-                }
+                }*/
                 int OmaiWaMoShindeiru = 3;
-                while (OmaiWaMoShindeiru > 0 && goOnMan) {
+                while (OmaiWaMoShindeiru > 0) {
                     boolean notYouTerritory = true;
                     fenetre.setWaitForClick(true);
                     while (fenetre.isWaitForClick() && notYouTerritory) {
@@ -101,9 +101,11 @@ public class Main {
                     System.out.println(theChosenTwo.getName());
                     if (theChosenOne.getArmy_soldiers().size() > 3) {
                         int[] fighters = {3,0,0};
+                        System.out.println(fighters[0] + " soldats attaquants");
                         theChosenOne.AllMightO(fighters, theChosenTwo);
                     } else {
                         int[] fighters = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
+                        System.out.println(fighters[0] + " soldats attaquants");
                         theChosenOne.AllMightO(fighters, theChosenTwo);
                     }
                     fenetre.setUnitsOnMap();
