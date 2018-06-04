@@ -144,7 +144,7 @@ public class Fenetre extends JFrame {
              */
             bottomPanel.add(playerPanel);
         }
-        bottomPanel.setBounds(width, 0, width/4, MapPanel.getHeight()); // maybe the location
+        bottomPanel.setBounds(width, 0, 300, MapPanel.getHeight()); // maybe the location
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
         dashboard.setAlignmentX(0);
@@ -205,104 +205,107 @@ public class Fenetre extends JFrame {
         GridBagConstraints c = new GridBagConstraints();
 
         JLabel name = new JLabel(player.getName());
+        name.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        c.weightx = 1;
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
-        name.setForeground(player.getColor());
+        name.setBackground(player.getColor());
+        if(player.getColor() == Color.black || player.getColor() == Color.blue || player.getColor() == Color.red)
+        {
+            name.setForeground(Color.white);
+        }
+        name.setOpaque(true);
         test.add(name, c);
-        name.setBorder((BorderFactory.createLineBorder(Color.black)));
 
         JLabel action = new JLabel();
-        if (toPlace > 5) {
-            action.setText(toPlace + " soldats à placer");
-        } else {
-            action.setText(toPlace + "");
-        }
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        action.setText(toPlace + " soldats à placer");
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 1;
         c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 2;
         test.add(action, c);
-        action.setBorder((BorderFactory.createLineBorder(Color.black)));
+
+        insertBlanck(1,test);
 
         JLabel rappel = new JLabel("1 cavalier = 3 soldats et 1 canon = 7 soldats");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 3;
-        test.add(rappel, c);
-        rappel.setBorder((BorderFactory.createLineBorder(Color.black)));
-
-        JLabel territory = new JLabel("Classique");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        rappel.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 1;
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 3;
-        c.anchor = GridBagConstraints.EAST;
+        test.add(rappel, c);
+
+        insertBlanck(3,test);
+
+        JLabel territory = new JLabel("Classique");
+        territory.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        c.weightx = 1;
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 3;
         test.add(territory, c);
-        territory.setBorder((BorderFactory.createLineBorder(Color.black)));
 
         /**
          * Choix du nombre de soldat
          */
 
+        insertBlanck(5,test);
+
         Integer[] NbOfUnit = {1, 2, 3, 4, 5, 6};
 
         JLabel soldat = new JLabel("Soldats");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        soldat.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        c.weightx = 1;
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 6;
         c.gridwidth = 1;
         test.add(soldat, c);
-        c.gridy = 4;
+        c.gridy = 7;
         JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
         test.add(NbOfsoldats, c);
-        soldat.setBorder((BorderFactory.createLineBorder(Color.black)));
 
         JLabel cavaliers = new JLabel("Cavaliers");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        c.weightx = 1;
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 6;
         c.gridwidth = 1;
         test.add(cavaliers, c);
-        c.gridy = 4;
+        c.gridy = 7;
         JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
         test.add(NbOfCav, c);
-        cavaliers.setBorder((BorderFactory.createLineBorder(Color.black)));
 
         JLabel canons = new JLabel("Canons");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        canons.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        c.weightx = 1;
         c.gridx = 2;
-        c.gridy = 3;
+        c.gridy = 6;
         c.gridwidth = 1;
         test.add(canons, c);
-        c.gridy = 4;
+        c.gridy = 7;
         JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
         test.add(NbOfCan, c);
-        canons.setBorder((BorderFactory.createLineBorder(Color.black)));
 
+
+        insertBlanck(8,test);
 
         JButton cancel = new JButton("Annuler");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        cancel.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        c.weightx = 1;
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 9;
         c.gridwidth = 1;
         test.add(cancel, c);
 
         JButton validate = new JButton("Valider");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 1;
-        c.gridy = 5;
+        validate.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        c.weightx = 1;
+        c.gridx = 2;
+        c.gridy = 9;
         c.gridwidth = 1;
         test.add(validate, c);
 
@@ -313,6 +316,18 @@ public class Fenetre extends JFrame {
         validate();
         repaint();
 
+    }
+
+    public void insertBlanck(int row, JPanel panel) {
+        GridBagConstraints c = new GridBagConstraints();
+        JLabel blank = new JLabel(" ");
+        blank.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.gridy = row;
+        c.gridwidth = 2;
+        panel.add(blank, c);
     }
 
     public void setDashboardPanel() {
