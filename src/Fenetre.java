@@ -198,7 +198,7 @@ public class Fenetre extends JFrame {
         this.territoryChosenOne = territoryChosenOne;
     }
 
-    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
+    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace, Territory theChosenOne) {
 
         dashboard.removeAll();
         JPanel test = new JPanel(new GridBagLayout());
@@ -241,7 +241,7 @@ public class Fenetre extends JFrame {
 
         insertBlanck(3,test);
 
-        JLabel territory = new JLabel("Classique");
+        JLabel territory = new JLabel(theChosenOne.getName());
         territory.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         c.weightx = 1;
         c.gridx = 0;
@@ -308,6 +308,16 @@ public class Fenetre extends JFrame {
         c.gridy = 9;
         c.gridwidth = 1;
         test.add(validate, c);
+
+        insertBlanck(10, test);
+
+        JButton TheEnd = new JButton("Fin du tour");
+        TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 11;
+        c.gridwidth = 1;
+        test.add(TheEnd, c);
 
 
         dashboard.add(test);

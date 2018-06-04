@@ -13,14 +13,12 @@ public class Main {
         }
         Fenetre fenetre = menu.getFen();
         Google google = fenetre.getGoogle();
-        //fenetre.setDashboardPanelRelativeTo((new Player("Iskandar",Color.white,true)), "");
         Match match = new Match(false);
         String winner = "";
         int army = 50 - 5*google.getAllPlayers().size();
         for (Player player : google.getAllPlayers()) {
             int toPlace = army - player.getTerritories().size();
             while (toPlace > 0) {
-                fenetre.setDashboardPanelRelativeTo(player, " ", toPlace);
                 boolean notYouTerritory = true;
                 while (fenetre.isWaitForClick() && notYouTerritory) {
                     try {
@@ -38,6 +36,7 @@ public class Main {
                     }
                 }
                 Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                fenetre.setDashboardPanelRelativeTo(player, " ", toPlace, theChosenOne);
                 int[] babies = {1,0,0};
                 theChosenOne.UncleBenNeedsYou(babies);
                 fenetre.setUnitsOnMap();
