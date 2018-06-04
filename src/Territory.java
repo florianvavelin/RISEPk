@@ -337,45 +337,33 @@ public class Territory {
      * Move units between adjacent territories.
      * @param prophets = [Soldier, Rider, Cannon] (int [])
      * @param promised_land (Territory)
-     * @return true if the transfer of units has been made, false otherwise.
-     * TODO : if (return false), add GUI error message that the player can't move its units.
      */
-    public boolean MoveYourAss(int [] prophets, Territory promised_land) {
+    public void MoveYourAss(int [] prophets, Territory promised_land) {
         for (int role = 0; role < 3; role++) {
             while (prophets[role] > 0 ) {
                 switch(role) {
                     case 0:
-                        if (CheckImmigrant("Soldier")) {
                             Soldier soldier = this.army_soldiers.get(1);
                             this.army_soldiers.remove(soldier);
                             promised_land.army_soldiers.add(soldier);
                             soldier.addCpt();
-                        }
-                        else { return false; }
                         break;
                     case 1:
-                        if (CheckImmigrant("Rider")) {
                             Rider rider = this.army_riders.get(1);
                             this.army_riders.remove(1);
-                            promised_land.army_riders.add(rider);
+                            promised_land.army_riders.add(rider);   
                             rider.addCpt();
-                        }
-                        else { return false; }
                         break;
                     case 2:
-                        if (CheckImmigrant("Cannon")) {
                             Cannon cannon = this.army_cannons.get(1);
                             this.army_cannons.remove(1);
                             promised_land.army_cannons.add(cannon);
                             cannon.addCpt();
-                        }
-                        else { return false; }
                         break;
                 }
                 prophets[role]--;
             }
         }
-        return true;
     }
 
 
