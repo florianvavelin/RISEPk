@@ -148,7 +148,6 @@ public class Fenetre extends JFrame {
              */
             rightPanel.add(playerPanel);
         }
-        rightPanel.setBounds(width, 0, 300, MapPanel.getHeight()); // maybe the location
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
         dashboard.setAlignmentX(0);
@@ -167,14 +166,13 @@ public class Fenetre extends JFrame {
 
         setUnitsOnMap();
 
-        System.out.println(MapPanel.getHeight());
-        System.out.println("width : " + rightPanel.getWidth());
-
         this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (rightPanel.getHeight() + 20)*/ + 40));
 
-        System.out.println(this.getHeight());
-
         this.setLocation((screen.width - this.getSize().width)/2,(screen.height - this.getSize().height)/2);
+
+
+        rightPanel.setBounds(width, 10, screen.width - (this.getWidth() + 10), MapPanel.getHeight()-10); // maybe the location
+
         this.setVisible(true);
     }
 
