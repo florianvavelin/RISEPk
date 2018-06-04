@@ -32,12 +32,14 @@ public class Main {
                 while (!fenetre.isFinDuTour()) {
 
 
+                    Territory theChosenOnePast = new Territory("", Color.white);
                     while (!fenetre.isFinDesAttaques()) {
                         System.out.println("Ce n'est pas la fin des attaques ! Héhé");
+                        //fenetre.setDashboardPanelRelativeTo(player, "", 0);
+
+
                         boolean notYouTerritory = true;
                         fenetre.setWaitForClick(true);
-
-
                         while (fenetre.isWaitForClick() && notYouTerritory) {
                             if(fenetre.isFinDesAttaques()) {
                                 System.out.println("Fin des attaques");
@@ -50,65 +52,42 @@ public class Main {
                                 e.printStackTrace();
                             }
                             if (fenetre.getTerritoryChosenOne() != null) {
-                                if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                                        fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
-                                    // A Changer en fonction du nombre de soldiers, riders et cannons
-                                    System.out.println("I choose " + fenetre.getTerritoryChosenOne().getName());
-                                    fenetre.setWaitForClick(false);
-                                    notYouTerritory = false;
-                                } else {
-                                    notYouTerritory = true;
-                                }
-                            }
-                        }
-
-                        Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                        if (theChosenOne != null) {
-                            fenetre.setDashboardPanelRelativeTo(player, theChosenOne.getName() + " against ", 0);
-                        }
-
-                        fenetre.setWaitForClick(true);
-                        notYouTerritory = true;
-                        fenetre.setTerritoryChosenOne(null);
-
-                        while (fenetre.isWaitForClick() && notYouTerritory) {
-                            if(fenetre.isFinDesAttaques()) {
-                                System.out.println("Fin des attaques");
-                                fenetre.setDashboardPanelRelativeTo(player, "", 0);
-                                break;
-                            }
-                            try {
-                                Thread.sleep(10);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            if (fenetre.getTerritoryChosenOne() != null) {
-                                if (!fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                                    theChosenOne.getAdjacents().contains(fenetre.getTerritoryChosenOne())) {
-                                    // Attaques
-
-                                    Territory theChosenTwo = fenetre.getTerritoryChosenOne();
-                                    System.out.println("C'est l'heure du du-du-du-du-dueel " + theChosenTwo.getName());
-                                    if (theChosenOne.getArmy_soldiers().size() > 3) {
-                                        int[] fighters = {3,0,0};
-                                        System.out.println(fighters[0] + " soldats attaquants");
-                                        theChosenOne.AllMightO(fighters, theChosenTwo);
-                                    } else {
-                                        int[] fighters = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
-                                        System.out.println(fighters[0] + " soldats attaquants");
-                                        theChosenOne.AllMightO(fighters, theChosenTwo);
+                                if (!fenetre.getTerritoryChosenOne().equals(theChosenOnePast) &&
+                                        !fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                                        theChosenOnePast.getAdjacents().contains(fenetre.getTerritoryChosenOne())) {
+                                    // click on a territory different from the previous one and if it is an opponent
+                                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                                    //fenetre.setDashboardPanelRelativeTo(player, "", 0);
+                                    if (theChosenOnePast.getArmy_soldiers().size()
+                                            + theChosenOnePast.getArmy_cannons().size()
+                                            + theChosenOnePast.getArmy_riders().size() != 0) {
+                                        if (theChosenOnePast.getArmy_soldiers().size() > 3) {
+                                            int[] fighters = {3,0,0};
+                                            System.out.println(fighters[0] + " soldats attaquants");
+                                            theChosenOnePast.AllMightO(fighters, theChosenOne);
+                                        } else {
+                                            int[] fighters = {theChosenOnePast.getArmy_soldiers().size()-1, 0, 0};
+                                            System.out.println(fighters[0] + " soldats attaquants");
+                                            theChosenOnePast.AllMightO(fighters, theChosenOne);
+                                        }
+                                        break;
                                     }
-                                    fenetre.setWaitForClick(false);
-                                    notYouTerritory = false;
-                                } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player)) {
-                                    System.out.println("Choose my own territory");
+                                } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                                        fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
+                                    // click on its own territories
+                                    // A Changer en fonction du nombre de soldiers, riders et cannons
+                                    theChosenOnePast = fenetre.getTerritoryChosenOne();
+                                    fenetre.setDashboardPanelRelativeTo(player, theChosenOnePast.getName(), 0);
+                                    fenetre.setTerritoryChosenOne(null); // own territory
                                     break;
                                 } else {
                                     notYouTerritory = true;
                                 }
                             }
+                            fenetre.setTerritoryChosenOne(null);
                         }
                         fenetre.setUnitsOnMap();
+                        fenetre.setTerritoryChosenOne(null);
                     }
                     fenetre.setTerritoryChosenOne(null);
 
