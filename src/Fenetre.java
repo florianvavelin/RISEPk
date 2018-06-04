@@ -20,7 +20,7 @@ public class Fenetre extends JFrame {
     private Google google = new Google();
     private JPanel unitsPanel = new JPanel();
     private JPanel dashboard = new JPanel();
-    private JPanel bottomPanel = new JPanel();
+    private JPanel rightPanel = new JPanel();
     private JLabel map = new JLabel();
     private Territory territoryChosenOne = null;
     private boolean waitForClick = true;
@@ -117,10 +117,10 @@ public class Fenetre extends JFrame {
         /*
         Page axis and line axis to put the panels line by line
          */
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
-        bottomPanel.setBackground(new Color(132,180,226));
-        bottomPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.black));
-        bottomPanel.setOpaque(true);
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+        rightPanel.setBackground(new Color(132,180,226));
+        rightPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.black));
+        rightPanel.setOpaque(true);
         for (Player player: allPlayers) {
             JPanel playerPanel = new JPanel(); // Each player has a panel
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
@@ -141,20 +141,20 @@ public class Fenetre extends JFrame {
             Name.setForeground(player.getColor()); // change the color of the text
             playerPanel.add(Name); // add the text into the panel
             playerPanel.setAlignmentX(0);
-            bottomPanel.setLocation(0,0);
+            rightPanel.setLocation(0,0);
             /*
             Add the panel into the bottom panel.
             Remember that each playerPanel will be placed line by line
              */
-            bottomPanel.add(playerPanel);
+            rightPanel.add(playerPanel);
         }
-        bottomPanel.setBounds(width, 0, 300, MapPanel.getHeight()); // maybe the location
+        rightPanel.setBounds(width, 0, 300, MapPanel.getHeight()); // maybe the location
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
         dashboard.setAlignmentX(0);
         dashboard.setBackground(new Color(132,180,226));
 
-        contentPane.add(bottomPanel);
+        contentPane.add(rightPanel);
         map.setVisible(true);
 
         // When clicking on the map
@@ -168,9 +168,9 @@ public class Fenetre extends JFrame {
         setUnitsOnMap();
 
         System.out.println(MapPanel.getHeight());
-        System.out.println("width : " + bottomPanel.getWidth());
+        System.out.println("width : " + rightPanel.getWidth());
 
-        this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (bottomPanel.getHeight() + 20)*/ + 40));
+        this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (rightPanel.getHeight() + 20)*/ + 40));
 
         System.out.println(this.getHeight());
 
@@ -224,8 +224,7 @@ public class Fenetre extends JFrame {
         test.add(name, c);
 
         JLabel action = new JLabel();
-        if(type == "placement")
-        {
+        if (type.equals("placement")) {
             action.setText(toPlace + " soldats à placer");
         }
         else {
@@ -362,7 +361,7 @@ public class Fenetre extends JFrame {
         }
 
         dashboard.add(test);
-        bottomPanel.add(dashboard);
+        rightPanel.add(dashboard);
 
         validate();
         repaint();
@@ -379,46 +378,6 @@ public class Fenetre extends JFrame {
         c.gridy = row;
         c.gridwidth = 2;
         panel.add(blank, c);
-    }
-
-    public void setDashboardPanel() {
-        /*
-        topDashboard.setSize(new Dimension(bottomPanel.getWidth(), 50));
-        JPanel namePlayerPanel = new JPanel();
-        namePlayerPanel.setPreferredSize(new Dimension(topDashboard.getWidth()/3, topDashboard.getHeight()));
-        namePlayerPanel.setBackground(colorPlayer);
-        JLabel namePlayerText = new JLabel();
-        namePlayerPanel.setPreferredSize(new Dimension(namePlayerPanel.getWidth(),10));
-
-        JPanel nameTitlePanel = new JPanel();
-        nameTitlePanel.setPreferredSize(new Dimension(2*topDashboard.getWidth()/3, topDashboard.getHeight()));
-        JLabel titleText = new JLabel();
-        if (colorPlayer.equals(Color.green) || colorPlayer.equals(Color.white)) {
-            namePlayerText.setForeground(Color.black);
-            titleText.setForeground(Color.black);
-        } else {
-            namePlayerText.setForeground(Color.white);
-            titleText.setForeground(Color.white);
-        }
-        titleText.setForeground(Color.black);
-        titleText.setText("Renforts");
-        nameTitlePanel.add(titleText);
-
-        namePlayerText.setText(player.getName());
-        namePlayerPanel.add(namePlayerText);
-
-        topDashboard.add(namePlayerPanel);
-        topDashboard.add(nameTitlePanel);
-
-        JPanel middleDashboard = new JPanel();
-
-        JPanel bottomDashboard = new JPanel();
-
-        dashboard.add(topDashboard);
-        dashboard.add(middleDashboard);
-        dashboard.add(bottomDashboard);
-        bottomPanel.add(dashboard);*/
-
     }
 
     public void setUnitsOnMap() {
@@ -496,18 +455,15 @@ public class Fenetre extends JFrame {
                 int y = event.getY();
                 Color color = new Color(img.getRGB(x, y));
                 if(event.getButton() == MouseEvent.BUTTON1) {
-                    //System.out.print("Left Click : ");
+                    territoryChosenOne = WhatsTerritoryNigga(color);
                 }
-                if(event.getButton() == MouseEvent.BUTTON2) {
-                    //System.out.print("Middle Click : ");
+                /*if(event.getButton() == MouseEvent.BUTTON2) {
+                    System.out.print("Middle Click : ");
                 }
                 if(event.getButton() == MouseEvent.BUTTON3) {
-                    //System.out.print("Right Click : ");
-                }
-                territoryChosenOne = WhatsTerritoryNigga(color);
-                if (territoryChosenOne != null) {
-                    //System.out.println(territoryChosenOne.getName());
-                }
+                    System.out.print("Right Click : ");
+                }*/
+
             } else {
                 territoryChosenOne = null;
             }
@@ -547,12 +503,6 @@ public class Fenetre extends JFrame {
                     try {
                         Color color_temp = new Color(255, 255, blue - 1 + l);
                         if (color_temp.equals(territory.getColor())) {
-                            //System.out.println(territory.getName() + " : " + territory.getPlayer().getName());
-                            //System.out.print("Les adjacents de " + territory.getName() + " sont ");
-                            for (Territory adjacents : territory.getAdjacents()) {
-                                //System.out.print(adjacents.getName() + ", ");
-                            }
-                            //System.out.println("");
                             return territory;
                         }
                     } catch (IllegalArgumentException iae) {
