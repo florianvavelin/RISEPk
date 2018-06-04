@@ -150,7 +150,7 @@ public class Fenetre extends JFrame {
         }
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
-        dashboard.setAlignmentX(0);
+        //dashboard.setAlignmentX(0);
         dashboard.setBackground(new Color(132,180,226));
 
         contentPane.add(rightPanel);
@@ -170,7 +170,7 @@ public class Fenetre extends JFrame {
 
         this.setLocation((screen.width - this.getSize().width)/2,(screen.height - this.getSize().height)/2);
 
-        rightPanel.setBounds(width-20, 10, screen.width - (this.getWidth() + 1), MapPanel.getHeight()-10); // maybe the location
+        rightPanel.setBounds(width-20, 10, screen.width - (this.getWidth() + 1), MapPanel.getHeight()-10);
 
         this.setVisible(true);
     }
