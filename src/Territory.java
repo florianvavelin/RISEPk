@@ -476,6 +476,7 @@ public class Territory {
         int [] champions = MoshPit(heroes, villains);
         int [] graveyard = Hajime(champions);
         this.KillBill(graveyard, noxus);
+        this.MyNewHome();
     }
 
     /**
@@ -496,6 +497,19 @@ public class Territory {
         else {
             System.out.println("cool bro");
             return(true);
+        }
+    }
+
+    /**
+     * Conquer a territory after a fight if it's empty
+     * @param zetsus [3] = [Soldier, Rider, Cannon] (int [])
+     * @param konoha (Territoy)
+     */
+    public void MyNewHome(int [] zetsus, Territory konoha) {
+        int shinobi = konoha.getArmy_riders().size() + konoha.getArmy_riders().size() + konoha.getArmy_cannons().size();
+        if (shinobi == 0) {
+            konoha.setPlayer(this.getPlayer());
+            this.MoveYourAss(zetsus, konoha);
         }
     }
 }
