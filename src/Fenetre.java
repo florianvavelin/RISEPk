@@ -243,6 +243,7 @@ public class Fenetre extends JFrame {
         c.gridx = 0;
         c.gridy = 2;
         c.gridwidth = 3;
+        c.anchor = GridBagConstraints.EAST;
         test.add(territory, c);
         territory.setBorder((BorderFactory.createLineBorder(Color.black)));
 
@@ -307,7 +308,6 @@ public class Fenetre extends JFrame {
 
 
         dashboard.add(test);
-
         bottomPanel.add(dashboard);
 
         validate();
