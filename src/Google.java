@@ -55,10 +55,11 @@ public class Google {
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();
-                    if (red > 253 && green > 253 && blue < 240) {
+                    if (red > 252 && green > 252 && blue < 240) {
                         for (Territory territory:Territories) {
                             if (territory.getColor().equals(new Color(255, 255, blue)) ||
-                                    territory.getColor().equals(new Color(255, 255, blue+1))) {
+                                    territory.getColor().equals(new Color(255, 255, blue+1)) ||
+                                    territory.getColor().equals(new Color(255, 255, blue+2))) {
                                 territory.addCoordinatesXY(x, y);
                                 break;
                             }
