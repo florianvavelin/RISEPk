@@ -476,7 +476,8 @@ public class Territory {
         int [] champions = MoshPit(heroes, villains);
         int [] graveyard = Hajime(champions);
         this.KillBill(graveyard, noxus);
-        this.MyNewHome();
+        int [] survivors = HungerGames(champions, graveyard);
+        this.MyNewHome(survivors, noxus);
     }
 
     /**
@@ -511,5 +512,21 @@ public class Territory {
             konoha.setPlayer(this.getPlayer());
             this.MoveYourAss(zetsus, konoha);
         }
+    }
+
+    /**
+     * Check the survivors of a fight
+     * @param tributes [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
+     * @param losers [3] = [Soldier, Rider, Cannon]
+     * @return winners [3] = [Soldier,Rider, Cannon)
+     */
+    public int [] HungerGames (int [] tributes, int [] losers) {
+        int [] winners = new int[3];
+
+        for (int i=0; i<winners.length; i++) {
+            winners[i] = tributes[i] - losers[i];
+        }
+
+        return winners;
     }
 }
