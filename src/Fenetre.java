@@ -88,7 +88,7 @@ public class Fenetre extends JFrame {
 
         JPanel MapPanel = new JPanel();
         getContentPane().setLayout(null);
-        MapPanel.setBounds(0, 0, width, height);
+        MapPanel.setBounds(0, 0, width-20, height);
         MapPanel.setBackground(new Color(132,180,226));
         contentPane.add(MapPanel);
 
@@ -170,8 +170,7 @@ public class Fenetre extends JFrame {
 
         this.setLocation((screen.width - this.getSize().width)/2,(screen.height - this.getSize().height)/2);
 
-
-        rightPanel.setBounds(width, 10, screen.width - (this.getWidth() + 10), MapPanel.getHeight()-10); // maybe the location
+        rightPanel.setBounds(width-20, 10, screen.width - (this.getWidth() + 1), MapPanel.getHeight()-10); // maybe the location
 
         this.setVisible(true);
     }
@@ -238,7 +237,7 @@ public class Fenetre extends JFrame {
         insertBlanck(1,test);
 
         JLabel rappel = new JLabel("1 cavalier = 3 soldats et 1 canon = 7 soldats");
-        rappel.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        rappel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.fill = GridBagConstraints.NONE;
         c.weightx = 1;
         c.gridx = 0;
@@ -269,7 +268,7 @@ public class Fenetre extends JFrame {
         Integer[] NbOfUnit = {1, 2, 3, 4, 5, 6};
 
         JLabel soldat = new JLabel("Soldats");
-        soldat.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 6;
@@ -280,7 +279,7 @@ public class Fenetre extends JFrame {
         test.add(NbOfsoldats, c);
 
         JLabel cavaliers = new JLabel("Cavaliers");
-        cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 1;
         c.gridy = 6;
@@ -291,7 +290,7 @@ public class Fenetre extends JFrame {
         test.add(NbOfCav, c);
 
         JLabel canons = new JLabel("Canons");
-        canons.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        canons.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 2;
         c.gridy = 6;
@@ -305,7 +304,7 @@ public class Fenetre extends JFrame {
         insertBlanck(8,test);
 
         JButton cancel = new JButton("Annuler");
-        cancel.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        cancel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 9;
@@ -313,7 +312,7 @@ public class Fenetre extends JFrame {
         test.add(cancel, c);
 
         JButton validate = new JButton("Valider");
-        validate.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        validate.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 2;
         c.gridy = 9;
@@ -329,7 +328,7 @@ public class Fenetre extends JFrame {
                 super.mouseClicked(e);
             }
         });
-        EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 1;
         c.gridy = 11;
@@ -346,7 +345,7 @@ public class Fenetre extends JFrame {
             }
         });
 
-        TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 1;
         c.gridy = 11;
