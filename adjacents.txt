@@ -1,4 +1,4 @@
-﻿﻿Afghanistan/Oural,Chine,Inde,Moyen Orient,Ukraine,Mongolie
+﻿﻿Afghanistan/Oural,Chine,Inde,Moyen Orient,Ukraine,Mongolie,Sibérie
 Inde/Chine,Afghanistan,Moyen Orient,Siam
 Afrique du Nord/Egypte,Afrique Orientale,Congo,Europe Occidentale,Europe du Sud,Brésil
 Indonésie/Siam,Nouvelle Guinée,Australie Occidentale
