@@ -16,7 +16,7 @@ Argentine/255,255,72
 Moyen Orient/255,255,77
 Australie Occidentale/255,255,82
 Nouvelle Guinée/255,255,87
-Australie orientale/255,255,92
+Australie Orientale/255,255,92
 Ontario/255,255,97
 Brésil/255,255,102
 Oural/255,255,107
