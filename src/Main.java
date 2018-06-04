@@ -41,6 +41,7 @@ public class Main {
                         while (fenetre.isWaitForClick() && notYouTerritory) {
                             if(fenetre.isFinDesAttaques()) {
                                 System.out.println("Fin des attaques");
+                                fenetre.setDashboardPanelRelativeTo(player, "", 0);
                                 break;
                             }
                             try {
@@ -63,7 +64,6 @@ public class Main {
 
                         Territory theChosenOne = fenetre.getTerritoryChosenOne();
                         if (theChosenOne != null) {
-                            System.out.println("Choose nothing bro !");
                             fenetre.setDashboardPanelRelativeTo(player, theChosenOne.getName() + " against ", 0);
                         }
 
@@ -74,6 +74,7 @@ public class Main {
                         while (fenetre.isWaitForClick() && notYouTerritory) {
                             if(fenetre.isFinDesAttaques()) {
                                 System.out.println("Fin des attaques");
+                                fenetre.setDashboardPanelRelativeTo(player, "", 0);
                                 break;
                             }
                             try {
@@ -110,6 +111,11 @@ public class Main {
                         fenetre.setUnitsOnMap();
                     }
                     fenetre.setTerritoryChosenOne(null);
+
+
+                    /*--------DEPLACEMENT----------*/
+                    match.HiraishinNoJutsu(fenetre, player);
+
                 }
                 fenetre.setTerritoryChosenOne(null);
                 fenetre.setFinDuTour(false);

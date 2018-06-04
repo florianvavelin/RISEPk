@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 
@@ -73,6 +72,75 @@ public class Match {
                 fenetre.setTerritoryChosenOne(null); // set the territory chosen by default to null
                 toPlace--; // a place has been occupied
             }
+        }
+    }
+
+    public void HiraishinNoJutsu(Fenetre fenetre, Player player) {
+        Territory theChosenOne = KonohagakureNoSato(fenetre, player);
+        SunagakureNoSato(fenetre, player, theChosenOne);
+    }
+
+    public Territory KonohagakureNoSato(Fenetre fenetre, Player player) {
+        boolean notYouTerritory = true;
+        fenetre.setWaitForClick(true);
+
+        while (fenetre.isWaitForClick() && notYouTerritory) {
+            if(fenetre.isFinDuTour()) {
+                System.out.println("Fin du tour");
+                break;
+            }
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (fenetre.getTerritoryChosenOne() != null) {
+                if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                        fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
+                    fenetre.setWaitForClick(false);
+                    notYouTerritory = false;
+                } else {
+                    notYouTerritory = true;
+                }
+            }
+        }
+        Territory theChosenOne = fenetre.getTerritoryChosenOne();
+        if (theChosenOne != null) {
+            System.out.print("Pour le déplacement, je choisis " + theChosenOne.getName());
+            fenetre.setDashboardPanelRelativeTo(player, "Déplacement", 0);
+        }
+        return theChosenOne;
+    }
+
+    public void SunagakureNoSato(Fenetre fenetre, Player player, Territory theChosenOne) {
+        boolean notYouTerritory = true;
+        fenetre.setWaitForClick(true);
+        while (fenetre.isWaitForClick() && notYouTerritory) {
+            if(fenetre.isFinDuTour()) {
+                break;
+            }
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (fenetre.getTerritoryChosenOne() != null) {
+                if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                        fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOne)) {
+                    fenetre.setWaitForClick(false);
+                    notYouTerritory = false;
+                } else {
+                    notYouTerritory = true;
+                }
+            }
+        }
+        Territory theChosenTwo = fenetre.getTerritoryChosenOne();
+        if (theChosenTwo != null && theChosenOne != null) {
+            System.out.println(" pour aller vers " + theChosenTwo.getName());
+            int[] wantSomeHelp = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
+            theChosenOne.MoveYourAss(wantSomeHelp, theChosenTwo);
+            //fenetre.setDashboardPanelRelativeTo(player, "Déplacement", 0);
+            fenetre.setUnitsOnMap();
         }
     }
 }
