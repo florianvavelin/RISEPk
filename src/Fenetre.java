@@ -196,16 +196,26 @@ public class Fenetre extends JFrame {
         this.territoryChosenOne = territoryChosenOne;
     }
 
-    public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
+    public void initializeDashboard(Player player, int toPlace) {
         Color colorPlayer = player.getColor();
-        JLabel jlb = new JLabel(player.getName() + ": " + toPlace + " soldats à placer");
+        JLabel jlb = new JLabel();
+        if (toPlace > 5) {
+            jlb.setText(player.getName() + ": " + toPlace + " soldats à placer");
+        } else {
+            jlb.setText(player.getName() + ": " + toPlace);
+        }
         jlb.setForeground(colorPlayer);
         dashboard.removeAll();
         dashboard.add(jlb);
         validate();
         repaint();
+        bottomPanel.add(dashboard);
+        if (toPlace == 0) {
+            dashboard.removeAll();
+        }
+    }
 
-
+    public void setDashboardPanel() {
         /*
         topDashboard.setSize(new Dimension(bottomPanel.getWidth(), 50));
         JPanel namePlayerPanel = new JPanel();
@@ -237,10 +247,10 @@ public class Fenetre extends JFrame {
         JPanel middleDashboard = new JPanel();
 
         JPanel bottomDashboard = new JPanel();
-        dashboard.add(topDashboard);*/
-        //dashboard.add(middleDashboard);
-        //dashboard.add(bottomDashboard);
-        bottomPanel.add(dashboard);
+        dashboard.add(topDashboard);
+        dashboard.add(middleDashboard);
+        dashboard.add(bottomDashboard);
+        bottomPanel.add(dashboard);*/
     }
 
     public void setUnitsOnMap() {
@@ -318,17 +328,17 @@ public class Fenetre extends JFrame {
                 int y = event.getY();
                 Color color = new Color(img.getRGB(x, y));
                 if(event.getButton() == MouseEvent.BUTTON1) {
-                    System.out.print("Left Click : ");
+                    //System.out.print("Left Click : ");
                 }
                 if(event.getButton() == MouseEvent.BUTTON2) {
-                    System.out.print("Middle Click : ");
+                    //System.out.print("Middle Click : ");
                 }
                 if(event.getButton() == MouseEvent.BUTTON3) {
-                    System.out.print("Right Click : ");
+                    //System.out.print("Right Click : ");
                 }
                 territoryChosenOne = WhatsTerritoryNigga(color);
                 if (territoryChosenOne != null) {
-                    System.out.println(territoryChosenOne.getName());
+                    //System.out.println(territoryChosenOne.getName());
                 }
             } else {
                 territoryChosenOne = null;
