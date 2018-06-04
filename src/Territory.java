@@ -194,28 +194,36 @@ public class Territory {
 
         // Dice roll
         Myfunction mf = new Myfunction();
+        double no_duplicate = 0;
         for (int role = 0; role < 6; role++) {
             for (int i = 0; i < fighters[role]; i++) {
                 switch (role) {
                     case 0:
-                        attack.put(mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
+                        double AttSol = mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT() + no_duplicate;
+                        attack.put(AttSol, "Soldier");
                         break;
                     case 1:
-                        attack.put(mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
+                        double AttRid = mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT() + no_duplicate;
+                        attack.put(AttRid, "Rider");
                         break;
                     case 2:
-                        attack.put(mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
+                        double AttCan = mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT() + no_duplicate;
+                        attack.put(AttCan, "Cannon");
                         break;
                     case 3:
-                        defense.put(mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT(), "Soldier");
+                        double DefSol = mf.random(soldier.getMin_power(), soldier.getMax_power()) + soldier.getPriorityATT() + no_duplicate;
+                        defense.put(DefSol, "Soldier");
                         break;
                     case 4:
-                        defense.put(mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT(), "Rider");
+                        double DefRid = mf.random(rider.getMin_power(), rider.getMax_power()) + rider.getPriorityATT() + no_duplicate;
+                        defense.put(DefRid, "Rider");
                         break;
                     case 5:
-                        defense.put(mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT(), "Cannon");
+                        double DefCan = mf.random(cannon.getMin_power(), cannon.getMax_power()) + cannon.getPriorityATT() + no_duplicate;
+                        defense.put(DefCan, "Cannon");
                         break;
                 }
+                no_duplicate += 0.01;
             }
         }
 
@@ -228,14 +236,6 @@ public class Territory {
         // -- Prepare the defending wave
         Set defense_set = defense.entrySet();
         Iterator defense_it = defense_set.iterator();
-
-        for (Double key : attack.keySet()) {
-            System.out.println("attaquant : " + key);
-        }
-
-        for (Double key : defense.keySet()) {
-            System.out.println("defenseur : " + key);
-        }
 
         // -- Check if such army still exists
         while ((attack_it.hasNext()) && (defense_it.hasNext())) {
