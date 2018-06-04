@@ -15,38 +15,9 @@ public class Main {
         Google google = fenetre.getGoogle();
         Match match = new Match(false);
         String winner = "";
-        int army = 50 - 5*google.getAllPlayers().size();
-        for (Player player : google.getAllPlayers()) {
-            int toPlace = army - player.getTerritories().size();
-            while (toPlace > 0) {
-                fenetre.setDashboardPanelRelativeTo(player, "placement", toPlace);
-                boolean notYouTerritory = true;
-                while (fenetre.isWaitForClick() && notYouTerritory) {
 
-                    try {
-                        Thread.sleep(10);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (fenetre.getTerritoryChosenOne() != null) {
-                        if (fenetre.getTerritoryChosenOne().getPlayer().equals(player)) {
+        match.initialize(fenetre, google);
 
-                            fenetre.setWaitForClick(false);
-                            notYouTerritory = false;
-                        } else {
-                            notYouTerritory = true;
-                        }
-                    }
-                }
-                Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                int[] babies = {1,0,0};
-                theChosenOne.UncleBenNeedsYou(babies);
-                fenetre.setUnitsOnMap();
-                fenetre.setWaitForClick(true);
-                fenetre.setTerritoryChosenOne(null);
-                toPlace--;
-            }
-        }
         while (!match.getVictory()) {
 
             for (Player player : google.getAllPlayers()) {
@@ -100,20 +71,22 @@ public class Main {
                             }
                             if (fenetre.getTerritoryChosenOne() != null) {
                                 if (!fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                                        theChosenOne.getAdjacents().contains(fenetre.getTerritoryChosenOne())) { //Attaques
-                                        Territory theChosenTwo = fenetre.getTerritoryChosenOne();
-                                        System.out.println(theChosenTwo.getName());
-                                        if (theChosenOne.getArmy_soldiers().size() > 3) {
-                                            int[] fighters = {3,0,0};
-                                            System.out.println(fighters[0] + " soldats attaquants");
-                                            theChosenOne.AllMightO(fighters, theChosenTwo);
-                                        } else {
-                                            int[] fighters = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
-                                            System.out.println(fighters[0] + " soldats attaquants");
-                                            theChosenOne.AllMightO(fighters, theChosenTwo);
-                                        }
-                                        fenetre.setWaitForClick(false);
-                                        notYouTerritory = false;
+                                    theChosenOne.getAdjacents().contains(fenetre.getTerritoryChosenOne())) {
+                                    // Attaques
+
+                                    Territory theChosenTwo = fenetre.getTerritoryChosenOne();
+                                    System.out.println(theChosenTwo.getName());
+                                    if (theChosenOne.getArmy_soldiers().size() > 3) {
+                                        int[] fighters = {3,0,0};
+                                        System.out.println(fighters[0] + " soldats attaquants");
+                                        theChosenOne.AllMightO(fighters, theChosenTwo);
+                                    } else {
+                                        int[] fighters = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
+                                        System.out.println(fighters[0] + " soldats attaquants");
+                                        theChosenOne.AllMightO(fighters, theChosenTwo);
+                                    }
+                                    fenetre.setWaitForClick(false);
+                                    notYouTerritory = false;
                                 } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player)) {
                                     break;
                                 } else {
