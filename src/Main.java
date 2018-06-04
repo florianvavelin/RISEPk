@@ -69,6 +69,7 @@ public class Main {
 
                         fenetre.setWaitForClick(true);
                         notYouTerritory = true;
+                        fenetre.setTerritoryChosenOne(null);
 
                         while (fenetre.isWaitForClick() && notYouTerritory) {
                             if(fenetre.isFinDesAttaques()) {
@@ -106,7 +107,6 @@ public class Main {
                                 }
                             }
                         }
-
                         fenetre.setUnitsOnMap();
                     }
                     fenetre.setTerritoryChosenOne(null);
