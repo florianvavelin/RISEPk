@@ -27,9 +27,17 @@ public class Main {
 
             for (Player player : google.getAllPlayers()) {
                 if (guyCodeHarry) {
-                    // renforts
+                    // renforts en début de tour
+                    // calcul du nombre d'unités à placer
+                    // calcul des max de chaque unité
+                    // "Vous avez X soldats à placer"
+                    // Affiche le nombre de soldats, riders, cannons qu'on peut placer actuellement
+                    // Sur la map :
+                        // Clique droit pour changer d'unité (si on peut) et on affiche l'unité choisie dans le dashboard
+                        // Clique gauche sur la map, place l'unité choisie
+                        // recalcule les max
                 } else {
-                    // pas renforts (au début)
+
                 }
                 fenetre.setDashboardPanelRelativeTo(player, " C'est ton tour !", 0);
                 System.out.println("C'est ton tour " + player.getName());
