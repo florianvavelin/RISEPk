@@ -183,4 +183,37 @@ public class Player {
         nigga -= gang[0] + gang[1] + gang[2];
         return nigga;
     }
+
+    /**
+     * Compute max number of units for each type
+     * @param lemons (int)
+     * @return lemonade = [Soldier, Rider, Cannon] (int [])
+     */
+    public int [] MixTheJuice (int lemons) {
+        Soldier soldier = new Soldier();
+        int max_soldier = (int) Math.floor(lemons / soldier.getCost());
+
+        Rider rider = new Rider();
+        int max_rider = (int) Math.floor(lemons / rider.getCost());
+
+        Cannon cannon = new Cannon();
+        int max_cannon = (int) Math.floor(lemons / cannon.getCost());
+
+        int[] lemonade = {max_soldier, max_rider, max_cannon};
+        return lemonade;
+    }
+
+    /**
+     * Compute the cost of the current set of units
+     * @param lemonade = [Soldier, Rider, Cannon] (int [])
+     * @return lemons (int)
+     */
+    public int DrinkTheJuice (int [] lemonade) {
+        Soldier soldier = new Soldier();
+        Rider rider = new Rider();
+        Cannon cannon = new Cannon();
+
+        int lemons = lemonade[0]*soldier.getCost() + lemonade[1]*rider.getCost() + lemonade[2]*cannon.getCost();
+        return lemons;
+    }
 }
