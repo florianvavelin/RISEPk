@@ -280,10 +280,20 @@ public class Fenetre extends JFrame {
                     yourWeapon.setText("Choix : Soldat");
                     break;
                 case 1:
-                    yourWeapon.setText("Choix : Cavalier");
+                    if (JingleBellUnits[1] != 0) {
+                        yourWeapon.setText("Choix : Cavalier");
+                    } else {
+                        setWhatUnit(0);
+                        yourWeapon.setText("Choix : Soldat");
+                    }
                     break;
                 case 2:
-                    yourWeapon.setText("Choix : Canon");
+                    if (JingleBellUnits[2] != 0) {
+                        yourWeapon.setText("Choix : Canon");
+                    } else {
+                        setWhatUnit(0);
+                        yourWeapon.setText("Choix : Soldat");
+                    }
                     break;
             }
             yourWeapon.setFont(new Font("TimesRoman", Font.PLAIN, 15));
@@ -306,115 +316,122 @@ public class Fenetre extends JFrame {
 
         Integer[] NbOfUnit = {0};
 
-        JLabel soldat = new JLabel("Soldats");
-        soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
-        c.weightx = 1;
-        c.gridx = 0;
-        c.gridy = 9;
-        c.gridwidth = 1;
-        test.add(soldat, c);
-        c.gridy = 10;
-        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
-        if (type.equals("Renforts")) {
-            int allowedSoldiers = JingleBellUnits[0];
-            JLabel NbOfsoldats = new JLabel("" + allowedSoldiers);
-            test.add(NbOfsoldats, c);
-        } else {
-            JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
-            test.add(NbOfsoldats, c);
-        }
+        if (!type.equals("placement")) {
+            JLabel soldat = new JLabel("Soldats");
+            soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
+            c.weightx = 1;
+            c.gridx = 0;
+            c.gridy = 9;
+            c.gridwidth = 1;
+            test.add(soldat, c);
+            c.gridy = 10;
+            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
+            if (type.equals("Renforts")) {
+                int allowedSoldiers = JingleBellUnits[0];
+                JLabel NbOfsoldats = new JLabel("" + allowedSoldiers);
+                test.add(NbOfsoldats, c);
+            } else {
 
-        JLabel cavaliers = new JLabel("Cavaliers");
-        cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 14));
-        c.weightx = 1;
-        c.gridx = 1;
-        c.gridy = 9;
-        c.gridwidth = 1;
-        test.add(cavaliers, c);
-        c.gridy = 10;
-        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
-        if (type.equals("Renforts")) {
-            int allowedRiders = JingleBellUnits[1];
-            JLabel NbOfCav = new JLabel("" + allowedRiders);
-            test.add(NbOfCav, c);
-        } else {
-            JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
-            test.add(NbOfCav, c);
-        }
-
-        JLabel canons = new JLabel("Canons");
-        canons.setFont(new Font("TimesRoman", Font.PLAIN, 14));
-        c.weightx = 1;
-        c.gridx = 2;
-        c.gridy = 9;
-        c.gridwidth = 1;
-        test.add(canons, c);
-        c.gridy = 10;
-        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
-        if (type.equals("Renforts")) {
-            int allowedCannons = JingleBellUnits[2];
-            JLabel NbOfCan = new JLabel("" + allowedCannons);
-            test.add(NbOfCan, c);
-        } else {
-            JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
-            test.add(NbOfCan, c);
-        }
-
-
-        insertBlank(8, test);
-
-        JButton cancel = new JButton("Annuler");
-        cancel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        c.weightx = 1;
-        c.gridx = 0;
-        c.gridy = 12;
-        c.gridwidth = 1;
-        test.add(cancel, c);
-
-        JButton validate = new JButton("Valider");
-        validate.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        c.weightx = 1;
-        c.gridx = 2;
-        c.gridy = 12;
-        c.gridwidth = 1;
-        test.add(validate, c);
-
-        insertBlank(10, test);
-
-        JButton EndOfattacks = new JButton("Fin des attaques");
-        EndOfattacks.addMouseListener(new FinDesAttaques() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+                JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
+                test.add(NbOfsoldats, c);
             }
-        });
-        EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        c.weightx = 1;
-        c.gridx = 1;
-        c.gridy = 14;
-        c.gridwidth = 1;
-        test.add(EndOfattacks, c);
 
-
-        JButton TheEnd = new JButton("Fin du tour");
-        TheEnd.addMouseListener(new FinDuTour() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
+            JLabel cavaliers = new JLabel("Cavaliers");
+            cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 14));
+            c.weightx = 1;
+            c.gridx = 1;
+            c.gridy = 9;
+            c.gridwidth = 1;
+            test.add(cavaliers, c);
+            c.gridy = 10;
+            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
+            if (type.equals("Renforts")) {
+                int allowedRiders = JingleBellUnits[1];
+                JLabel NbOfCav = new JLabel("" + allowedRiders);
+                test.add(NbOfCav, c);
+            } else {
+                JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
+                test.add(NbOfCav, c);
             }
-        });
 
-        TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
-        c.weightx = 1;
-        c.gridx = 1;
-        c.gridy = 14;
-        c.gridwidth = 1;
+            JLabel canons = new JLabel("Canons");
+            canons.setFont(new Font("TimesRoman", Font.PLAIN, 14));
+            c.weightx = 1;
+            c.gridx = 2;
+            c.gridy = 9;
+            c.gridwidth = 1;
+            test.add(canons, c);
+            c.gridy = 10;
+            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
+            if (type.equals("Renforts")) {
+                int allowedCannons = JingleBellUnits[2];
+                JLabel NbOfCan = new JLabel("" + allowedCannons);
+                test.add(NbOfCan, c);
+            } else {
+                JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
+                test.add(NbOfCan, c);
+            }
 
-        if (isFinDesAttaques()) {
-            test.remove(EndOfattacks);
-            test.add(TheEnd, c);
+
+            insertBlank(8, test);
         }
+
+
+        if (!type.equals("Renforts") && !type.equals("placement")) {
+            JButton cancel = new JButton("Annuler");
+            cancel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            c.weightx = 1;
+            c.gridx = 0;
+            c.gridy = 12;
+            c.gridwidth = 1;
+            test.add(cancel, c);
+
+            JButton validate = new JButton("Valider");
+            validate.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            c.weightx = 1;
+            c.gridx = 2;
+            c.gridy = 12;
+            c.gridwidth = 1;
+            test.add(validate, c);
+
+            insertBlank(10, test);
+
+            JButton EndOfattacks = new JButton("Fin des attaques");
+            EndOfattacks.addMouseListener(new FinDesAttaques() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                }
+            });
+            EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            c.weightx = 1;
+            c.gridx = 1;
+            c.gridy = 14;
+            c.gridwidth = 1;
+            test.add(EndOfattacks, c);
+
+
+            JButton TheEnd = new JButton("Fin du tour");
+            TheEnd.addMouseListener(new FinDuTour() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+
+                }
+            });
+
+            TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            c.weightx = 1;
+            c.gridx = 1;
+            c.gridy = 14;
+            c.gridwidth = 1;
+
+            if (isFinDesAttaques()) {
+                test.remove(EndOfattacks);
+                test.add(TheEnd, c);
+            }
+        }
+
         dashboard.add(test);
         dashboard.revalidate();
         dashboard.repaint();
