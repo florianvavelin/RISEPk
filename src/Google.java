@@ -45,7 +45,7 @@ public class Google {
              */
             BufferedImage img = null;
             try {
-                img = ImageIO.read(new File("map_Yellow_1125(2).jpg"));
+                img = ImageIO.read(new File("map_Yellow_1125(3).jpg"));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

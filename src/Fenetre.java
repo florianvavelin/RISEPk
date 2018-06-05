@@ -66,14 +66,14 @@ public class Fenetre extends JFrame {
         this.setContentPane(contentPane);
 
         /**
-         * Set the map in the background - map3.jpg
+         * Set the map in the background - map4_988.jpg
          * Set the map to check the color (for checking the territories - map_Yellow_1125.jpg)
          */
 
         BufferedImage img = null;
         BufferedImage img2 = null;
         try {
-            img = ImageIO.read(new File("map3.jpg"));
+            img = ImageIO.read(new File("map4_988.jpg"));
             img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());

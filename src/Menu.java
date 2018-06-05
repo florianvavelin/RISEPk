@@ -215,7 +215,7 @@ public class Menu extends JFrame {
                     Player player = new Player(name, colorOfPlayer[i],radioList.get(i).isSelected());
                     allPlayers.add(player);
                 }
-                fen = new Fenetre(allPlayers, 1125, 559);
+                fen = new Fenetre(allPlayers, 988, 559);
                 closeWindow();
             }
         }
