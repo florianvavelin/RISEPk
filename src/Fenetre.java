@@ -24,13 +24,14 @@ public class Fenetre extends JFrame {
     private JLabel map = new JLabel();
     private Territory territoryChosenOne = null;
     private boolean waitForClick = true;
+    private int whatUnit = 0; // 0 = soldier, 1 = rider, 2 = cannon
     private boolean FinDuTour = false;
     private boolean FinDesAttaques = false;
 
     public Fenetre(ArrayList<Player> allPlayers, int width, int height) {
         this.allPlayers = allPlayers;
         this.setTitle("RISK");
-        this.setBackground(new Color(132,180,226));
+        this.setBackground(new Color(132, 180, 226));
         Dimension screen = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
@@ -40,7 +41,7 @@ public class Fenetre extends JFrame {
         google.setAllPlayers(allPlayers);
         google.YouAreALizardHarry();
         for (Territory territory : google.getTerritories()) {
-            int[] babiesInitializer = {1,0,0};
+            int[] babiesInitializer = {1, 0, 0};
             territory.UncleBenNeedsYou(babiesInitializer);
         }
 
@@ -62,7 +63,7 @@ public class Fenetre extends JFrame {
          */
 
         JPanel contentPane = new JPanel();
-        contentPane.setBackground(new Color(132,180,226));
+        contentPane.setBackground(new Color(132, 180, 226));
         this.setContentPane(contentPane);
 
         /**
@@ -88,8 +89,8 @@ public class Fenetre extends JFrame {
 
         JPanel MapPanel = new JPanel();
         getContentPane().setLayout(null);
-        MapPanel.setBounds(0, 0, width-20, height);
-        MapPanel.setBackground(new Color(132,180,226));
+        MapPanel.setBounds(0, 0, width - 20, height);
+        MapPanel.setBackground(new Color(132, 180, 226));
         contentPane.add(MapPanel);
 
         MapPanel.add(map);
@@ -118,14 +119,14 @@ public class Fenetre extends JFrame {
         Page axis and line axis to put the panels line by line
          */
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
-        rightPanel.setBackground(new Color(132,180,226));
-        rightPanel.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.black));
+        rightPanel.setBackground(new Color(132, 180, 226));
+        rightPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black));
         rightPanel.setOpaque(true);
-        for (Player player: allPlayers) {
+        for (Player player : allPlayers) {
             JPanel playerPanel = new JPanel(); // Each player has a panel
             playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.LINE_AXIS));
-            playerPanel.setPreferredSize(new Dimension(200,15));
-            playerPanel.setBackground(new Color(132,180,226));
+            playerPanel.setPreferredSize(new Dimension(200, 15));
+            playerPanel.setBackground(new Color(132, 180, 226));
             String type;
             if (player.getIsAnIa()) {
                 type = "IA";
@@ -141,7 +142,7 @@ public class Fenetre extends JFrame {
             Name.setForeground(player.getColor()); // change the color of the text
             playerPanel.add(Name); // add the text into the panel
             playerPanel.setAlignmentX(0);
-            rightPanel.setLocation(0,0);
+            rightPanel.setLocation(0, 0);
             /*
             Add the panel into the bottom panel.
             Remember that each playerPanel will be placed line by line
@@ -151,7 +152,10 @@ public class Fenetre extends JFrame {
 
         dashboard.setLayout(new BoxLayout(dashboard, BoxLayout.LINE_AXIS));
         //dashboard.setAlignmentX(0);
-        dashboard.setBackground(new Color(132,180,226));
+        dashboard.setBackground(new Color(132, 180, 226));
+
+
+        rightPanel.add(dashboard);
 
         contentPane.add(rightPanel);
         map.setVisible(true);
@@ -168,9 +172,9 @@ public class Fenetre extends JFrame {
 
         this.setSize(new Dimension(width, MapPanel.getHeight() /*+ (rightPanel.getHeight() + 20)*/ + 40));
 
-        this.setLocation((screen.width - this.getSize().width)/2,(screen.height - this.getSize().height)/2);
+        this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
 
-        rightPanel.setBounds(width-20, 10, screen.width - (this.getWidth() + 1), MapPanel.getHeight()-10);
+        rightPanel.setBounds(width - 20, 10, screen.width - (this.getWidth() + 1), MapPanel.getHeight() - 10);
 
         this.setVisible(true);
     }
@@ -201,6 +205,8 @@ public class Fenetre extends JFrame {
 
     public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
         dashboard.removeAll();
+        int JingleBell = toPlace;
+        int[] JingleBellUnits = player.MixTheJuice(JingleBell); // calcul des max de chaque unité
         JPanel test = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -221,10 +227,14 @@ public class Fenetre extends JFrame {
         JLabel action = new JLabel();
         if (type.equals("placement")) {
             action.setText(toPlace + " soldats à placer");
-        }
-        else {
+        } else {
             action.setText(type);
         }
+
+        if (type.equals("Renforts")) {
+            action.setText("Renforts : " + JingleBell + " à placer.");
+        }
+
         c.fill = GridBagConstraints.NONE;
         c.weightx = 1;
         c.gridx = 1;
@@ -232,9 +242,10 @@ public class Fenetre extends JFrame {
         c.gridwidth = 2;
         test.add(action, c);
 
-        insertBlanck(1,test);
+        insertBlank(1, test);
 
-        JLabel rappel = new JLabel("1 cavalier = 3 soldats et 1 canon = 7 soldats");
+        JLabel rappel = new JLabel("1 cavalier = " + (new Rider().getCost()) + " soldats et " +
+                "1 canon = " + (new Cannon().getCost()) + " soldats");
         rappel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.fill = GridBagConstraints.NONE;
         c.weightx = 1;
@@ -243,7 +254,7 @@ public class Fenetre extends JFrame {
         c.gridwidth = 3;
         test.add(rappel, c);
 
-        insertBlanck(3,test);
+        insertBlank(3, test);
 
         JLabel territoryText = new JLabel(" ");
         if (getTerritoryChosenOne() != null) {
@@ -260,7 +271,38 @@ public class Fenetre extends JFrame {
          * Choix du nombre de soldat
          */
 
-        insertBlanck(5,test);
+        insertBlank(5, test);
+
+        if (type.equals("Renforts")) {
+            JLabel yourWeapon = new JLabel();
+            switch (getWhatUnit()) {
+                case 0:
+                    yourWeapon.setText("Choix : Soldat");
+                    break;
+                case 1:
+                    yourWeapon.setText("Choix : Cavalier");
+                    break;
+                case 2:
+                    yourWeapon.setText("Choix : Canon");
+                    break;
+            }
+            yourWeapon.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+            c.weightx = 1;
+            c.gridx = 0;
+            c.gridy = 6;
+            c.gridwidth = 3;
+            test.add(yourWeapon, c);
+
+            insertBlank(5, test);
+
+            JLabel reminderMaxUnitsToChoose = new JLabel();
+            reminderMaxUnitsToChoose.setText("Maximum pour chaque unité :");
+            c.weightx = 1;
+            c.gridx = 0;
+            c.gridy = 8;
+            c.gridwidth = 3;
+            test.add(reminderMaxUnitsToChoose, c);
+        }
 
         Integer[] NbOfUnit = {0};
 
@@ -268,46 +310,64 @@ public class Fenetre extends JFrame {
         soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 9;
         c.gridwidth = 1;
         test.add(soldat, c);
-        c.gridy = 7;
-        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
-        JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
-        test.add(NbOfsoldats, c);
+        c.gridy = 10;
+        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
+        if (type.equals("Renforts")) {
+            int allowedSoldiers = JingleBellUnits[0];
+            JLabel NbOfsoldats = new JLabel("" + allowedSoldiers);
+            test.add(NbOfsoldats, c);
+        } else {
+            JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
+            test.add(NbOfsoldats, c);
+        }
 
         JLabel cavaliers = new JLabel("Cavaliers");
         cavaliers.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 9;
         c.gridwidth = 1;
         test.add(cavaliers, c);
-        c.gridy = 7;
-        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
-        JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
-        test.add(NbOfCav, c);
+        c.gridy = 10;
+        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
+        if (type.equals("Renforts")) {
+            int allowedRiders = JingleBellUnits[1];
+            JLabel NbOfCav = new JLabel("" + allowedRiders);
+            test.add(NbOfCav, c);
+        } else {
+            JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
+            test.add(NbOfCav, c);
+        }
 
         JLabel canons = new JLabel("Canons");
         canons.setFont(new Font("TimesRoman", Font.PLAIN, 14));
         c.weightx = 1;
         c.gridx = 2;
-        c.gridy = 6;
+        c.gridy = 9;
         c.gridwidth = 1;
         test.add(canons, c);
-        c.gridy = 7;
-        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
-        JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
-        test.add(NbOfCan, c);
+        c.gridy = 10;
+        NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
+        if (type.equals("Renforts")) {
+            int allowedCannons = JingleBellUnits[2];
+            JLabel NbOfCan = new JLabel("" + allowedCannons);
+            test.add(NbOfCan, c);
+        } else {
+            JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
+            test.add(NbOfCan, c);
+        }
 
 
-        insertBlanck(8,test);
+        insertBlank(8, test);
 
         JButton cancel = new JButton("Annuler");
         cancel.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 12;
         c.gridwidth = 1;
         test.add(cancel, c);
 
@@ -315,11 +375,11 @@ public class Fenetre extends JFrame {
         validate.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 2;
-        c.gridy = 9;
+        c.gridy = 12;
         c.gridwidth = 1;
         test.add(validate, c);
 
-        insertBlanck(10, test);
+        insertBlank(10, test);
 
         JButton EndOfattacks = new JButton("Fin des attaques");
         EndOfattacks.addMouseListener(new FinDesAttaques() {
@@ -331,7 +391,7 @@ public class Fenetre extends JFrame {
         EndOfattacks.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 1;
-        c.gridy = 11;
+        c.gridy = 14;
         c.gridwidth = 1;
         test.add(EndOfattacks, c);
 
@@ -348,20 +408,19 @@ public class Fenetre extends JFrame {
         TheEnd.setFont(new Font("TimesRoman", Font.PLAIN, 12));
         c.weightx = 1;
         c.gridx = 1;
-        c.gridy = 11;
+        c.gridy = 14;
         c.gridwidth = 1;
 
-        if(isFinDesAttaques()) {
+        if (isFinDesAttaques()) {
             test.remove(EndOfattacks);
             test.add(TheEnd, c);
         }
         dashboard.add(test);
-        rightPanel.add(dashboard);
         dashboard.revalidate();
         dashboard.repaint();
     }
 
-    public void insertBlanck(int row, JPanel panel) {
+    public void insertBlank(int row, JPanel panel) {
         GridBagConstraints c = new GridBagConstraints();
         JLabel blank = new JLabel(" ");
         blank.setFont(new Font("TimesRoman", Font.PLAIN, 20));
@@ -383,11 +442,11 @@ public class Fenetre extends JFrame {
         ArrayList<ArrayList<Integer>> coordinatesXY = territory.getCoordinatesXY();
 
         int[][] unitsCoordinates = {territory.getSoldierCoordinates(), territory.getRidersCoordinates(),
-                                    territory.getCannonsCoordinates()};
+                territory.getCannonsCoordinates()};
 
         for (int i = 0; i < unitsCoordinates.length; i++) {
-            int temp1 = i==2? 0 : 2;
-            int temp2 = i==1? 0 : 1;
+            int temp1 = i == 2 ? 0 : 2;
+            int temp2 = i == 1 ? 0 : 1;
             if (unitsCoordinates[i][0] == 0 &&
                     unitsCoordinates[i][1] == 0) {
                 boolean ok;
@@ -399,39 +458,45 @@ public class Fenetre extends JFrame {
                     int yCoord1 = unitsCoordinates[temp1][1];
                     int xCoord2 = unitsCoordinates[temp2][0];
                     int yCoord2 = unitsCoordinates[temp2][1];
-                    if (i==0) {
-                        territory.setSoldierCoordinates(x,y);
-                    } else if (i==1) {
-                        territory.setRidersCoordinates(x,y);
+                    if (i == 0) {
+                        territory.setSoldierCoordinates(x, y);
+                    } else if (i == 1) {
+                        territory.setRidersCoordinates(x, y);
                     } else {
-                        territory.setCannonsCoordinates(x,y);
+                        territory.setCannonsCoordinates(x, y);
                     }
                     ok = Math.sqrt((y - yCoord1) * (y - yCoord1) + (x - xCoord1) * (x - xCoord1)) < 21
-                      && Math.sqrt((y - yCoord2) * (y - yCoord2) + (x - xCoord2) * (x - xCoord2)) < 21
-                      && Math.sqrt((yCoord1 - yCoord2) * (yCoord1 - yCoord2) + (xCoord1 - xCoord2) * (xCoord1 - xCoord2)) < 21;
+                            && Math.sqrt((y - yCoord2) * (y - yCoord2) + (x - xCoord2) * (x - xCoord2)) < 21
+                            && Math.sqrt((yCoord1 - yCoord2) * (yCoord1 - yCoord2) + (xCoord1 - xCoord2) * (xCoord1 - xCoord2)) < 21;
                 } while (ok);
             }
             int xL = unitsCoordinates[i][0];
             int yL = unitsCoordinates[i][1];
             g2.setColor(colorToDraw);
-            if (i==0 && territory.getArmy_soldiers().size() != 0) {
-                g2.fillOval(xL,yL,15,15);
-            } else if (i==1 && territory.getArmy_riders().size() != 0) {
-                g2.fillRect(xL,yL,15,15);
-            } else if (i==2 && territory.getArmy_cannons().size() != 0){
-                g2.fillRoundRect(xL,yL,15,15, 2,2);
+            if (i == 0 && territory.getArmy_soldiers().size() != 0) {
+                g2.fillOval(xL, yL, 15, 15);
+            } else if (i == 1 && territory.getArmy_riders().size() != 0) {
+                g2.fillRect(xL, yL, 15, 15);
+            } else if (i == 2 && territory.getArmy_cannons().size() != 0) {
+                // Draw a triangle, each point is defined below
+                int[] B = {xL, yL + 8};
+                int[] A = {xL - 8, yL - 8};
+                int[] C = {xL + 8, yL - 8};
+                int[] xPoints = {A[0], B[0], C[0]};
+                int[] yPoints = {A[1], B[1], C[1]};
+                g2.fillPolygon(xPoints, yPoints, 3);
             }
             Color colorText = Color.white;
             if (colorToDraw.equals(Color.white) || colorText.equals(Color.green)) {
                 colorText = Color.black;
             }
             g2.setColor(colorText);
-            if (i==0 && territory.getArmy_soldiers().size() != 0) {
-                g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL+4,yL+11);
-            } else if (i==1 && territory.getArmy_riders().size() != 0) {
-                g2.drawString(String.valueOf(territory.getArmy_riders().size()), xL+4,yL+11);
-            } else if (i==2 && territory.getArmy_cannons().size() != 0) {
-                g2.drawString(String.valueOf(territory.getArmy_cannons().size()), xL+4,yL+11);
+            if (i == 0 && territory.getArmy_soldiers().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL + 4, yL + 11);
+            } else if (i == 1 && territory.getArmy_riders().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_riders().size()), xL + 4, yL + 11);
+            } else if (i == 2 && territory.getArmy_cannons().size() != 0) {
+                g2.drawString(String.valueOf(territory.getArmy_cannons().size()), xL + 4, yL + 11);
             }
         }
     }
@@ -439,23 +504,32 @@ public class Fenetre extends JFrame {
     abstract class MyMouseListener implements MouseListener {
         /**
          * @param event
-         * @param img to check the color
-         *            We set it one time, otherwise we'll have to open it every time we click on the map
+         * @param img   to check the color
+         *              We set it one time, otherwise we'll have to open it every time we click on the map
          */
         private void mouseClicked(MouseEvent event, BufferedImage img) {
             if (waitForClick) {
                 int x = event.getX();
                 int y = event.getY();
                 Color color = new Color(img.getRGB(x, y));
-                if(event.getButton() == MouseEvent.BUTTON1) {
+                if (event.getButton() == MouseEvent.BUTTON1) {
+                    // Left click
                     territoryChosenOne = WhatsTerritoryNigga(color);
                 }
                 /*if(event.getButton() == MouseEvent.BUTTON2) {
                     System.out.print("Middle Click : ");
-                }
-                if(event.getButton() == MouseEvent.BUTTON3) {
-                    System.out.print("Right Click : ");
                 }*/
+                if (event.getButton() == MouseEvent.BUTTON3) {
+                    // Right click
+                    territoryChosenOne = null;
+                    if (whatUnit >= 2) {
+                        whatUnit = 0;
+                    } else {
+                        whatUnit++;
+                    }
+                    dashboard.revalidate();
+                    dashboard.repaint();
+                }
 
             } else {
                 territoryChosenOne = null;
@@ -478,6 +552,7 @@ public class Fenetre extends JFrame {
 
     /**
      * Checks which territory matches the color in parameter
+     *
      * @param color : each territory has a specific color in the map_Yellow image
      * @return name of the territory
      */
@@ -522,6 +597,14 @@ public class Fenetre extends JFrame {
 
     public void setFinDesAttaques(boolean finDesAttaques) {
         FinDesAttaques = finDesAttaques;
+    }
+
+    public int getWhatUnit() {
+        return whatUnit;
+    }
+
+    public void setWhatUnit(int whatUnit) {
+        this.whatUnit = whatUnit;
     }
 
     abstract class FinDuTour implements MouseListener {

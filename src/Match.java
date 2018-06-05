@@ -93,25 +93,24 @@ public class Match {
                 e.printStackTrace();
             }
             if (fenetre.getTerritoryChosenOne() != null) {
-                if (theChosenOnePast != null) {
-                    if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                            fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOnePast)) {
-                        // click on a territory different from the previous one and if it is our own territory
-                        Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                        int[] wantSomeHelp = {theChosenOnePast.getArmy_soldiers().size()-1, 0, 0}; // change to what the user chooses
-                        theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
-                        fenetre.setTerritoryChosenOne(null);
-                        break;
-                    }
+                if (theChosenOnePast != null &&
+                        fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                        fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOnePast)) {
+                    // click on a territory different from the previous one and if it is our own territory
+                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                    int[] wantSomeHelp = {theChosenOnePast.getArmy_soldiers().size() - 1, 0, 0}; // change to what the user chooses
+                    theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
+                    fenetre.setTerritoryChosenOne(null);
+                    break;
                 } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
                         fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
                     /**
                      * TODO
                      * or get_Army_riders() > 1 or get_Army_cannons.size() > 1
-                      */
+                     */
                     // click on one of our own territories
                     theChosenOnePast = fenetre.getTerritoryChosenOne();
-                    fenetre.setDashboardPanelRelativeTo(player, theChosenOnePast.getName(), 0);
+                    fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);
                     break;
                 } else {
                     notYouTerritory = true;
