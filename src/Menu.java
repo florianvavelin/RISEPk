@@ -193,9 +193,6 @@ public class Menu extends JFrame {
 
     class ButtonPlayListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            /**
-             * TODO Let the players place their units
-             */
             errorText.setText("");
             boolean colorOK = true;
             boolean nameOK = true;

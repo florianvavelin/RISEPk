@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.*;
 
 
@@ -14,9 +15,9 @@ public class Match {
 
 
     /**
-     * @param territory 
-     * @param player 
-     * @param mission 
+     * @param territory
+     * @param player
+     * @param mission
      * @param region
      */
     public void setVictory(Territory territory, Player player, Mission mission, Region region) {
@@ -37,11 +38,12 @@ public class Match {
      * For each player, calculate the soldiers he has to place.
      * Then wait for the player to choose one of his territory.
      * Place a soldier in it.
+     *
      * @param fenetre
      * @param google
      */
     public void initialize(Fenetre fenetre, Google google) {
-        int army = 50 - 5*google.getAllPlayers().size(); // army at the beginning of the game
+        int army = 50 - 5 * google.getAllPlayers().size(); // army at the beginning of the game
         for (Player player : google.getAllPlayers()) {
             int toPlace = army - player.getTerritories().size(); // number of soldiers to place
             while (toPlace > 0) {
@@ -66,7 +68,7 @@ public class Match {
                     }
                 }
                 Territory theChosenOne = fenetre.getTerritoryChosenOne(); // get the territory we clicked on
-                int[] babies = {1,0,0};
+                int[] babies = {1, 0, 0};
                 theChosenOne.UncleBenNeedsYou(babies); // put a soldier in the territory
                 fenetre.setUnitsOnMap(); // refresh the map
                 fenetre.setTerritoryChosenOne(null); // set the territory chosen by default to null
@@ -76,16 +78,12 @@ public class Match {
     }
 
     public void HiraishinNoJutsu(Fenetre fenetre, Player player) {
-        Territory theChosenOne = KonohagakureNoSato(fenetre, player);
-        SunagakureNoSato(fenetre, player, theChosenOne);
-    }
-
-    public Territory KonohagakureNoSato(Fenetre fenetre, Player player) {
+        Territory theChosenOnePast = fenetre.getTerritoryChosenOne();
         boolean notYouTerritory = true;
         fenetre.setWaitForClick(true);
-
+        fenetre.setTerritoryChosenOne(null);
         while (fenetre.isWaitForClick() && notYouTerritory) {
-            if(fenetre.isFinDuTour()) {
+            if (fenetre.isFinDuTour()) {
                 System.out.println("Fin du tour");
                 break;
             }
@@ -95,52 +93,31 @@ public class Match {
                 e.printStackTrace();
             }
             if (fenetre.getTerritoryChosenOne() != null) {
-                if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                if (theChosenOnePast != null) {
+                    if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
+                            fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOnePast)) {
+                        // click on a territory different from the previous one and if it is our own territory
+                        Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                        int[] wantSomeHelp = {theChosenOnePast.getArmy_soldiers().size()-1, 0, 0}; // change to what the user chooses
+                        theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
+                        fenetre.setTerritoryChosenOne(null);
+                        break;
+                    }
+                } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
                         fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
-                    fenetre.setWaitForClick(false);
-                    notYouTerritory = false;
+                    /**
+                     * TODO
+                     * or get_Army_riders() > 1 or get_Army_cannons.size() > 1
+                      */
+                    // click on one of our own territories
+                    theChosenOnePast = fenetre.getTerritoryChosenOne();
+                    fenetre.setDashboardPanelRelativeTo(player, theChosenOnePast.getName(), 0);
+                    break;
                 } else {
                     notYouTerritory = true;
                 }
             }
         }
-        Territory theChosenOne = fenetre.getTerritoryChosenOne();
-        if (theChosenOne != null) {
-            System.out.print("Pour le déplacement, je choisis " + theChosenOne.getName());
-            fenetre.setDashboardPanelRelativeTo(player, "Déplacement", 0);
-        }
-        return theChosenOne;
-    }
-
-    public void SunagakureNoSato(Fenetre fenetre, Player player, Territory theChosenOne) {
-        boolean notYouTerritory = true;
-        fenetre.setWaitForClick(true);
-        while (fenetre.isWaitForClick() && notYouTerritory) {
-            if(fenetre.isFinDuTour()) {
-                break;
-            }
-            try {
-                Thread.sleep(10);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (fenetre.getTerritoryChosenOne() != null) {
-                if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                        fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOne)) {
-                    fenetre.setWaitForClick(false);
-                    notYouTerritory = false;
-                } else {
-                    notYouTerritory = true;
-                }
-            }
-        }
-        Territory theChosenTwo = fenetre.getTerritoryChosenOne();
-        if (theChosenTwo != null && theChosenOne != null) {
-            System.out.println(" pour aller vers " + theChosenTwo.getName());
-            int[] wantSomeHelp = {theChosenOne.getArmy_soldiers().size()-1, 0, 0};
-            theChosenOne.MoveYourAss(wantSomeHelp, theChosenTwo);
-            //fenetre.setDashboardPanelRelativeTo(player, "Déplacement", 0);
-            fenetre.setUnitsOnMap();
-        }
+        fenetre.setUnitsOnMap();
     }
 }

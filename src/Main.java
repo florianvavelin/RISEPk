@@ -22,9 +22,15 @@ public class Main {
 
 
 
+        boolean guyCodeHarry = false;
         while (!match.getVictory()) {
 
             for (Player player : google.getAllPlayers()) {
+                if (guyCodeHarry) {
+                    // renforts
+                } else {
+                    // pas renforts (au début)
+                }
                 fenetre.setDashboardPanelRelativeTo(player, " C'est ton tour !", 0);
                 System.out.println("C'est ton tour " + player.getName());
 
@@ -74,6 +80,10 @@ public class Main {
                                     }
                                 } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
                                         fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
+                                    /**
+                                     * TODO
+                                     * or get_Army_riders() > 1 or get_Army_cannons.size() > 1
+                                      */
                                     // click on its own territories
                                     // A Changer en fonction du nombre de soldiers, riders et cannons
                                     theChosenOnePast = fenetre.getTerritoryChosenOne();
@@ -89,7 +99,6 @@ public class Main {
                         fenetre.setUnitsOnMap();
                         fenetre.setTerritoryChosenOne(null);
                     }
-                    fenetre.setTerritoryChosenOne(null);
 
 
                     /*--------DEPLACEMENT----------*/

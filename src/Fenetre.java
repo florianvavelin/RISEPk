@@ -200,7 +200,6 @@ public class Fenetre extends JFrame {
     }
 
     public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
-
         dashboard.removeAll();
         JPanel test = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -213,8 +212,7 @@ public class Fenetre extends JFrame {
         c.gridy = 0;
         c.gridwidth = 1;
         name.setBackground(player.getColor());
-        if(player.getColor() == Color.black || player.getColor() == Color.blue || player.getColor() == Color.red)
-        {
+        if (player.getColor() == Color.black || player.getColor() == Color.blue || player.getColor() == Color.red) {
             name.setForeground(Color.white);
         }
         name.setOpaque(true);
@@ -247,17 +245,16 @@ public class Fenetre extends JFrame {
 
         insertBlanck(3,test);
 
-        JLabel territory = new JLabel(" ");
-        if (getTerritoryChosenOne() != null)
-        {
-            territory.setText(getTerritoryChosenOne().getName());
+        JLabel territoryText = new JLabel(" ");
+        if (getTerritoryChosenOne() != null) {
+            territoryText.setText(getTerritoryChosenOne().getName());
         }
-        territory.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        territoryText.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 3;
-        test.add(territory, c);
+        test.add(territoryText, c);
 
         /**
          * Choix du nombre de soldat
@@ -265,7 +262,7 @@ public class Fenetre extends JFrame {
 
         insertBlanck(5,test);
 
-        Integer[] NbOfUnit = {1, 2, 3, 4, 5, 6};
+        Integer[] NbOfUnit = {0};
 
         JLabel soldat = new JLabel("Soldats");
         soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
@@ -275,6 +272,7 @@ public class Fenetre extends JFrame {
         c.gridwidth = 1;
         test.add(soldat, c);
         c.gridy = 7;
+        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
         JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
         test.add(NbOfsoldats, c);
 
@@ -286,6 +284,7 @@ public class Fenetre extends JFrame {
         c.gridwidth = 1;
         test.add(cavaliers, c);
         c.gridy = 7;
+        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
         JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
         test.add(NbOfCav, c);
 
@@ -297,6 +296,7 @@ public class Fenetre extends JFrame {
         c.gridwidth = 1;
         test.add(canons, c);
         c.gridy = 7;
+        NbOfUnit = getTerritoryChosenOne()!=null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
         JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
         test.add(NbOfCan, c);
 
@@ -351,18 +351,14 @@ public class Fenetre extends JFrame {
         c.gridy = 11;
         c.gridwidth = 1;
 
-        if(isFinDesAttaques())
-        {
+        if(isFinDesAttaques()) {
             test.remove(EndOfattacks);
             test.add(TheEnd, c);
         }
-
         dashboard.add(test);
         rightPanel.add(dashboard);
-
-        validate();
-        repaint();
-
+        dashboard.revalidate();
+        dashboard.repaint();
     }
 
     public void insertBlanck(int row, JPanel panel) {
