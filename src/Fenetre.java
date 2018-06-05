@@ -479,9 +479,9 @@ public class Fenetre extends JFrame {
                 g2.fillRect(xL, yL, 15, 15);
             } else if (i == 2 && territory.getArmy_cannons().size() != 0) {
                 // Draw a triangle, each point is defined below
-                int[] B = {xL, yL + 8};
-                int[] A = {xL - 8, yL - 8};
-                int[] C = {xL + 8, yL - 8};
+                int[] B = {xL, yL - 8};
+                int[] C = {xL - 8, yL + 8};
+                int[] A = {xL + 8, yL + 8};
                 int[] xPoints = {A[0], B[0], C[0]};
                 int[] yPoints = {A[1], B[1], C[1]};
                 g2.fillPolygon(xPoints, yPoints, 3);
@@ -492,11 +492,14 @@ public class Fenetre extends JFrame {
             }
             g2.setColor(colorText);
             if (i == 0 && territory.getArmy_soldiers().size() != 0) {
+                xL = territory.getArmy_soldiers().size() > 9 ? xL-4 : xL;
                 g2.drawString(String.valueOf(territory.getArmy_soldiers().size()), xL + 4, yL + 11);
             } else if (i == 1 && territory.getArmy_riders().size() != 0) {
+                xL = territory.getArmy_riders().size() > 9 ? xL-4 : xL;
                 g2.drawString(String.valueOf(territory.getArmy_riders().size()), xL + 4, yL + 11);
             } else if (i == 2 && territory.getArmy_cannons().size() != 0) {
-                g2.drawString(String.valueOf(territory.getArmy_cannons().size()), xL + 4, yL + 11);
+                xL = territory.getArmy_soldiers().size() > 9 ? xL-4 : xL;
+                g2.drawString(String.valueOf(territory.getArmy_cannons().size()), xL-3, yL+6);
             }
         }
     }
