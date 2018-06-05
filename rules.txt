@@ -1,0 +1,60 @@
+Qu'est ce que Risk ?
+Risk est un jeu de stratégie en tour par tour se jouant sur une carte contenant des territoires regroupés en régions.
+Votre objectf, en tant que commandant d'une armée, est de mener vos unités de combat à la victoire !
+
+
+
+But du jeu et missions
+A chaque joueur est affiliée une mission à remplir pour gagner la partie.
+Par défaut, chaque joueur doit conquérir tous les territoires.
+- Détruire le joueur A
+- Contrôler X territoires
+- Contrôler 3 régions et au moins 18 territoires
+- Contrôler la plus grosse région et une autre région
+
+
+
+Déroulement du jeu
+En début de partie, chaque joueur reçoit des territoires aléatoirement et des unités à placer (selon le nombre de joueurs).
+Dans un tour de jeu, différentes phases se succèdent :
+
+- Renfort :     Le joueur reçoit X nouveaux soldats à placer sur ses territoires.
+                Les unités améliorées (Cavalier et Canon) peuvent y être échangées contre un certain nombre de soldats.
+                Attention : Amélioration définitive !
+
+- Combat :  Le joueur choisit ses unités à combattre pour tenter de conquérir des territoires ennemis.
+            Le joueur attaqué a ses unités de défense choisies automatiquement.
+            L'unité ayant la plus grande puissance sur un lancement de dés gagne la bataille.
+
+- Déplacement : Le joueur choisit ses unités à déplacer sur des territoires alliés.
+
+
+
+Règles :
+- Le nombre de renforts reçus dépend du nombre de territoires possédés au total,
+du nombre de territoires par région possédée et du nombre de territoires conquis au tour précédent.
+- Un territoire doit posséder au minimum une unité lors d'une attaque.
+Exemple : Un territoire à 2 soldats ne peut envoyer que 1 soldat en attaque, mais sera défendu par les 2.
+- Les combats et déplacements sont effectifs sur les territoires adjacents.
+- Conquérir un territoire et se déplacer coûtent 1 déplacement.
+- Un combat a maximum 3 unités d'attaque et 2 unités de défense.
+
+Caractéristiques des unités :
+- Soldat :
+    - Coût : 1
+    - Puissance de combat : 2 - 6
+    - Priorité Attaque : 2
+    - Priorité Défense : 1
+    - Mouvement par tour : 2
+- Cavalier :
+    - Coût : 3
+    - Puissance de combat : 2 - 7
+    - Priorité Attaque : 1
+    - Priorité Défense : 3
+    - Mouvement par tour : 3
+- Canon :
+    - Coût : 7
+    - Puissance de combat : 4 - 9
+    - Priorité Attaque : 3
+    - Priorité Défense : 2
+    - Mouvement par tour : 1
