@@ -22,9 +22,12 @@ public class Fenetre extends JFrame {
     private JPanel dashboard = new JPanel();
     private JPanel rightPanel = new JPanel();
     private JLabel map = new JLabel();
+
+
     private Territory territoryChosenOne = null;
     private boolean waitForClick = true;
     private int whatUnit = 0; // 0 = soldier, 1 = rider, 2 = cannon
+    private JComboBox[] myChoice = new JComboBox[3];
     private boolean FinDuTour = false;
     private boolean FinDesAttaques = false;
 
@@ -204,6 +207,7 @@ public class Fenetre extends JFrame {
     }
 
     public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
+
         dashboard.removeAll();
         int JingleBell = toPlace;
         int[] JingleBellUnits = player.MixTheJuice(JingleBell); // calcul des max de chaque unité
@@ -227,13 +231,13 @@ public class Fenetre extends JFrame {
         JLabel action = new JLabel();
         if (type.equals("placement")) {
             action.setText(toPlace + " soldats à placer");
+        } else if (type.equals("Renforts")) {
+            action.setText("Renforts : " + JingleBell + " à placer.");
         } else {
             action.setText(type);
         }
 
-        if (type.equals("Renforts")) {
-            action.setText("Renforts : " + JingleBell + " à placer.");
-        }
+
 
         c.fill = GridBagConstraints.NONE;
         c.weightx = 1;
@@ -314,8 +318,6 @@ public class Fenetre extends JFrame {
             test.add(reminderMaxUnitsToChoose, c);
         }
 
-        Integer[] NbOfUnit = {0};
-
         if (!type.equals("placement")) {
             JLabel soldat = new JLabel("Soldats");
             soldat.setFont(new Font("TimesRoman", Font.PLAIN, 14));
@@ -325,14 +327,18 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(soldat, c);
             c.gridy = 10;
-            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_soldiers().size()] : NbOfUnit;
             if (type.equals("Renforts")) {
                 int allowedSoldiers = JingleBellUnits[0];
                 JLabel NbOfsoldats = new JLabel("" + allowedSoldiers);
                 test.add(NbOfsoldats, c);
             } else {
-
-                JComboBox<Integer> NbOfsoldats = new JComboBox<>(NbOfUnit);
+                String[] NbOfUnit = getTerritoryChosenOne() != null ? new String[getTerritoryChosenOne().getArmy_soldiers().size()+1] :
+                        new String[]{"0"};
+                for (int i = 0; i < NbOfUnit.length; i++) {
+                    NbOfUnit[i] = String.valueOf(i);
+                }
+                JComboBox<String> NbOfsoldats = new JComboBox<>(NbOfUnit);
+                myChoice[0] = NbOfsoldats;
                 test.add(NbOfsoldats, c);
             }
 
@@ -344,13 +350,18 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(cavaliers, c);
             c.gridy = 10;
-            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_riders().size()] : NbOfUnit;
             if (type.equals("Renforts")) {
                 int allowedRiders = JingleBellUnits[1];
                 JLabel NbOfCav = new JLabel("" + allowedRiders);
                 test.add(NbOfCav, c);
             } else {
-                JComboBox<Integer> NbOfCav = new JComboBox<>(NbOfUnit);
+                String[] NbOfUnit = getTerritoryChosenOne() != null ? new String[getTerritoryChosenOne().getArmy_riders().size()+1] :
+                        new String[]{"0"};
+                for (int i = 0; i < NbOfUnit.length; i++) {
+                    NbOfUnit[i] = String.valueOf(i);
+                }
+                JComboBox<String> NbOfCav = new JComboBox<>(NbOfUnit);
+                myChoice[1] = NbOfCav;
                 test.add(NbOfCav, c);
             }
 
@@ -362,13 +373,18 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(canons, c);
             c.gridy = 10;
-            NbOfUnit = getTerritoryChosenOne() != null ? new Integer[getTerritoryChosenOne().getArmy_cannons().size()] : NbOfUnit;
             if (type.equals("Renforts")) {
                 int allowedCannons = JingleBellUnits[2];
                 JLabel NbOfCan = new JLabel("" + allowedCannons);
                 test.add(NbOfCan, c);
             } else {
-                JComboBox<Integer> NbOfCan = new JComboBox<>(NbOfUnit);
+                String[] NbOfUnit = getTerritoryChosenOne() != null ? new String[getTerritoryChosenOne().getArmy_cannons().size()+1] :
+                        new String[]{"0"};
+                for (int i = 0; i < NbOfUnit.length; i++) {
+                    NbOfUnit[i] = String.valueOf(i);
+                }
+                JComboBox<String> NbOfCan = new JComboBox<>(NbOfUnit);
+                myChoice[2] = NbOfCan;
                 test.add(NbOfCan, c);
             }
 
@@ -617,6 +633,10 @@ public class Fenetre extends JFrame {
 
     public void setFinDesAttaques(boolean finDesAttaques) {
         FinDesAttaques = finDesAttaques;
+    }
+
+    public JComboBox[] getMyChoice() {
+        return myChoice;
     }
 
     public int getWhatUnit() {

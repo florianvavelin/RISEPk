@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -46,7 +47,8 @@ public class Main {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if (fenetre.getWhatUnit() != choiceUnitPast) {
+                            if (fenetre.getWhatUnit() != choiceUnitPast ) {
+                                // if right click, change the unit
                                 choiceUnitPast = fenetre.getWhatUnit();
                                 fenetre.setDashboardPanelRelativeTo(player, "Renforts", JingleBell);
                             }
@@ -79,16 +81,8 @@ public class Main {
                             }
                         }
                     }
-
-
-                    // "Vous avez X soldats à placer"
-                    // Affiche le nombre de soldats, riders, cannons qu'on peut placer actuellement
-                    // Sur la map :
-                        // Clique droit pour changer d'unité (si on peut) et on affiche l'unité choisie dans le dashboard
-                        // Clique gauche sur la map, place l'unité choisie
-                        // recalcule les max
                 }
-                fenetre.setDashboardPanelRelativeTo(player, " C'est ton tour !", 0);
+                //fenetre.setDashboardPanelRelativeTo(player, " C'est ton tour !", 0);
                 System.out.println("C'est ton tour " + player.getName());
                 fenetre.setFinDesAttaques(false);
                 fenetre.setFinDuTour(false);
@@ -98,10 +92,9 @@ public class Main {
 
 
                     Territory theChosenOnePast = new Territory("", Color.white);
+                    fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque", 0);
                     while (!fenetre.isFinDesAttaques()) {
                         System.out.println("Ce n'est pas la fin des attaques ! Héhé");
-                        //fenetre.setDashboardPanelRelativeTo(player, "", 0);
-
 
                         boolean notYouTerritory = true;
                         fenetre.setWaitForClick(true);
@@ -117,33 +110,27 @@ public class Main {
                                 e.printStackTrace();
                             }
                             if (fenetre.getTerritoryChosenOne() != null) {
-                                if (!fenetre.getTerritoryChosenOne().equals(theChosenOnePast) &&
-                                        !fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                                        theChosenOnePast.getAdjacents().contains(fenetre.getTerritoryChosenOne())) {
+                                Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                                if (!theChosenOne.equals(theChosenOnePast) &&
+                                        !theChosenOne.getPlayer().equals(player) &&
+                                        theChosenOnePast.getAdjacents().contains(theChosenOne)) {
                                     // click on a territory different from the previous one and if it is an opponent
-                                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                                    if (theChosenOnePast.getArmy_soldiers().size()
-                                            + theChosenOnePast.getArmy_cannons().size()
-                                            + theChosenOnePast.getArmy_riders().size() != 0) {
-                                        if (theChosenOnePast.getArmy_soldiers().size() > 3) {
-                                            int[] fighters = {3,0,0};
-                                            System.out.println(fighters[0] + " soldats attaquants");
-                                            theChosenOnePast.AllMightO(fighters, theChosenOne);
-                                        } else {
-                                            int[] fighters = {theChosenOnePast.getArmy_soldiers().size()-1, 0, 0};
-                                            System.out.println(fighters[0] + " soldats attaquants");
-                                            theChosenOnePast.AllMightO(fighters, theChosenOne);
-                                        }
-                                        break;
+                                    JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
+                                    int[] nani = new int[IMadeMyChoice.length];
+                                    for (int i = 0; i < IMadeMyChoice.length; i++) {
+                                        nani[i] = IMadeMyChoice[i].getSelectedIndex();
                                     }
-                                } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                                        fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
-                                    /**
-                                     * TODO
-                                     * or get_Army_riders() > 1 or get_Army_cannons.size() > 1
-                                      */
+                                    System.out.println("Soldats = " + nani[0]);
+                                    System.out.println("Riders = " + nani[1]);
+                                    System.out.println("Cannons = " + nani[2]);
+                                    theChosenOnePast.AllMightO(nani, theChosenOne);
+                                    fenetre.setUnitsOnMap();
+                                    break;
+                                } else if (theChosenOne.getPlayer().equals(player) &&
+                                        (theChosenOne.getArmy_soldiers().size() +
+                                                theChosenOne.getArmy_riders().size() +
+                                                theChosenOne.getArmy_cannons().size() > 1 )) {
                                     // click on its own territories
-                                    // A Changer en fonction du nombre de soldiers, riders et cannons
                                     theChosenOnePast = fenetre.getTerritoryChosenOne();
                                     fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque", 0);
                                     fenetre.setTerritoryChosenOne(null); // own territory
