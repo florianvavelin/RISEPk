@@ -127,12 +127,9 @@ public class Main {
                                         armyChosen += nani[i];
                                     }
                                     armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
-                                    System.out.println("armyAllowed = " + armyAllowed);
                                     System.out.println("armyChosen = " + armyChosen);
+                                    System.out.println("armyAllowed = " + armyAllowed);
                                     if (armyChosen <= 3 && armyAllowed - armyChosen >= 1) {
-                                        System.out.println("Soldats = " + nani[0]);
-                                        System.out.println("Riders = " + nani[1]);
-                                        System.out.println("Cannons = " + nani[2]);
                                         theChosenOnePast.AllMightO(nani, theChosenOne);
                                         fenetre.setTerritoryChosenOne(theChosenOnePast);
                                         fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque",0);
@@ -161,7 +158,8 @@ public class Main {
 
 
                     /*--------DEPLACEMENT----------*/
-                    match.HiraishinNoJutsu(fenetre, player);
+                    Territory theChosenOnePast2 = new Territory("", Color.white);
+                    match.HiraishinNoJutsu(fenetre, player, theChosenOnePast2);
 
                 }
                 guyCodeHarry--;

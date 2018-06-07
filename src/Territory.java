@@ -359,20 +359,20 @@ public class Territory {
             while (prophets[role] > 0) {
                 switch (role) {
                     case 0:
-                        Soldier soldier = this.army_soldiers.get(1);
+                        Soldier soldier = this.army_soldiers.get(0);
                         this.army_soldiers.remove(soldier);
                         promised_land.army_soldiers.add(soldier);
                         soldier.addCpt();
                         break;
                     case 1:
-                        Rider rider = this.army_riders.get(1);
-                        this.army_riders.remove(1);
+                        Rider rider = this.army_riders.get(0);
+                        this.army_riders.remove(rider);
                         promised_land.army_riders.add(rider);
                         rider.addCpt();
                         break;
                     case 2:
-                        Cannon cannon = this.army_cannons.get(1);
-                        this.army_cannons.remove(1);
+                        Cannon cannon = this.army_cannons.get(0);
+                        this.army_cannons.remove(cannon);
                         promised_land.army_cannons.add(cannon);
                         cannon.addCpt();
                         break;

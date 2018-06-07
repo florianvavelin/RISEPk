@@ -78,56 +78,64 @@ public class Match {
         }
     }
 
-    public void HiraishinNoJutsu(Fenetre fenetre, Player player) {
-        Territory theChosenOnePast = fenetre.getTerritoryChosenOne();
-        boolean notYouTerritory = true;
-        fenetre.setWaitForClick(true);
-        fenetre.setTerritoryChosenOne(null);
-        while (fenetre.isWaitForClick() && notYouTerritory) {
-            if (fenetre.isFinDuTour()) {
-                System.out.println("Fin du tour");
-                break;
-            }
-            try {
-                Thread.sleep(10);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (fenetre.getTerritoryChosenOne() != null) {
-                Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                if (theChosenOnePast != null &&
-                        theChosenOne.getPlayer().equals(player) &&
-                        theChosenOne.getAdjacents().contains(theChosenOnePast)) {
-                    // click on a territory different from the previous one and if it is our own territory
-
-                    JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
-                    int[] wantSomeHelp = new int[IMadeMyChoice.length];
-                    int armyChosen = 0, armyAllowed = 0;
-                    for (int i = 0; i < IMadeMyChoice.length; i++) {
-                        wantSomeHelp[i] = IMadeMyChoice[i].getSelectedIndex();
-                        armyAllowed += IMadeMyChoice[i].getItemCount();
-                        armyChosen += wantSomeHelp[i];
-                    }
-                    armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
-                    if (armyAllowed - armyChosen >= 1) {
-                        theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
-                        fenetre.setTerritoryChosenOne(theChosenOnePast);
-                        fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement",0);
-                        fenetre.setUnitsOnMap();
-                    }
+    public void HiraishinNoJutsu(Fenetre fenetre, Player player, Territory theChosenOnePast) {
+        fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);
+        while (!fenetre.isFinDuTour()) {
+            boolean notYouTerritory = true;
+            fenetre.setWaitForClick(true);
+            while (fenetre.isWaitForClick() && notYouTerritory) {
+                if (fenetre.isFinDuTour()) {
+                    System.out.println("Fin du tour");
                     break;
-                } else if (theChosenOne.getPlayer().equals(player) &&
-                        theChosenOne.getArmy_soldiers().size() + theChosenOne.getArmy_riders().size() +
-                                theChosenOne.getArmy_cannons().size() > 1) {
-                    // click on one of our own territories
-                    theChosenOnePast = fenetre.getTerritoryChosenOne();
-                    fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);
-                    break;
-                } else {
-                    notYouTerritory = true;
                 }
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (fenetre.getTerritoryChosenOne() != null) {
+                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                    System.out.println("theChosenOne.getName() = "+ theChosenOne.getName());
+                    if (!theChosenOne.equals(theChosenOnePast) &&
+                            theChosenOne.getPlayer().equals(player) &&
+                            theChosenOnePast.getAdjacents().contains(theChosenOne)) {
+                        // click on a territory different from the previous one and if it is our own territory
+                        JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
+                        int[] wantSomeHelp = new int[IMadeMyChoice.length];
+                        int armyChosen = 0, armyAllowed = 0;
+                        for (int i = 0; i < IMadeMyChoice.length; i++) {
+                            wantSomeHelp[i] = IMadeMyChoice[i].getSelectedIndex();
+                            armyAllowed += IMadeMyChoice[i].getItemCount();
+                            armyChosen += wantSomeHelp[i];
+                        }
+                        armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
+                        System.out.println("armyChosen = " + armyChosen);
+                        System.out.println("armyAllowed = " + armyAllowed);
+                        if (armyAllowed - armyChosen >= 1) {
+                            theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
+                            fenetre.setTerritoryChosenOne(theChosenOnePast);
+                            fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement",0);
+                            fenetre.setUnitsOnMap();
+                            theChosenOnePast = new Territory("", Color.white);
+                        }
+                        break;
+                    } else if (theChosenOne.getPlayer().equals(player) &&
+                            (theChosenOne.getArmy_soldiers().size() + theChosenOne.getArmy_riders().size() +
+                                    theChosenOne.getArmy_cannons().size() > 1)) {
+                        // click on one of our own territories
+                        theChosenOnePast = fenetre.getTerritoryChosenOne();
+                        System.out.println("theChosenOnePast.getName() = " + theChosenOnePast.getName());
+                        fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);
+                        fenetre.setTerritoryChosenOne(null);
+                        break;
+                    } else {
+                        notYouTerritory = true;
+                    }
+                }
+                fenetre.setTerritoryChosenOne(null);
             }
+            fenetre.setUnitsOnMap();
+            fenetre.setTerritoryChosenOne(null);
         }
-        fenetre.setUnitsOnMap();
     }
 }
