@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-=======
-import javax.swing.*;
-import java.awt.*;
->>>>>>> ac1a92f611761f819df87f13bc4f390fd58d940f
+
+
 
 public class Victory extends JFrame {
 
@@ -15,11 +12,8 @@ public class Victory extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-<<<<<<< HEAD
+
         this.setSize(new Dimension(600, 100));
-=======
-        this.setVisible(true);
->>>>>>> ac1a92f611761f819df87f13bc4f390fd58d940f
 
         JPanel victoryPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
