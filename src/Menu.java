@@ -212,7 +212,7 @@ public class Menu extends JFrame {
                 ArrayList<Player> allPlayers = new ArrayList<>();
                 for (int i = 0; i < getNumberOfPlayers(); i++) {
                     String name = namePlayers.get(i).getText();
-                    Player player = new Player(name, colorOfPlayer[i],radioList.get(i).isSelected());
+                    Player player = new Player(name, colorOfPlayer[colorPlayers.get(i).getSelectedIndex()] ,radioList.get(i).isSelected());
                     allPlayers.add(player);
                 }
                 fen = new Fenetre(allPlayers, 988, 559);
