@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -93,21 +94,31 @@ public class Match {
                 e.printStackTrace();
             }
             if (fenetre.getTerritoryChosenOne() != null) {
+                Territory theChosenOne = fenetre.getTerritoryChosenOne();
                 if (theChosenOnePast != null &&
-                        fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                        fenetre.getTerritoryChosenOne().getAdjacents().contains(theChosenOnePast)) {
+                        theChosenOne.getPlayer().equals(player) &&
+                        theChosenOne.getAdjacents().contains(theChosenOnePast)) {
                     // click on a territory different from the previous one and if it is our own territory
-                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                    int[] wantSomeHelp = {theChosenOnePast.getArmy_soldiers().size() - 1, 0, 0}; // change to what the user chooses
-                    theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
-                    fenetre.setTerritoryChosenOne(null);
+
+                    JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
+                    int[] wantSomeHelp = new int[IMadeMyChoice.length];
+                    int armyChosen = 0, armyAllowed = 0;
+                    for (int i = 0; i < IMadeMyChoice.length; i++) {
+                        wantSomeHelp[i] = IMadeMyChoice[i].getSelectedIndex();
+                        armyAllowed += IMadeMyChoice[i].getItemCount();
+                        armyChosen += wantSomeHelp[i];
+                    }
+                    armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
+                    if (armyAllowed - armyChosen >= 1) {
+                        theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
+                        fenetre.setTerritoryChosenOne(theChosenOnePast);
+                        fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement",0);
+                        fenetre.setUnitsOnMap();
+                    }
                     break;
-                } else if (fenetre.getTerritoryChosenOne().getPlayer().equals(player) &&
-                        fenetre.getTerritoryChosenOne().getArmy_soldiers().size() > 1) {
-                    /**
-                     * TODO
-                     * or get_Army_riders() > 1 or get_Army_cannons.size() > 1
-                     */
+                } else if (theChosenOne.getPlayer().equals(player) &&
+                        theChosenOne.getArmy_soldiers().size() + theChosenOne.getArmy_riders().size() +
+                                theChosenOne.getArmy_cannons().size() > 1) {
                     // click on one of our own territories
                     theChosenOnePast = fenetre.getTerritoryChosenOne();
                     fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);

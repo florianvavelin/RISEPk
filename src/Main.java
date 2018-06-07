@@ -29,10 +29,13 @@ public class Main {
                 if (guyCodeHarry <= 0) {
                     /**
                      * Renforts en début de tour
+                     * guyCodeHarry is set to 2 if there are 2 players.
+                     * At the beginning, after initialization, each player attacks and moves.
+                     * Next turn of the player : he chooses new units to place.
                       */
-                    int JingleBell = player.Christmas(); // nombre de renforts
+                    int JingleBell = player.Christmas(); // number of units allowed (It's Christmas!)
                     System.out.println("JingleBell = " + JingleBell);
-                    fenetre.setWhatUnit(0);
+                    fenetre.setWhatUnit(0); // Set the choice to soldier at the beginning
                     while (JingleBell > 0) {
                         int choiceUnitPast = fenetre.getWhatUnit();
                         fenetre.setDashboardPanelRelativeTo(player, "Renforts", JingleBell);
@@ -48,7 +51,7 @@ public class Main {
                                 e.printStackTrace();
                             }
                             if (fenetre.getWhatUnit() != choiceUnitPast ) {
-                                // if right click, change the unit
+                                // if right click, change the unit (Soldier -> Rider -> Cannon -> Soldier -> ...)
                                 choiceUnitPast = fenetre.getWhatUnit();
                                 fenetre.setDashboardPanelRelativeTo(player, "Renforts", JingleBell);
                             }
@@ -60,7 +63,7 @@ public class Main {
                                     int[] unitToPlace = new int[3];
                                     unitToPlace[fenetre.getWhatUnit()] = 1;
                                     theChosenOne.UncleBenNeedsYou(unitToPlace);
-                                    fenetre.setUnitsOnMap();
+                                    fenetre.setUnitsOnMap(); // Show it on the map
                                     int newJingleBell = JingleBell;
                                     switch (fenetre.getWhatUnit()) {
                                         case 0:
@@ -73,7 +76,7 @@ public class Main {
                                             newJingleBell -= (new Cannon().getCost());
                                             break;
                                     }
-                                    JingleBell = newJingleBell;
+                                    JingleBell = newJingleBell; // Set the new number of armies allowed
                                     break;
                                 } else {
                                     notYouTerritory = true;
@@ -92,7 +95,7 @@ public class Main {
 
 
                     Territory theChosenOnePast = new Territory("", Color.white);
-                    fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque", 0);
+                    fenetre.setDashboardPanelRelativeTo(player, "", 0);
                     while (!fenetre.isFinDesAttaques()) {
                         System.out.println("Ce n'est pas la fin des attaques ! Héhé");
 
@@ -105,7 +108,7 @@ public class Main {
                                 break;
                             }
                             try {
-                                Thread.sleep(10);
+                                Thread.sleep(5);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -117,15 +120,26 @@ public class Main {
                                     // click on a territory different from the previous one and if it is an opponent
                                     JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
                                     int[] nani = new int[IMadeMyChoice.length];
+                                    int armyChosen = 0, armyAllowed = 0;
                                     for (int i = 0; i < IMadeMyChoice.length; i++) {
                                         nani[i] = IMadeMyChoice[i].getSelectedIndex();
+                                        armyAllowed += IMadeMyChoice[i].getItemCount();
+                                        armyChosen += nani[i];
                                     }
-                                    System.out.println("Soldats = " + nani[0]);
-                                    System.out.println("Riders = " + nani[1]);
-                                    System.out.println("Cannons = " + nani[2]);
-                                    theChosenOnePast.AllMightO(nani, theChosenOne);
-                                    fenetre.setUnitsOnMap();
+                                    armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
+                                    System.out.println("armyAllowed = " + armyAllowed);
+                                    System.out.println("armyChosen = " + armyChosen);
+                                    if (armyChosen <= 3 && armyAllowed - armyChosen >= 1) {
+                                        System.out.println("Soldats = " + nani[0]);
+                                        System.out.println("Riders = " + nani[1]);
+                                        System.out.println("Cannons = " + nani[2]);
+                                        theChosenOnePast.AllMightO(nani, theChosenOne);
+                                        fenetre.setTerritoryChosenOne(theChosenOnePast);
+                                        fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque",0);
+                                        fenetre.setUnitsOnMap();
+                                    }
                                     break;
+
                                 } else if (theChosenOne.getPlayer().equals(player) &&
                                         (theChosenOne.getArmy_soldiers().size() +
                                                 theChosenOne.getArmy_riders().size() +

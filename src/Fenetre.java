@@ -207,7 +207,7 @@ public class Fenetre extends JFrame {
     }
 
     public void setDashboardPanelRelativeTo(Player player, String type, int toPlace) {
-
+        rightPanel.repaint();
         dashboard.removeAll();
         int JingleBell = toPlace;
         int[] JingleBellUnits = player.MixTheJuice(JingleBell); // calcul des max de chaque unité
