@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Victory extends JFrame {
 
     public Victory(String winner) {
@@ -7,7 +10,7 @@ public class Victory extends JFrame {
         this.setLayout(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocation((screen.width - this.getSize().width) / 2, (screen.height - this.getSize().height) / 2);
-        this.setvisible(true);
+        this.setVisible(true);
 
         JPanel victoryPanel = new JPanel();
         this.setContentPane(victoryPanel);
