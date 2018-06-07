@@ -77,7 +77,7 @@ public class Fenetre extends JFrame {
         BufferedImage img = null;
         BufferedImage img2 = null;
         try {
-            img = ImageIO.read(new File("map4_988.jpg"));
+            img = ImageIO.read(new File("map4_988(2).png"));
             img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -327,6 +327,18 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(soldat, c);
             c.gridy = 10;
+            JPanel soldierUnit = new JPanel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setColor(player.getColor());
+                    g2.fillOval(0,0,10,10);
+                    g2.setColor(Color.black);
+                    g2.drawOval(0,0,10,10);
+                }
+            };
+            test.add(soldierUnit, c);
+            c.gridy = 11;
             if (type.equals("Renforts")) {
                 int allowedSoldiers = JingleBellUnits[0];
                 JLabel NbOfsoldats = new JLabel("" + allowedSoldiers);
@@ -350,6 +362,18 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(cavaliers, c);
             c.gridy = 10;
+            JPanel riderUnit = new JPanel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setColor(player.getColor());
+                    g2.fillRect(0,0,10,10);
+                    g2.setColor(Color.black);
+                    g2.drawRect(0,0,10,10);
+                }
+            };
+            test.add(riderUnit, c);
+            c.gridy = 11;
             if (type.equals("Renforts")) {
                 int allowedRiders = JingleBellUnits[1];
                 JLabel NbOfCav = new JLabel("" + allowedRiders);
@@ -373,6 +397,24 @@ public class Fenetre extends JFrame {
             c.gridwidth = 1;
             test.add(canons, c);
             c.gridy = 10;
+            JPanel cannonUnit = new JPanel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setColor(player.getColor());
+                    int xL = 4, yL = 8;
+                    int[] B = {xL, yL - 8};
+                    int[] C = {xL - 8, yL + 8};
+                    int[] A = {xL + 8, yL + 8};
+                    int[] xPoints = {A[0], B[0], C[0]};
+                    int[] yPoints = {A[1], B[1], C[1]};
+                    g2.fillPolygon(xPoints, yPoints, 3);
+                    g2.setColor(Color.black);
+                    g2.drawPolygon(xPoints, yPoints, 3);
+                }
+            };
+            test.add(cannonUnit, c);
+            c.gridy = 11;
             if (type.equals("Renforts")) {
                 int allowedCannons = JingleBellUnits[2];
                 JLabel NbOfCan = new JLabel("" + allowedCannons);
