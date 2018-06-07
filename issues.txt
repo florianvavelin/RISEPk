@@ -1,0 +1,121 @@
+/////////////////GENERAL///////////////////////
+
+- Les boutons "Annuler" et "Valider" ne sont pas effectifs, ou du moins je n'ai jamais eu besoin de m'en servir.
+
+- En haut à gauche, dans "File", le bouton "Save" ne marche pas (normal), mais le bouton "Exit" non plus (alors qu'il le
+devrait).
+
+
+
+
+
+/////////////////INITIALISATION///////////////////////
+
+- (Phase d'initialisation) Après avoir disposé tous les soldats du début (en mode 2 joueurs at least), je décide de
+passer la phase de combat et déplacement pour les 2 joueurs directement, ce qui m'amène à la phase de recrutement pour
+le premier joueur.
+==> Dans la console, un message "Ce n'est pas la fin des attaques ! Héhé" apparaît.
+    Ca ne produit pas d'erreur en jeu (je crois), mais au cas où, je mets ça ici pour info.
+    Dans la phase de combat (après le tour d'initialisation des joueurs), ce message réapparait dès que je change de
+    territoire attaquant (en gros, dès que je clique sur un autre territoire).
+    Il réapparait également après chaque bataille.
+
+
+
+/////////////////RECRUTEMENT///////////////////////
+
+
+- (Phase de recrutement) Le dashboard continue à se glitch quand on répartit tous les soldats dans les tours
+d'initialisation.
+
+
+
+/////////////////COMBAT///////////////////////
+
+
+
+- (Phase de combat) Quand un territoire allié possède en tout 2 soldats, je peux quand même choisir 2 soldats au combat
+(alors qu'il ne devrait y avoir qu'un seul disponible).
+==> Le combat se produit quand même, ce qui peut forcer le territoire a s'auto-cuck.
+    Quand il me restait qu'un seul soldat, j'ai pu l'envoyer au combat et le tuer, ce qui a "vidé" mon propre territoire.
+
+
+- (Phase de combat) On ne devrait avoir que 3 unités maximum en attaque au combat.
+==> J'ai pu en choisir 6 (autant qu'il en existait sur le territoire attaquant) et je ne sais pas au final si les 6 sont
+    quand même allés au combat, mais le combat s'est quand même produit.
+
+
+- (Phase de combat) J'ai tenté de choisir un cavalier seul au combat contre un territoire ennemi, j'ai eu l'erreur
+suivante :
+
+Exception in thread "main" java.lang.IndexOutOfBoundsException: Index 1 out-of-bounds for length 1
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:248)
+	at java.base/java.util.Objects.checkIndex(Objects.java:372)
+	at java.base/java.util.ArrayList.get(ArrayList.java:440)
+	at Territory.MoveYourAss(Territory.java:368)
+	at Territory.MyNewHome(Territory.java:523)
+	at Territory.AllMightO(Territory.java:488)
+	at Main.main(Main.java:126)
+
+	Puis, le jeu s'est bloqué (ou freeze) et je ne pouvais plus rien faire : aucune sélection de territoire, aucun bouton
+	effectif. Cependant, je pouvais quand même choisir les unités du territoire sur lequel je suis bloqué (en gros,
+	les combobox marchent toujours).
+
+	NB : Ce problème s'est reproduit quand j'ai tenté de réattaquer avec les 2 même soldats gagnants d'une précédente
+	bataille pour une autre bataille sur un même territoire ennemi.
+	Encore un fois, le jeu se bloque.
+
+
+- (Phase de combat) J'ai sélectionné un territoire allié à 13 soldats, mais j'ai choisi de n'envoyer aucun au combat.
+  ==> En cliquant sur un territoire ennemi pour tenter de "simuler" un combat, la console affiche quand même un combat
+  avec 0 attaquant et 1 défenseur (et heureusement, 0 morts).
+  Ca peut faire l'objet d'un futur problème.
+
+
+/////////////////DEPLACEMENT///////////////////////
+
+
+- (Phase de déplacement) Sur un territoire de 6 soldats au total,  j'ai pu choisir de déplacer tous les 6 soldats alors
+qu'on devrait se limiter le choix à 5 seulement.
+==> Au final, seuls 5 soldats se sont déplacés, mais on ne devrait quand même pas avoir le choix d'en déplacer 6.
+
+
+- (Phase de déplacement) Sur un territoire de 11 soldats au total, j'ai choisi d'en d'envoyer 7 et je tente
+de les déplacer chez un autre territoire allié.
+==> Le jeu m'a (graphiquement) montré un déplacement de 10 soldats sur le territoire allié.
+    Probablement qu'il s'est dit de déplacer le maximum de soldats possible en fait.
+    Au final, peu importe le nombre de soldats choisi (même 0 de temps en temps), ça déplace tous les soldats
+    disponibles (en laissant 1 soldat au territoire "d'attaque") au territoire "attaqué" allié.
+
+    NB : Cela se produit quand je "sélectionne" un territoire allié (dont le nom s'affiche sur le dashboard) et
+    que je reclique sur un autre territoire allié adjacent => les unités se déplacent.
+    Je peux "déplacer" comme ça de manière infinie (alors qu'un déplacement devrait avoir une limite par tour).
+
+
+
+- (Phase de déplacement) Quand je clique 2 fois de suite sur un même territoire allié, on voit le message "Phase d'attaque"
+  glitcher avec "Phase de déplacement".
+  ==> Il arrive même que le message n'affiche plus que "phase d'attaque".
+      Après cette douille, ça me reproduit le précédent problème (2eme problème de déplacement).
+
+
+
+
+NNNNNNNN        NNNNNNNN               AAA               NNNNNNNN        NNNNNNNNIIIIIIIIII
+N:::::::N       N::::::N              A:::A              N:::::::N       N::::::NI::::::::I
+N::::::::N      N::::::N             A:::::A             N::::::::N      N::::::NI::::::::I
+N:::::::::N     N::::::N            A:::::::A            N:::::::::N     N::::::NII::::::II
+N::::::::::N    N::::::N           A:::::::::A           N::::::::::N    N::::::N  I::::I
+N:::::::::::N   N::::::N          A:::::A:::::A          N:::::::::::N   N::::::N  I::::I
+N:::::::N::::N  N::::::N         A:::::A A:::::A         N:::::::N::::N  N::::::N  I::::I
+N::::::N N::::N N::::::N        A:::::A   A:::::A        N::::::N N::::N N::::::N  I::::I
+N::::::N  N::::N:::::::N       A:::::A     A:::::A       N::::::N  N::::N:::::::N  I::::I
+N::::::N   N:::::::::::N      A:::::AAAAAAAAA:::::A      N::::::N   N:::::::::::N  I::::I
+N::::::N    N::::::::::N     A:::::::::::::::::::::A     N::::::N    N::::::::::N  I::::I
+N::::::N     N:::::::::N    A:::::AAAAAAAAAAAAA:::::A    N::::::N     N:::::::::N  I::::I
+N::::::N      N::::::::N   A:::::A             A:::::A   N::::::N      N::::::::NII::::::II
+N::::::N       N:::::::N  A:::::A               A:::::A  N::::::N       N:::::::NI::::::::I
+N::::::N        N::::::N A:::::A                 A:::::A N::::::N        N::::::NI::::::::I
+NNNNNNNN         NNNNNNNAAAAAAA                   AAAAAAANNNNNNNN         NNNNNNNIIIIIIIIII
