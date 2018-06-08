@@ -137,7 +137,8 @@ public class Fenetre extends JFrame {
             playerPanel.setPreferredSize(new Dimension(200, 15));
             playerPanel.setBackground(new Color(132, 180, 226));
             String type;
-            if (player.getIsAnIa()) {
+            Robot test = new Robot("test", Color.white);
+            if (player.getClass() != test.getClass()) {
                 type = "IA";
             } else {
                 type = "Human";
