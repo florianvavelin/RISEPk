@@ -1,9 +1,5 @@
 import java.awt.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.*;
-import java.lang.management.ManagementFactory;
-import java.util.List;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -61,6 +57,8 @@ public class Victory extends JFrame {
         abstract class recommencer implements MouseListener {
 
             public void mouseClicked(MouseEvent event) {
+                dispose();
+                Menu menu = new Menu();
             }
 
             public void mouseEntered(MouseEvent event) {
