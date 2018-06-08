@@ -212,8 +212,16 @@ public class Menu extends JFrame {
                 ArrayList<Player> allPlayers = new ArrayList<>();
                 for (int i = 0; i < getNumberOfPlayers(); i++) {
                     String name = namePlayers.get(i).getText();
-                    Player player = new Player(name, colorOfPlayer[colorPlayers.get(i).getSelectedIndex()] ,radioList.get(i).isSelected());
-                    allPlayers.add(player);
+                    if(radioList.get(i).isSelected())
+                    {
+                        Robot player = new Robot(name, colorOfPlayer[colorPlayers.get(i).getSelectedIndex()]);
+                        allPlayers.add(player);
+                    }
+                    else {
+                        Player player = new Player(name, colorOfPlayer[colorPlayers.get(i).getSelectedIndex()]);
+                        allPlayers.add(player);
+                    }
+
                 }
                 fen = new Fenetre(allPlayers, 988, 559);
                 closeWindow();

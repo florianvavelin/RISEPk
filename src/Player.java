@@ -16,7 +16,6 @@ public class Player {
      * Each player are bound to a specific color, intelligence and particular mission to achieve.
      */
     private Color color;
-    private Boolean IsAnIa;
     private Mission mission;
 
     /**
@@ -34,10 +33,9 @@ public class Player {
     /**
      * Default constructor
      */
-    public Player(String name, Color color, Boolean IsAnIa) {
+    public Player(String name, Color color) {
         this.name = name;
         this.color = color;
-        this.IsAnIa = IsAnIa;
     }
 
 
@@ -60,13 +58,6 @@ public class Player {
         return this.color;
     }
 
-    public Boolean getIsAnIa() {
-        return IsAnIa;
-    }
-
-    public void setIsAnIa(Boolean anIa) {
-        IsAnIa = anIa;
-    }
 
     public ArrayList<Territory> getTerritories() {
         return territories;

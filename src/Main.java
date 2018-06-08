@@ -23,7 +23,8 @@ public class Main {
         int guyCodeHarry = google.getAllPlayers().size();
         while (!match.getVictory()) {
             for (Player player : google.getAllPlayers()) {
-                if (!player.getIsAnIa()) {
+                Robot test = new Robot("test", Color.white);
+                if (player.getClass() != test.getClass()) {
                     if (guyCodeHarry <= 0) {
                         /**
                          * Renforts en début de tour
@@ -172,7 +173,7 @@ public class Main {
                     }
                 }
                 else {
-                    
+                    player.robot_recruit();
                 }
             }
         }
