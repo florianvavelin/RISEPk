@@ -118,17 +118,22 @@ public class Main {
                                             theChosenOnePast.getAdjacents().contains(theChosenOne)) {
                                         // click on a territory different from the previous one and if it is an opponent
                                         JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
-                                        int[] nani = new int[IMadeMyChoice.length];
-                                        int armyChosen = 0, armyAllowed = 0;
+                                        int[] nani = new int[IMadeMyChoice.length]; //IMadeMyChoice.length = 3
+                                        int[] armyChosen = {0,0,0};
+                                        int armyAllowed = 0;
                                         for (int i = 0; i < IMadeMyChoice.length; i++) {
                                             nani[i] = IMadeMyChoice[i].getSelectedIndex();
+                                            System.out.println(nani[i]);
                                             armyAllowed += IMadeMyChoice[i].getItemCount();
-                                            armyChosen += nani[i];
+                                            if (nani[i] != -1) {
+                                                armyChosen[i] += nani[i];
+                                            }
                                         }
                                         armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
-                                        System.out.println("armyChosen = " + armyChosen);
+                                        System.out.println("armyChosen = " + armyChosen[0]);
                                         System.out.println("armyAllowed = " + armyAllowed);
-                                        if (armyChosen <= 3 && armyAllowed - armyChosen >= 1) {
+                                        if (armyChosen[0]+armyChosen[1]+armyChosen[2] <= 3 &&
+                                                armyAllowed - armyChosen[0] -  armyChosen[1] - armyChosen[2] >= 1) {
                                             theChosenOnePast.AllMightO(nani, theChosenOne);
                                             fenetre.setTerritoryChosenOne(theChosenOnePast);
                                             fenetre.setDashboardPanelRelativeTo(player, "Phase d'attaque", 0);

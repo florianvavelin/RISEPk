@@ -49,17 +49,7 @@ public class Robot extends Player {
 
                     Territory real_ennemy = this.territory_ennemies(territory).get(random_number);
 
-                    if(territory.getArmy_cannons().size() > 1) {
-                        int[] attackers = {0, 0, 1};
-                        territory.AllMightO(attackers, real_ennemy);
-                    }
-
-                     else if(territory.getArmy_soldiers().size() > 1) {
-                        int[] attackers = {1, 0, 0};
-                        territory.AllMightO(attackers, real_ennemy);
-                    }
-
-                    else if(territory.getArmy_soldiers().size() > 1) {
+                    if(territory.getArmy_soldiers().size() > 1) {
                         int[] attackers = {0, 1, 0};
                         territory.AllMightO(attackers, real_ennemy);
                     }
@@ -80,17 +70,7 @@ public class Robot extends Player {
 
                 Territory real_ally = territory.getAdjacents().get(random_number);
 
-                if(territory.getArmy_cannons().size() > 1) {
-                    int[] movers = {0, 0, 1};
-                    territory.MoveYourAss(movers, real_ally);
-                }
-
-                else if(territory.getArmy_soldiers().size() > 1) {
-                    int[] movers = {1, 0, 0};
-                    territory.MoveYourAss(movers, real_ally);
-                }
-
-                else if(territory.getArmy_soldiers().size() > 1) {
+                if(territory.getArmy_soldiers().size() > 1) {
                     int[] movers = {0, 1, 0};
                     territory.MoveYourAss(movers, real_ally);
                 }
