@@ -350,6 +350,7 @@ public class Fenetre extends JFrame {
                     NbOfUnit[i] = String.valueOf(i);
                 }
                 JComboBox<String> NbOfsoldats = new JComboBox<>(NbOfUnit);
+
                 myChoice[0] = NbOfsoldats;
                 test.add(NbOfsoldats, c);
             }
@@ -428,6 +429,18 @@ public class Fenetre extends JFrame {
                 JComboBox<String> NbOfCan = new JComboBox<>(NbOfUnit);
                 myChoice[2] = NbOfCan;
                 test.add(NbOfCan, c);
+            }
+
+            for (JComboBox madeMyChoice : myChoice) {
+                int numberOfUnit = madeMyChoice.getItemCount() - 1; // remove the 0 row
+                int choice = 3;
+                if (numberOfUnit <= 3) {
+                    choice = numberOfUnit - 1;
+                }
+                if (numberOfUnit == 1) {
+                    choice = 1;
+                }
+                madeMyChoice.setSelectedIndex(choice);
             }
 
 
