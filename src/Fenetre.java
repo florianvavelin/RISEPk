@@ -54,13 +54,15 @@ public class Fenetre extends JFrame {
 
         JMenuBar MenuBar = new JMenuBar();
         JMenu File = new JMenu("File");
-        JMenuItem Save = new JMenuItem("Save");
+        /**JMenuItem Save = new JMenuItem("Save"); **/
+
         JMenuItem Exit = new JMenuItem(new AbstractAction("Exit") {
             public void actionPerformed(ActionEvent e) {
                System.exit(0);
             }
         });
-        File.add(Save);
+
+        //File.add(Save);
         File.add(Exit);
         MenuBar.add(File);
         this.setJMenuBar(MenuBar);
