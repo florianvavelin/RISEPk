@@ -50,7 +50,7 @@ public class Robot extends Player {
                     Territory real_ennemy = this.territory_ennemies(territory).get(random_number);
 
                     if(territory.getArmy_soldiers().size() > 1) {
-                        int[] attackers = {0, 1, 0};
+                        int[] attackers = {1, 0, 0};
                         territory.AllMightO(attackers, real_ennemy);
                     }
                 }
