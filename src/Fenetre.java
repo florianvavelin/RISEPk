@@ -55,7 +55,11 @@ public class Fenetre extends JFrame {
         JMenuBar MenuBar = new JMenuBar();
         JMenu File = new JMenu("File");
         JMenuItem Save = new JMenuItem("Save");
-        JMenuItem Exit = new JMenuItem("Exit");
+        JMenuItem Exit = new JMenuItem(new AbstractAction("Exit") {
+            public void actionPerformed(ActionEvent e) {
+               System.exit(0);
+            }
+        });
         File.add(Save);
         File.add(Exit);
         MenuBar.add(File);
@@ -77,7 +81,7 @@ public class Fenetre extends JFrame {
         BufferedImage img = null;
         BufferedImage img2 = null;
         try {
-            img = ImageIO.read(new File("map4_988(2).png"));
+            img = ImageIO.read(new File("map4_988(3).png"));
             img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -749,6 +753,5 @@ public class Fenetre extends JFrame {
         public void mouseReleased(MouseEvent event) {
         }
     }
-
 
 }

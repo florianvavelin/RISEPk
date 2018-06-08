@@ -4,7 +4,7 @@ Afrique du Nord/Egypte,Afrique Orientale,Congo,Europe Occidentale,Europe du Sud,
 Indonésie/Siam,Nouvelle Guinée,Australie Occidentale
 Afrique du Sud/Madagascar,Congo,Afrique Orientale
 Islande/Scandinavie,Groenland,Grande Bretagne
-Afrique Orientale/Egypte,Afrique du Nord,Congo,Afrique du Sud,Madagascar
+Afrique Orientale/Egypte,Afrique du Nord,Congo,Afrique du Sud,Madagascar,Moyen Orient
 Japon/Mongolie,Kamchatka
 Alaska/Territoire du Nord Ouest,Alberta,Kamchatka
 Kamchatka/Alaska,Japon,Tchita,Yakoutie,Mongolie
