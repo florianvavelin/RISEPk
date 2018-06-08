@@ -3,8 +3,8 @@ import java.lang.*;
 
 public class Robot extends Player {
 
-    public Robot(String name, Color color, Boolean IsAnIa) {
-        super(name, color, IsAnIa);
+    public Robot(String name, Color color) {
+        super(name, color);
     }
 
     public  void robot_recruit (int recruits){
@@ -25,11 +25,11 @@ public class Robot extends Player {
         return population;
     }
 
-    public boolean teritory_ennemies (Territory territory) {
+    public boolean territory_ennemies (Territory territory) {
         int counter = 0;
         for (Territory land : territory.getAdjacents()) {
-            if (land.)
         }
+        return true;
     }
 
     public void robot_attack () {
