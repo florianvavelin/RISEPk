@@ -29,7 +29,7 @@ public class Match {
 
     /**
      * - initialize : Let a player place his first soldiers of the game.
-     * - HiraishinNoJutsu : Handles the mouvement phase
+     * - HiraishinNoJutsu : Handles the movement phase
      */
 
     /**
@@ -89,14 +89,14 @@ public class Match {
 
 
     /**
-     * Handles the mouvement phase.
+     * Handles the movement phase.
      *
      * @param fenetre (Fenetre) - The environment in which the game takes place
      * @param player (Player)
-     * @param theChosenOnePast (Territory) - The starting territory for unit mouvement
+     * @param theChosenOnePast (Territory) - The starting territory for unit movement
      */
     public void HiraishinNoJutsu(Fenetre fenetre, Player player, Territory theChosenOnePast) {
-        // Set the dashboard to mouvement phase
+        // Set the dashboard to movement phase
         fenetre.setDashboardPanelRelativeTo(player, "Phase de déplacement", 0);
 
         // While the turn is ongoing
