@@ -139,19 +139,21 @@ public class Match {
 
                         // Analyze the amount of chosen units among an allowed amount
                         JComboBox[] IMadeMyChoice = fenetre.getMyChoice();
+
                         int[] wantSomeHelp = new int[IMadeMyChoice.length];
-                        int armyChosen = 0, armyAllowed = 0;
+                        int[] armyChosen = {0,0,0};
+                        int armyAllowed = 0;
                         for (int i = 0; i < IMadeMyChoice.length; i++) {
                             wantSomeHelp[i] = IMadeMyChoice[i].getSelectedIndex();
                             armyAllowed += IMadeMyChoice[i].getItemCount();
-                            armyChosen += wantSomeHelp[i];
+                            if (wantSomeHelp[i] != -1) {
+                                armyChosen[i] += wantSomeHelp[i];
+                            }
                         }
                         armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
-                        System.out.println("armyChosen = " + armyChosen);
-                        System.out.println("armyAllowed = " + armyAllowed);
 
                         // Check if 1 unit will stay on the starting territory
-                        if (armyAllowed - armyChosen >= 1) {
+                        if (armyAllowed - armyChosen[0] -  armyChosen[1] - armyChosen[2] >= 1) {
                             // Move units
                             theChosenOnePast.MoveYourAss(wantSomeHelp, theChosenOne);
                             fenetre.setTerritoryChosenOne(theChosenOnePast);
