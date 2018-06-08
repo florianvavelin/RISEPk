@@ -1,5 +1,11 @@
 /**
- * 
+ * Soldiers are the most basic units of the game.
+ * Their characteristics are the following :
+ *  - Cost : 3
+ *  - Power : 2 - 7
+ *  - Attack priority : 1
+ *  - Defense priority : 3
+ *  - Mouvement per turn : 3
  */
 public class Soldier extends Unit {
 

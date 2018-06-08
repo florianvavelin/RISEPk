@@ -1,49 +1,64 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
 import java.util.*;
 
-
+/**
+ * Territories are fundamental elements of the game that represents the influence of a player on the map.
+ * Each territory is bound to a player and is occupied by a particular set of units.
+ */
 public class Territory {
 
-
-    //
-    // Attributes //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     private String name;
+
+    /**
+     * adjacents
+     *
+     * ArrayList gathering every other territory adjacent to such territory.
+     * Any interaction between such territory and another one happens only if the latter belongs in this list.
+     */
     private ArrayList<Territory> adjacents = new ArrayList<>();
 
     /**
-     * Each territory will have a specific color.
-     * This color will be used to differentiate all the territories.
+     * color
+     *
+     * Each territory will have a specific color to differentiate all the territories.
      */
     private Color color;
 
     /**
-     * Each territory can have a player, and therefore armies within affiliated only to this player.
+     * Each territory is bound to an interchangeable player, and therefore armies within affiliated only to this player.
      */
     private Player player;
-    private Region region;
     private ArrayList<Soldier> army_soldiers = new ArrayList<>();
     private ArrayList<Rider> army_riders = new ArrayList<>();
     private ArrayList<Cannon> army_cannons = new ArrayList<>();
 
+    /**
+     * Units are graphically shown on such territory on the map.
+     */
     private ArrayList<ArrayList<Integer>> coordinatesXY = new ArrayList<>();
-
     private int[] soldierCoordinates = {0, 0};
     private int[] ridersCoordinates = {0, 0};
     private int[] cannonsCoordinates = {0, 0};
 
+    /**
+     * Each territory always belong to a unique region.
+     * This attribute is only useful for mission checking purposes.
+     */
+    private Region region;
 
-    //
-    // Default constructor /////////////////////////////////////////////////////////////////////////////////////////////
-    //
+
+    /**
+     * Default constructor
+     */
     public Territory(String name, Color color) {
         this.name = name;
         this.color = color;
     }
 
+
+    /**
+     * Default getters and setters
+     */
     public int[] getSoldierCoordinates() {
         return soldierCoordinates;
     }
@@ -73,13 +88,6 @@ public class Territory {
 
     public ArrayList<ArrayList<Integer>> getCoordinatesXY() {
         return coordinatesXY;
-    }
-
-    public void addCoordinatesXY(int x, int y) {
-        ArrayList<Integer> temp = new ArrayList<>();
-        temp.add(x);
-        temp.add(y);
-        this.coordinatesXY.add(temp);
     }
 
     public String getName() {
@@ -116,7 +124,7 @@ public class Territory {
         }
         player.addTerritory(this);
         this.player = player;
-    }
+    }           // Also removes the ownership of the previous player.
 
     public ArrayList<Soldier> getArmy_soldiers() {
         return army_soldiers;
@@ -149,11 +157,48 @@ public class Territory {
     public void setRegion(Region region) {
         this.region = region;
         this.region.addInAllTerritories(this);
-    }
+    }       // Also updates the region instance in which the territory belongs.
 
-    //
-    // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
+
+    /**
+     * Custom initializers
+     */
+    public void addCoordinatesXY(int x, int y) {
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(x);
+        temp.add(y);
+        this.coordinatesXY.add(temp);
+    }       // Help acknowledging coordinates to show unit amounts on the map.
+
+
+    ////////////////////////////////////// CUSTOM METHODS /////////////////////////////////////////////////////
+
+    /**
+     * Initialisation
+     * - addAdjacents : Set the adjacents list adding the territory in it.
+     *
+     * Enrolment
+     * - UncleBenNeedsYou : Adds new units to this territory.
+
+     * Combat
+     * - Gandalf : Check if the attacking team doesn't go beyond 3 units. - DEPRECATED AND NOT NEEDED ANYMORE
+     * - ProtectTheQueen : Automatically pick defensive units.
+     * - MoshPit : Join attack and defense array into one.
+     * - Hajime : Handle fights between an attack set and a defense set.
+     * - KillBill : Remove dead units from both territories.
+     * - AllMightO : Combine functions for the full fight.
+     *
+     * Conquer
+     * - HungerGames : Check the survivors of a fight.
+     * - MyNewHome : Conquer a territory after a fight if it's empty.
+     *
+     *
+     * Mouvement
+     *
+     * - CheckImmigrant : Check if moving units is possible. - DEPRECATED AND NOT NEEDED ANYMORE
+     * - MoveYourAss : Move units between adjacent territories.
+     */
+
 
     /**
      * Set the adjacents list adding the territory in it.
@@ -166,10 +211,121 @@ public class Territory {
 
 
     /**
-     * Fights attack/defense according to the following hash map parameter :
-     * [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
-     * Example : (2 Soldiers and 1 Cannon) in attack VS (1 Rider and 1 Cannon) in defense ==> [2, 0, 1, 0, 1, 1]
+     * Adds new units to this territory.
      *
+     * @param babies = [Soldier, Rider, Cannon] (int [])
+     *               TODO : Add GUI unit movement.
+     */
+    public void UncleBenNeedsYou(int[] babies) {
+        for (int role = 0; role < 3; role++) {
+            while (babies[role] > 0) {
+                switch (role) {
+                    case 0:
+                        Soldier baby_soldier = new Soldier();
+                        this.army_soldiers.add(baby_soldier);
+                        break;
+                    case 1:
+                        Rider baby_rider = new Rider();
+                        this.army_riders.add(baby_rider);
+                        break;
+                    case 2:
+                        Cannon baby_cannon = new Cannon();
+                        this.army_cannons.add(baby_cannon);
+                        break;
+                }
+                babies[role]--;
+            }
+        }
+    }
+
+
+    /**
+     * DEPRECATED AND NOT NEEDED ANYMORE
+     * Check if the attacking team doesn't go beyond 3 units.
+     *
+     * @param monsters (int [3] = [AttackSoldier, AttackRider, AttackCannon] (int [])
+     * @return pass (boolean)
+     */
+    public boolean Gandalf(int[] monsters) {
+        int power = monsters[0] + monsters[1] + monsters[2];
+
+        // Too many units
+        if (power > 3) {
+            System.out.println("YOU SHALL NOT PASS");
+            return (false);
+        }
+
+        // Enough units
+        else {
+            System.out.println("cool bro");
+            return (true);
+        }
+    }
+
+
+    /**
+     * Automatically pick defensive units (to be used right Hajime).
+     *
+     * @return royal_guards [3] = [Soldier, Rider, Cannon] (int [])
+     */
+    public int[] ProtectTheQueen() {
+        // Prepare the number of defending unit
+        int[] royal_guards = new int[3];
+        int call = 0;
+
+        // Check the available units
+        int plebe = this.army_cannons.size() + this.army_riders.size() + this.army_soldiers.size();
+
+        // Set aside units that were already chosen
+        int called_soldier = 0;
+        int called_rider = 0;
+        int called_cannon = 0;
+
+        // Pick defending units according to their defense priority
+        while ((call < 2) && (call < plebe)) {
+            // Priority
+            if (this.army_soldiers.size() > called_soldier) {
+                royal_guards[0]++;
+                called_soldier++;
+                call++;
+            } else if (this.army_cannons.size() > called_cannon) {
+                royal_guards[2]++;
+                called_cannon++;
+                call++;
+            } else if (this.army_riders.size() > called_rider) {
+                royal_guards[1]++;
+                called_rider++;
+                call++;
+            }
+        }
+        System.out.println(royal_guards[0] + " defenseurs");
+        return (royal_guards);
+    }
+
+
+    /**
+     * Join attack and defense array into one (to be used right before Hajime).
+     *
+     * @param horde    (int [3] = [AttackSoldier, AttackRider, AttackCannon] (int [])
+     * @param alliance (int [3] = [DefenseSoldier, DefenseRider, DefenseCannon] (int [])
+     * @return fighters [6] = [AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon] (int [])
+     */
+    public int[] MoshPit(int[] horde, int[] alliance) {
+        int[] fighters = new int[6];
+        for (int i = 0; i < 3; i++) {
+            fighters[i] = horde[i];
+        }
+        for (int i = 0; i < 3; i++) {
+            fighters[i + 3] = alliance[i];
+        }
+        return (fighters);
+    }
+
+
+    /**
+     * Handle fights between an attack set and a defense set.
+     *
+     * @param fighters [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ]
      * @return dead [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
      * TODO : Add war animation !!!!!!!! because it's cool
      */
@@ -320,31 +476,85 @@ public class Territory {
 
 
     /**
-     * Adds new units to this territory.
+     * Combine functions for the full fight.
      *
-     * @param babies = [Soldier, Rider, Cannon] (int [])
-     *               TODO : Add GUI unit movement.
+     * @param heroes [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
+     * @param yuei   (Territory)
+     *               TODO : Add GUI full fight
      */
-    public void UncleBenNeedsYou(int[] babies) {
-        for (int role = 0; role < 3; role++) {
-            while (babies[role] > 0) {
-                switch (role) {
-                    case 0:
-                        Soldier baby_soldier = new Soldier();
-                        this.army_soldiers.add(baby_soldier);
-                        break;
-                    case 1:
-                        Rider baby_rider = new Rider();
-                        this.army_riders.add(baby_rider);
-                        break;
-                    case 2:
-                        Cannon baby_cannon = new Cannon();
-                        this.army_cannons.add(baby_cannon);
-                        break;
-                }
-                babies[role]--;
-            }
+    public void AllMightO(int[] heroes, Territory yuei) {
+        int[] villains = yuei.ProtectTheQueen();
+        int[] champions = MoshPit(heroes, villains);
+        int[] graveyard = Hajime(champions);
+        this.KillBill(graveyard, yuei);
+        int[] survivors = HungerGames(champions, graveyard);
+
+        this.MyNewHome(survivors, yuei);
+    }
+
+
+    /**
+     * Check the survivors of a fight (to be used right before MyNewHome).
+     *
+     * @param tributes [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
+     * @param losers   [3] = [Soldier, Rider, Cannon]
+     * @return winners [3] = [Soldier,Rider, Cannon)
+     */
+    public int[] HungerGames(int[] tributes, int[] losers) {
+        int[] winners = new int[3];
+
+        for (int i = 0; i < winners.length; i++) {
+            winners[i] = tributes[i] - losers[i];
         }
+
+        return winners;
+    }
+
+
+    /**
+     * Conquer a territory after a fight if it's empty.
+     *
+     * @param zetsus [3] = [Soldier, Rider, Cannon] (int [])
+     * @param konoha (Territoy)
+     */
+    public void MyNewHome(int[] zetsus, Territory konoha) {
+        int shinobi = konoha.getArmy_soldiers().size() + konoha.getArmy_riders().size() + konoha.getArmy_cannons().size();
+        if (shinobi == 0) {
+            konoha.setPlayer(this.getPlayer());
+            this.MoveYourAss(zetsus, konoha);
+        }
+    }
+
+
+    /**
+     * DEPRECATED AND NOT NEEDED ANYMORE
+     * Check if moving units is possible.
+     *
+     * @param immigrant (String)
+     * @return true is unit can be transfered, false otherwise.
+     */
+    private boolean CheckImmigrant(String immigrant) {
+        switch (immigrant) {
+            case "Soldier":
+                if ((this.army_soldiers.get(1) == null) ||
+                        (this.army_soldiers.get(1).getCpt() == this.army_soldiers.get(1).getMpt())) {
+                    return false;
+                }
+                break;
+            case "Rider":
+                if ((this.army_riders.get(1) == null) ||
+                        (this.army_riders.get(1).getCpt() == this.army_riders.get(1).getMpt())) {
+                    return false;
+                }
+                break;
+            case "Cannon":
+                if ((this.army_cannons.get(1) == null) ||
+                        (this.army_cannons.get(1).getCpt() == this.army_cannons.get(1).getMpt())) {
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 
 
@@ -382,162 +592,4 @@ public class Territory {
         }
     }
 
-
-    /**
-     * Check if moving units is possible
-     *
-     * @param immigrant (String)
-     * @return true is unit can be transfered, false otherwise.
-     */
-    private boolean CheckImmigrant(String immigrant) {
-        switch (immigrant) {
-            case "Soldier":
-                if ((this.army_soldiers.get(1) == null) ||
-                        (this.army_soldiers.get(1).getCpt() == this.army_soldiers.get(1).getMpt())) {
-                    return false;
-                }
-                break;
-            case "Rider":
-                if ((this.army_riders.get(1) == null) ||
-                        (this.army_riders.get(1).getCpt() == this.army_riders.get(1).getMpt())) {
-                    return false;
-                }
-                break;
-            case "Cannon":
-                if ((this.army_cannons.get(1) == null) ||
-                        (this.army_cannons.get(1).getCpt() == this.army_cannons.get(1).getMpt())) {
-                    return false;
-                }
-                break;
-        }
-        return true;
-    }
-
-
-    /**
-     * Automatically pick defensive units, to be used right before Hajime
-     *
-     * @return royal_guards [3] = [Soldier, Rider, Cannon] (int [])
-     */
-    public int[] ProtectTheQueen() {
-        // Prepare the number of defending unit
-        int[] royal_guards = new int[3];
-        int call = 0;
-
-        // Check the available units
-        int plebe = this.army_cannons.size() + this.army_riders.size() + this.army_soldiers.size();
-
-        // Set aside units that were already chosen
-        int called_soldier = 0;
-        int called_rider = 0;
-        int called_cannon = 0;
-
-        // Pick defending units according to their defense priority
-        while ((call < 2) && (call < plebe)) {
-            // Priority
-            if (this.army_soldiers.size() > called_soldier) {
-                royal_guards[0]++;
-                called_soldier++;
-                call++;
-            } else if (this.army_cannons.size() > called_cannon) {
-                royal_guards[2]++;
-                called_cannon++;
-                call++;
-            } else if (this.army_riders.size() > called_rider) {
-                royal_guards[1]++;
-                called_rider++;
-                call++;
-            }
-        }
-        System.out.println(royal_guards[0] + " defenseurs");
-        return (royal_guards);
-    }
-
-    /**
-     * Join attack and defense array into one, to be used before Hajime.
-     *
-     * @param horde    (int [3] = [AttackSoldier, AttackRider, AttackCannon] (int [])
-     * @param alliance (int [3] = [DefenseSoldier, DefenseRider, DefenseCannon] (int [])
-     * @return fighters [6] = [AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon] (int [])
-     */
-    public int[] MoshPit(int[] horde, int[] alliance) {
-        int[] fighters = new int[6];
-        for (int i = 0; i < 3; i++) {
-            fighters[i] = horde[i];
-        }
-        for (int i = 0; i < 3; i++) {
-            fighters[i + 3] = alliance[i];
-        }
-        return (fighters);
-    }
-
-    /**
-     * Combine functions for the full fight
-     *
-     * @param heroes [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
-     * @param yuei   (Territory)
-     *               TODO : Add GUI full fight
-     */
-    public void AllMightO(int[] heroes, Territory yuei) {
-        int[] villains = yuei.ProtectTheQueen();
-        int[] champions = MoshPit(heroes, villains);
-        int[] graveyard = Hajime(champions);
-        this.KillBill(graveyard, yuei);
-        int[] survivors = HungerGames(champions, graveyard);
-
-        this.MyNewHome(survivors, yuei);
-    }
-
-    /**
-     * Check if the attacking team doesn't go beyond 3 units
-     *
-     * @param monsters (int [3] = [AttackSoldier, AttackRider, AttackCannon] (int [])
-     * @return pass (boolean)
-     */
-    public boolean Gandalf(int[] monsters) {
-        int power = monsters[0] + monsters[1] + monsters[2];
-
-        // Too many units
-        if (power > 3) {
-            System.out.println("YOU SHALL NOT PASS");
-            return (false);
-        }
-
-        // Enough units
-        else {
-            System.out.println("cool bro");
-            return (true);
-        }
-    }
-
-    /**
-     * Conquer a territory after a fight if it's empty
-     *
-     * @param zetsus [3] = [Soldier, Rider, Cannon] (int [])
-     * @param konoha (Territoy)
-     */
-    public void MyNewHome(int[] zetsus, Territory konoha) {
-        int shinobi = konoha.getArmy_soldiers().size() + konoha.getArmy_riders().size() + konoha.getArmy_cannons().size();
-        if (shinobi == 0) {
-            konoha.setPlayer(this.getPlayer());
-            this.MoveYourAss(zetsus, konoha);
-        }
-    }
-
-    /**
-     * Check the survivors of a fight
-     *
-     * @param tributes [6] = [ AttackSoldier, AttackRider, AttackCannon, DefenseSoldier, DefenseRider, DefenseCannon ] (int [])
-     * @param losers   [3] = [Soldier, Rider, Cannon]
-     * @return winners [3] = [Soldier,Rider, Cannon)
-     */
-    public int[] HungerGames(int[] tributes, int[] losers) {
-        int[] winners = new int[3];
-
-        for (int i = 0; i < winners.length; i++) {
-            winners[i] = tributes[i] - losers[i];
-        }
-
-        return winners;
-    }
 }

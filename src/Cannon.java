@@ -1,5 +1,11 @@
 /**
- * 
+ * Cannons are an improved type of soldier unit.
+ * Their characteristics are the following :
+ *  - Cost : 7
+ *  - Power : 4 - 9
+ *  - Attack priority : 1
+ *  - Defense priority : 2
+ *  - Mouvement per turn : 1
  */
 public class Cannon extends Unit {
 

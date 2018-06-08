@@ -1,8 +1,13 @@
-
-import java.util.*;
-
 /**
- * 
+ * Units are fundamental elements of the game that are used to occupy territories and battle.
+ * They can come in different types, providing different kind of uses according to their own characteristics.
+ * The different characteristics are as follows :
+ *  - Cost : The amount of soldiers needed for trade in order to get such unit.
+ *  - Power : The dice range allowed during dice throws to get a unit's final battle power.
+ *  - Attack priority : The rank which rules units order in an attack set when at least 2 of them got the same final battle power.
+ *  - Defense priority : The rank which rules units order in a defense set when at least 2 of them got the same final battle power.
+ *                       Also checks which units are committed to defend a territory that owns more than 2 units.
+ *  - Mouvement per turn : The number of allowed travels between adjacent territories of such unit during a player's turn.
  */
 public abstract class Unit {
 
@@ -11,14 +16,20 @@ public abstract class Unit {
     private int max_power;
     private double priorityATT;
     private double priorityDEF;
+    private int mpt;
 
     /**
-     * Movement per turn and counter per turn
+     * cpt, aka Counter per turn
+     *
+     * Variable needed to save the current mouvement points that are already used during a player's turn, and therefore
+     * initialized to 0 at every turn.
      */
-    private int mpt;
     private int cpt = 0;
 
 
+    /**
+     * Default constructor
+     */
     public Unit(int cost, int min_power, int max_power, double priorityATT, double priorityDEF, int mpt) {
         this.cost = cost;
         this.min_power = min_power;
@@ -28,6 +39,11 @@ public abstract class Unit {
         this.mpt = mpt;
     }
 
+
+    /**
+     * Default getters and setters
+     * @return
+     */
     public int getCost() {
         return cost;
     }

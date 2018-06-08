@@ -1,8 +1,6 @@
-
-import java.util.*;
-
 /**
- * 
+ * Missions are achievements that the players need to complete in order to win the game.
+ * By default, all players can win by getting every possible territory (and therefore, destroying every other player).
  */
 public class Mission {
 
@@ -16,22 +14,21 @@ public class Mission {
     }
 
 
-
     /**
-     * @param name
+     * Default getters and setters
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return
-     */
     public String getName() {
         return this.name;
     }
 
 
+    /**
+     * Naming ideas for the missions
+     */
     String [] MissionName = {"Hitler", "Attila" ,"Staline", "Kim Jong Un", "Fidel Castro", "Omar Bongo"};
     String [] MissionText = {"Conquer Europe",
                                 "Conquer Asia",
