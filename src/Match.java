@@ -44,46 +44,56 @@ public class Match {
 
         // Placing soldiers
         for (Player player : google.getAllPlayers()) {
-            // Number of soldiers the player gets to place
-            int toPlace = army - player.getTerritories().size();
+            Robot test = new Robot("test", Color.white);
+            if (player.getClass() != test.getClass()) {
+                // Number of soldiers the player gets to place
+                int toPlace = army - player.getTerritories().size();
 
-            // While there are still soldiers to place
-            while (toPlace > 0) {
-                // Set the dashboard to enrolment phase
-                fenetre.setDashboardPanelRelativeTo(player, "placement", toPlace);
+                // While there are still soldiers to place
+                while (toPlace > 0) {
+                    // Set the dashboard to enrolment phase
+                    fenetre.setDashboardPanelRelativeTo(player, "placement", toPlace);
 
-                // Waiting for a click on a correct territory
-                boolean notYouTerritory = true;
-                fenetre.setWaitForClick(true);
-                // Waiting for a click
-                while (fenetre.isWaitForClick() && notYouTerritory) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    // Check if the click locates a territory
-                    if (fenetre.getTerritoryChosenOne() != null) {
-                        // Check if the territory is owned by the current player
-                        if (fenetre.getTerritoryChosenOne().getPlayer().equals(player)) {
-                            fenetre.setWaitForClick(false);
-                            notYouTerritory = false;
-                        } else { // The click doesn't locate a territory
-                            notYouTerritory = true;
+                    // Waiting for a click on a correct territory
+                    boolean notYouTerritory = true;
+                    fenetre.setWaitForClick(true);
+                    // Waiting for a click
+                    while (fenetre.isWaitForClick() && notYouTerritory) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        // Check if the click locates a territory
+                        if (fenetre.getTerritoryChosenOne() != null) {
+                            // Check if the territory is owned by the current player
+                            if (fenetre.getTerritoryChosenOne().getPlayer().equals(player)) {
+                                fenetre.setWaitForClick(false);
+                                notYouTerritory = false;
+                            } else { // The click doesn't locate a territory
+                                notYouTerritory = true;
+                            }
                         }
                     }
+
+                    // Put a soldier on the clicked territory
+                    Territory theChosenOne = fenetre.getTerritoryChosenOne();
+                    int[] babies = {1, 0, 0};
+                    theChosenOne.UncleBenNeedsYou(babies);
+
+                    fenetre.setUnitsOnMap();
+
+                    fenetre.setTerritoryChosenOne(null);
+                    toPlace--;
                 }
-
-                // Put a soldier on the clicked territory
-                Territory theChosenOne = fenetre.getTerritoryChosenOne();
-                int[] babies = {1, 0, 0};
-                theChosenOne.UncleBenNeedsYou(babies);
-
-                fenetre.setUnitsOnMap();
-
-                fenetre.setTerritoryChosenOne(null);
-                toPlace--;
             }
+
+            /** If the player is an IA **/
+            else {
+                Robot robot = (Robot) player;
+                robot.robot_recruit(player.Christmas());
+            }
+
         }
     }
 
