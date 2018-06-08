@@ -77,7 +77,7 @@ public class Fenetre extends JFrame {
         BufferedImage img = null;
         BufferedImage img2 = null;
         try {
-            img = ImageIO.read(new File("map4_988(2).png"));
+            img = ImageIO.read(new File("map4_988(3).png"));
             img2 = ImageIO.read(new File("map_Yellow_1125.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
