@@ -175,8 +175,9 @@ public class Main {
                 else {
                     Robot robot = (Robot) player;
                     robot.robot_recruit(player.Christmas());
-                    robot.robot_attack();
+                    //robot.robot_attack();
                     robot.robot_move();
+                    System.out.println(player.getName() + " : I finished you bitch");
                 }
             }
         }
