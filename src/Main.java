@@ -123,11 +123,11 @@ public class Main {
                                         int armyAllowed = 0;
                                         for (int i = 0; i < IMadeMyChoice.length; i++) {
                                             nani[i] = IMadeMyChoice[i].getSelectedIndex();
-                                            System.out.println(nani[i]);
                                             armyAllowed += IMadeMyChoice[i].getItemCount();
                                             if (nani[i] != -1) {
                                                 armyChosen[i] += nani[i];
                                             }
+                                            System.out.println(armyChosen[i]);
                                         }
                                         armyAllowed -= IMadeMyChoice.length; // remove the 0 rows at the beginning
                                         System.out.println("armyChosen = " + armyChosen[0]);
