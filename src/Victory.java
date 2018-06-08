@@ -1,7 +1,11 @@
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
+import java.io.*;
+import java.lang.management.ManagementFactory;
+import java.util.List;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class Victory extends JFrame {
@@ -32,7 +36,67 @@ public class Victory extends JFrame {
         c.gridy = 1;
         c.gridwidth = 1;
         victoryPanel.add(recommencer, c);
+        recommencer.addMouseListener(new recommencer() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                super.mouseClicked(event);
+            }
+        });
+
+        JButton quitter = new JButton("Quitter");
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        victoryPanel.add(quitter, c);
+        quitter.addMouseListener(new quitter() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                super.mouseClicked(event);
+            }
+        });
         validate();
-        this.setVisible(true);
     }
+
+        abstract class recommencer implements MouseListener {
+
+            public void mouseClicked(MouseEvent event) {
+            }
+
+            public void mouseEntered(MouseEvent event) {
+            }
+
+            public void mouseExited(MouseEvent event) {
+            }
+
+            public void mousePressed(MouseEvent event) {
+            }
+
+            public void mouseReleased(MouseEvent event) {
+            }
+        
+
+        }
+
+        abstract class quitter implements MouseListener {
+
+        public void mouseClicked(MouseEvent event) {
+            System.exit(0);
+        }
+
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mousePressed(MouseEvent event) {
+        }
+
+        public void mouseReleased(MouseEvent event) {
+        }
+
+
+    }
+
 }

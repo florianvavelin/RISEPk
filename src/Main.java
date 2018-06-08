@@ -175,7 +175,7 @@ public class Main {
             }
         }
 
-       Victory victory = new Victory(winner);
+        Victory victory = new Victory(winner);
         System.out.println(winner + " wins.");
     }
 }
