@@ -40,24 +40,28 @@ public class Robot extends Player {
     }
 
     public void robot_attack () {
-        for (Territory territory : this.getTerritories()) {
-            while (territory_population(territory) > 1) {
-                int ennemy_size = this.territory_ennemies(territory).size();
-                if (ennemy_size > 0) {
-                    Myfunction mf = new Myfunction();
-                    int random_number = mf.random(0, ennemy_size - 1);
+        ArrayList<Territory> listTerr = this.getTerritories();
+            try {
+                for (Territory territory : listTerr) {
+                    while (territory_population(territory) > 1) {
+                        int ennemy_size = this.territory_ennemies(territory).size();
+                        if (ennemy_size > 0) {
+                            Myfunction mf = new Myfunction();
+                            int random_number = mf.random(0, ennemy_size - 1);
 
-                    Territory real_ennemy = this.territory_ennemies(territory).get(random_number);
+                            Territory real_ennemy = this.territory_ennemies(territory).get(random_number);
 
-                    if(territory.getArmy_soldiers().size() > 1) {
-                        int[] attackers = {1, 0, 0};
-                        territory.AllMightO(attackers, real_ennemy);
+                            if (territory.getArmy_soldiers().size() > 1) {
+                                int[] attackers = {1, 0, 0};
+                                territory.AllMightO(attackers, real_ennemy);
+                            }
+                        }
                     }
                 }
-            }
-        }
+
+            } catch (java.util.ConcurrentModificationException e) {}
         try{
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }catch(InterruptedException e){}
     }
 
@@ -71,7 +75,7 @@ public class Robot extends Player {
                 Territory real_ally = territory.getAdjacents().get(random_number);
 
                 if(territory.getArmy_soldiers().size() > 1) {
-                    int[] movers = {0, 1, 0};
+                    int[] movers = {1, 0, 0};
                     territory.MoveYourAss(movers, real_ally);
                 }
             }
