@@ -58,7 +58,6 @@ public class Player {
         return this.color;
     }
 
-
     public ArrayList<Territory> getTerritories() {
         return territories;
     }

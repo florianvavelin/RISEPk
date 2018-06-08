@@ -173,7 +173,10 @@ public class Main {
                     }
                 }
                 else {
-                    player.robot_recruit();
+                    Robot robot = (Robot) player;
+                    robot.robot_recruit(player.Christmas());
+                    robot.robot_attack();
+                    robot.robot_move();
                 }
             }
         }
