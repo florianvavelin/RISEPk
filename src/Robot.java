@@ -19,6 +19,9 @@ public class Robot extends Player {
             territory.UncleBenNeedsYou(babies);
             recruits--;
             }
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){}
     }
 
     public int territory_population (Territory territory) {
@@ -63,6 +66,9 @@ public class Robot extends Player {
                 }
             }
         }
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){}
     }
 
 
@@ -90,5 +96,8 @@ public class Robot extends Player {
                 }
             }
         }
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){}
     }
 }
