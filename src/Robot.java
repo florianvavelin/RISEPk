@@ -1,8 +1,8 @@
 import java.awt.*;
 
-public class robot extends Player {
+public class Robot extends Player {
 
-    public robot(String name, Color color, Boolean IsAnIa) {
+    public Robot(String name, Color color, Boolean IsAnIa) {
         super(name, color, IsAnIa);
     }
 
